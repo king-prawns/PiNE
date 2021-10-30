@@ -1,0 +1,24 @@
+- [ ] (code) create base (hello world)
+- [ ] (RPi) add OS
+- [ ] (RPi) to wifi
+- [ ] (RPi) download and start repo manually
+- [ ] (code) add Docker
+- [ ] (code) build container on push
+- [ ] (RPi) Docker autopull
+- [ ] (RPi) Relaunch after pull
+- [ ] (RPi) Hotspot
+- [ ] (code) create a proxy
+- [ ] (code) print http requests in console
+- [ ] (test) mac and other devices (play a video)
+- [ ] (code) throttle requests
+- [ ] (code) create a web app
+- [ ] (code) print http requests in web app
+- [ ] (code) add throttling filter
+- [ ] (code) add http request chart / timeline in web app
+- [ ] (code) add block requests filter
+- [ ] (code) add latency filter
+- [ ] (code) add packet loss filter
+- [ ] (code) add jitter filter
+- [ ] (code) add offline filter
+- [ ] (code) add simulation (schedule filter over time)
+- [ ] (code) create visualiser for video player
