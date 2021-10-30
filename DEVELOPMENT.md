@@ -7,7 +7,3 @@
 - Micro-hdmi to HDMI cable
 - Micro SD + reader
 - (optional) Case + mouse + keyboard
-
-## Journey
-
-- 
