@@ -1,0 +1,50 @@
+{
+  "name": "@king-prawns/pine",
+  "version": "1.0.0",
+  "description": "Raspberry Pi Network Emulator",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/king-prawns/PiNE.git"
+  },
+  "author": "king-prawns",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/king-prawns/PiNE/issues"
+  },
+  "homepage": "https://github.com/king-prawns/PiNE#readme",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint --config ./config/eslint/.eslintrc ./src/**/*.ts",
+    "prettier": "prettier --config ./config/prettier/.prettierrc --list-different src/**/*.ts --ignore-path ./config/prettier/.prettierignore",
+    "typecheck": "tsc --project ./config/typescript/tsconfig.typecheck.json",
+    "test": "jest --config=./config/jest/jest.config.js --silent",
+    "start": "npm run build && node dist/index.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write --config ./config/prettier/.prettierrc",
+      "eslint --config ./config/eslint/.eslintrc --no-error-on-unmatched-pattern --fix"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "27.0.2",
+    "@types/sinon": "10.0.6",
+    "@typescript-eslint/eslint-plugin": "5.2.0",
+    "@typescript-eslint/parser": "5.2.0",
+    "eslint": "8.1.0",
+    "husky": "4.3.8",
+    "jest": "27.3.1",
+    "lint-staged": "11.2.6",
+    "prettier": "2.4.1",
+    "sinon": "11.1.2",
+    "ts-jest": "27.0.7",
+    "typescript": "4.4.4"
+  }
+}

@@ -1,4 +1,4 @@
-- [ ] (code) create base (hello world)
+- [x] (code) create base (hello world)
 - [ ] (RPi) add OS
 - [ ] (RPi) to wifi
 - [ ] (RPi) download and start repo manually
