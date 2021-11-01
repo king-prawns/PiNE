@@ -1,9 +1,9 @@
 - [x] (code) create base (hello world)
 - [x] (code) create base endpoint
-- [ ] (RPi) add OS
-- [ ] (RPi) to wifi
-- [ ] (RPi) download and start repo manually
-- [ ] (code) add Docker
+- [x] (code) add Docker
+- [x] (RPi) add OS
+- [x] (RPi) connect to wifi
+- [x] (RPi) download and start repo manually
 - [ ] (code) build container on push
 - [ ] (RPi) Docker autopull
 - [ ] (RPi) Relaunch after pull
