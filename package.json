@@ -1,6 +1,6 @@
 {
   "name": "@king-prawns/pine",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Raspberry Pi Network Emulator",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,11 +34,13 @@
     ]
   },
   "devDependencies": {
+    "@types/express": "4.17.13",
     "@types/jest": "27.0.2",
     "@types/sinon": "10.0.6",
     "@typescript-eslint/eslint-plugin": "5.2.0",
     "@typescript-eslint/parser": "5.2.0",
     "eslint": "8.1.0",
+    "express": "4.17.1",
     "husky": "4.3.8",
     "jest": "27.3.1",
     "lint-staged": "11.2.6",
