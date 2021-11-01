@@ -1,0 +1,15 @@
+# npm
+node_modules
+
+# Build
+dist
+
+# Docker
+Dockerfile
+.dockerignore
+
+# git
+.gitignore
+
+# doc
+*.md
