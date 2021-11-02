@@ -6,3 +6,6 @@ dist
 
 # Jest
 coverage
+
+# OS
+.DS_Store
