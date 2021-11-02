@@ -2,7 +2,7 @@
 - [x] (code) create base endpoint
 - [x] (code) add Webpack
 - [x] (code) add Docker Compose
-- [ ] (code) build Docker container on push
+- [x] (code) build Docker container on push
 - [ ] (RPi) add OS
 - [ ] (RPi) to wifi
 - [ ] (RPi) download and start repo manually
