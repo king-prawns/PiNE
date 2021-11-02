@@ -1,13 +1,13 @@
 - [x] (code) create base (hello world)
 - [x] (code) create base endpoint
 - [x] (code) add Webpack
-- [x] (code) add Docker
+- [x] (code) add Docker Compose
+- [ ] (code) build Docker container on push
 - [ ] (RPi) add OS
 - [ ] (RPi) to wifi
 - [ ] (RPi) download and start repo manually
-- [ ] (code) build container on push
-- [ ] (RPi) Docker autopull
-- [ ] (RPi) Relaunch after pull
+- [ ] (RPi) start Docker manually
+- [ ] (RPi) Docker autopull (docker swarm?)
 - [ ] (RPi) Hotspot
 - [ ] (code) create a proxy
 - [ ] (code) print http requests in console
