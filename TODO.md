@@ -3,10 +3,12 @@
 - [x] (code) add Webpack
 - [x] (code) add Docker Compose
 - [x] (code) build Docker container on push
-- [ ] (RPi) add OS
-- [ ] (RPi) to wifi
-- [ ] (RPi) download and start repo manually
-- [ ] (RPi) start Docker manually
+- [x] (RPi) add OS
+- [x] (RPi) connect to wifi
+- [x] (RPi) download and start repository
+- [x] (RPi) install and run docker-compose
+- [x] (code) use remote docker image
+- [x] (RPi) scp docker-compose file
 - [ ] (RPi) Docker autopull (docker swarm?)
 - [ ] (RPi) Hotspot
 - [ ] (code) create a proxy
