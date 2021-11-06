@@ -5,8 +5,10 @@
 - [x] (code) build Docker container on push
 - [x] (RPi) add OS
 - [x] (RPi) connect to wifi
-- [x] (RPi) download and start repo manually
-- [x] (RPi) start Docker manually
+- [x] (RPi) download and start repository
+- [x] (RPi) install and run docker-compose
+- [x] (code) use remote docker image
+- [x] (RPi) scp docker-compose file
 - [ ] (RPi) Docker autopull (docker swarm?)
 - [ ] (RPi) Hotspot
 - [ ] (code) create a proxy
