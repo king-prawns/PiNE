@@ -9,7 +9,6 @@
 - [x] (RPi) install and run docker-compose
 - [x] (code) use remote docker image
 - [x] (RPi) scp docker-compose file
-- [ ] (RPi) Docker autopull (docker swarm?)
 - [ ] (RPi) Hotspot
 - [ ] (code) create a proxy
 - [ ] (code) print http requests in console
