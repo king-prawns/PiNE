@@ -9,8 +9,7 @@
 - [x] (RPi) install and run docker-compose
 - [x] (code) use remote docker image
 - [x] (RPi) scp docker-compose file
-- [x] (RPi) Hotspot
-- [ ] (code) create a proxy
+- [x] (code) create simple client app
 - [ ] (code) print http requests in console
 - [ ] (test) mac and other devices (play a video)
 - [ ] (code) throttle requests
