@@ -22,7 +22,6 @@
   - `echo $CR_PAT | docker login ghcr.io -u GITHUB_USERNAME --password-stdin`
 - Run `docker-compose pull`
 - Run `docker-compose up -d`
-- [Setup RPi as a wireless access point](https://www.youtube.com/watch?v=neBa0Oz_yCo)
 
 ## Troubleshooting
 
