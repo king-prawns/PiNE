@@ -1,0 +1,21 @@
+# npm
+node_modules
+
+# Build
+dist
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# git
+.gitignore
+
+# doc
+*.md
+*.png
+LICENSE
+
+# editorconfig
+.editorconfig
