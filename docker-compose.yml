@@ -2,6 +2,6 @@ version: "3.9"
 services:
   trunk:
     build: .
-    image: ghcr.io/king-prawns/pine:main
+    image: ghcr.io/king-prawns/pine-trunk:main
     ports:
       - "5000:5000"
