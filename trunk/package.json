@@ -1,6 +1,6 @@
 {
   "name": "@king-prawns/pine-trunk",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "PiNE trunk",
   "main": "dist/pine-trunk.js",
   "scripts": {
