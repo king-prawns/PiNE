@@ -12,7 +12,6 @@
 - [x] (code) create simple client app
 - [x] (code) print http requests in console
 - [x] (code) rewrite manifest
-- [ ] (code) add lerna
 - [ ] (code) create roots package
 - [ ] (code) create a web app
 - [ ] (code) print http requests in web app
