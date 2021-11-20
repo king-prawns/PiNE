@@ -1,4 +1,4 @@
-name: Create and publish a Docker image
+name: Build and publish pine-trunk
 
 on:
   push:
@@ -9,8 +9,9 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push-image:
+  build-and-push-pine-trunk:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       packages: write
@@ -44,5 +45,6 @@ jobs:
           context: .
           platforms: linux/arm/v7
           push: true
+          file: './Dockerfile.trunk'
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

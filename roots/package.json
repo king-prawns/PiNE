@@ -1,0 +1,15 @@
+{
+  "name": "@king-prawns/pine-roots",
+  "version": "1.0.0",
+  "description": "PiNE roots",
+  "main": "dist/pine-roots.js",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && webpack build --config ./config/webpack/webpack.config.js",
+    "lint": "eslint --config ../config/eslint/.eslintrc ./src/**/*.ts",
+    "prettier": "prettier --config ../config/prettier/.prettierrc --list-different src/**/*.ts --ignore-path ../config/prettier/.prettierignore",
+    "typecheck": "tsc -project ./config/typescript/tsconfig.json --noEmit",
+    "test": "jest --config=./config/jest/jest.config.js --silent"
+  },
+  "devDependencies": {}
+}
