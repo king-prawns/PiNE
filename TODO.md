@@ -9,13 +9,13 @@
 - [x] (RPi) install and run docker-compose
 - [x] (code) use remote docker image
 - [x] (RPi) scp docker-compose file
-- [x] (RPi) Hotspot
-- [ ] (code) create a proxy
-- [ ] (code) print http requests in console
-- [ ] (test) mac and other devices (play a video)
-- [ ] (code) throttle requests
+- [x] (code) create simple client app
+- [x] (code) print http requests in console
+- [x] (code) rewrite manifest
+- [ ] (code) create roots package
 - [ ] (code) create a web app
 - [ ] (code) print http requests in web app
+- [ ] (code) throttle requests
 - [ ] (code) add throttling filter
 - [ ] (code) add http request chart / timeline in web app
 - [ ] (code) add block requests filter
