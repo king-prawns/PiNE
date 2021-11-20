@@ -1,0 +1,24 @@
+{
+  "name": "@king-prawns/pine-trunk",
+  "version": "2.0.0",
+  "description": "PiNE trunk",
+  "scripts": {
+    "dev": "ts-node-dev -P ./config/typescript/tsconfig.json ./src/index.ts",
+    "lint": "eslint --config ../config/eslint/.eslintrc ./src/**/*.ts",
+    "prettier": "prettier --config ../config/prettier/.prettierrc --list-different src/**/*.ts --ignore-path ../config/prettier/.prettierignore",
+    "typecheck": "tsc -project ./config/typescript/tsconfig.json --noEmit",
+    "test": "jest --config=./config/jest/jest.config.js --silent"
+  },
+  "devDependencies": {
+    "@types/axios": "0.14.0",
+    "@types/cors": "2.8.12",
+    "@types/express": "4.17.13",
+    "ts-node-dev": "1.1.8"
+  },
+  "dependencies": {
+    "axios": "0.24.0",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "fast-xml-parser": "3.21.1"
+  }
+}
