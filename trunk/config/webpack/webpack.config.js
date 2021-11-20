@@ -16,6 +16,6 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'pine-roots.js'
+    filename: 'pine-trunk.js'
   }
 };

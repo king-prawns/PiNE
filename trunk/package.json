@@ -2,12 +2,16 @@
   "name": "@king-prawns/pine-trunk",
   "version": "2.0.0",
   "description": "PiNE trunk",
+  "main": "dist/pine-trunk.js",
   "scripts": {
+    "clean": "rm -rf ./dist",
     "dev": "ts-node-dev -P ./config/typescript/tsconfig.json ./src/index.ts",
+    "build": "npm run clean && webpack build --config ./config/webpack/webpack.config.js",
     "lint": "eslint --config ../config/eslint/.eslintrc ./src/**/*.ts",
     "prettier": "prettier --config ../config/prettier/.prettierrc --list-different src/**/*.ts --ignore-path ../config/prettier/.prettierignore",
     "typecheck": "tsc -project ./config/typescript/tsconfig.json --noEmit",
-    "test": "jest --config=./config/jest/jest.config.js --silent"
+    "test": "jest --config=./config/jest/jest.config.js --silent",
+    "start": "npm run build && node dist/pine-trunk.js"
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
