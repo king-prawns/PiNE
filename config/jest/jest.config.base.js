@@ -12,5 +12,5 @@ module.exports = {
     }
   },
   coverageReporters: ['json', 'text', 'text-summary'],
-  collectCoverageFrom: ['src/**/*.ts', '!**/mock/*']
+  collectCoverageFrom: ['**/src/**/*.ts', '!*.mock.ts']
 };

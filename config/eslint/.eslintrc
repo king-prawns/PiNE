@@ -17,5 +17,5 @@
     "@typescript-eslint/quotes": ["error", "single"],
     "@typescript-eslint/semi": ["error", "always"]
   },
-  "ignorePatterns": ["config/*"]
+  "ignorePatterns": ["**/config/*"]
 }

@@ -1,11 +1,11 @@
-name: Node.js Package
+name: Build and publish pine-roots
 
 on:
   release:
     types: [created]
 
 jobs:
-  publish-gpr:
+  build-and-publish-pine-roots:
     runs-on: ubuntu-latest
     steps:
       - name: ✅ Checkout
