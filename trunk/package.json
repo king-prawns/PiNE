@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "PiNE trunk",
   "main": "dist/pine-trunk.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/king-prawns/PiNE.git"
+  },
+  "author": "king-prawns",
+  "license": "MIT",
   "scripts": {
     "clean": "rm -rf ./dist",
     "dev": "ts-node-dev -P ./config/typescript/tsconfig.json ./src/index.ts",
