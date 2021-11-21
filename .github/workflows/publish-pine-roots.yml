@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: ✅ Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: 🏠 Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -23,6 +25,8 @@ jobs:
       - name: 👷🏽‍♂️ Build package
         run: npm run build
       - name: 🚀 Publish to npm
-        run: lerna publish --yes
+        run: |
+          lerna version --conventional-commits --conventional-graduate --yes
+          lerna publish from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
