@@ -2,6 +2,7 @@ import changeManifestToUseProxy from './changeManifestToUseProxy';
 import express from 'express';
 import cors from 'cors';
 import axios, {AxiosResponse} from 'axios';
+import {PORT_TRUNK} from '../../shared/const';
 
 const app = express();
 app.use(cors());
@@ -53,4 +54,4 @@ app.get('/chunk/:file', async (req, res) => {
   }
 });
 
-app.listen(5000);
+app.listen(PORT_TRUNK);

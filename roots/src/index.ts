@@ -1,3 +1,3 @@
-import hello from './hello';
+import replaceManifestUrl from './utils/replaceManifestUrl';
 
-hello();
+export {replaceManifestUrl};

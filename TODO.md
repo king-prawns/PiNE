@@ -13,7 +13,7 @@
 - [x] (code) print http requests in console
 - [x] (code) rewrite manifest
 - [x] (code) add lerna
-- [ ] (code) create roots package
+- [x] (code) create roots package
 - [ ] (code) create a web app
 - [ ] (code) print http requests in web app
 - [ ] (code) throttle requests
