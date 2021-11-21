@@ -23,7 +23,6 @@ jobs:
       - name: 👷🏽‍♂️ Build package
         run: npm run build
       - name: 🚀 Publish to npm
-        run: npm publish
-        working-directory: roots
+        run: lerna publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
