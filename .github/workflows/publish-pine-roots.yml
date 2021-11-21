@@ -24,10 +24,9 @@ jobs:
         run: npm ci
       - name: 👷🏽‍♂️ Build package
         run: npm run build
+        working-directory: roots
       - name: 🚀 Publish to npm
-        run: |
-          cd roots
-
-          npm publish
+        run: npm publish
+        working-directory: roots
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
