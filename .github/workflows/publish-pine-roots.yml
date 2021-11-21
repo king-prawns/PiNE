@@ -26,10 +26,8 @@ jobs:
         run: npm run build
       - name: 🚀 Publish to npm
         run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "giorgio.gamberoni@gmail.com"
+          cd roots
 
-          lerna version --conventional-commits --conventional-graduate --yes
-          lerna publish from-git --yes
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
