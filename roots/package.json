@@ -1,7 +1,6 @@
 {
   "name": "@king-prawns/pine-roots",
   "version": "1.0.1",
-  "private": true,
   "description": "PiNE roots",
   "main": "dist/pine-roots.js",
   "scripts": {
