@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "indipendent",
   "packages": ["roots", "trunk"],
   "command": {
     "init": {
