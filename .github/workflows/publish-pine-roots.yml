@@ -5,8 +5,6 @@ name: Build and publish pine-roots
 #     types: [created]
 on: push
 
-env:
-  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 jobs:
   build-and-publish-pine-roots:
@@ -28,4 +26,4 @@ jobs:
         run: npm publish
         working-directory: roots
         env:
-          NODE_AUTH_TOKEN: ${{env.NODE_AUTH_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
