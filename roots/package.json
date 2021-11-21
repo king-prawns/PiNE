@@ -1,6 +1,6 @@
 {
   "name": "@king-prawns/pine-roots",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "PiNE roots",
   "main": "dist/pine-roots.js",
@@ -11,6 +11,5 @@
     "prettier": "prettier --config ../config/prettier/.prettierrc --list-different src/**/*.ts --ignore-path ../config/prettier/.prettierignore",
     "typecheck": "tsc -project ./config/typescript/tsconfig.json --noEmit",
     "test": "jest --config=./config/jest/jest.config.js --silent"
-  },
-  "devDependencies": {}
+  }
 }
