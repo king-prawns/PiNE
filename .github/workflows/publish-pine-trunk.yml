@@ -6,7 +6,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push-pine-trunk:
@@ -33,12 +32,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
@@ -46,4 +39,4 @@ jobs:
           platforms: linux/arm/v7
           push: true
           file: './Dockerfile.trunk'
-          tags: ghcr.io/${{ github.repository_owner }}/pine-trunk:latest
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/pine-trunk:latest
