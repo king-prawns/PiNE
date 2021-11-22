@@ -46,10 +46,8 @@ jobs:
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
-        run:
-          working-directory: trunk
         with:
-          context: .
+          context: trunk
           platforms: linux/arm/v7
           push: true
           tags: ${{ steps.meta.outputs.tags }}
