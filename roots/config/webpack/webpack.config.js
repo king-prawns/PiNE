@@ -1,7 +1,14 @@
+const path = require('path');
 const baseConfig = require('../../../config/webpack/webpack.config.base');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const TypescriptDeclarationPlugin = require('typescript-declaration-webpack-plugin');
 
 module.exports = {
   ...baseConfig,
+  output: {
+    path: path.resolve(__dirname, '../../dist'),
+    filename: 'pine-roots.js'
+  },
   module: {
     rules: [
       {
@@ -15,7 +22,5 @@ module.exports = {
       }
     ]
   },
-  output: {
-    filename: 'pine-roots.js'
-  }
+  plugins: [new CleanWebpackPlugin(), new TypescriptDeclarationPlugin()]
 };

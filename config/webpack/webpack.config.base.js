@@ -1,4 +1,4 @@
-const path = require('path');
+process.noDeprecation = true;
 
 module.exports = {
   entry: './src/index.ts',
@@ -7,8 +7,5 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
-  },
-  output: {
-    path: path.resolve(__dirname, '../../dist')
   }
 };
