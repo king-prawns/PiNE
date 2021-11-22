@@ -19,6 +19,3 @@ LICENSE
 
 # editorconfig
 .editorconfig
-
-#lint-staged
-.lintstagedrc
