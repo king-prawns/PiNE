@@ -1,6 +1,7 @@
 const path = require('path');
 const baseConfig = require('../../../config/webpack/webpack.config.base');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const TypescriptDeclarationPlugin = require('typescript-declaration-webpack-plugin');
 
 module.exports = {
   ...baseConfig,
@@ -21,5 +22,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [new CleanWebpackPlugin()]
+  plugins: [new CleanWebpackPlugin(), new TypescriptDeclarationPlugin()]
 };

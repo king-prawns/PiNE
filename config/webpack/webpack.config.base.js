@@ -1,3 +1,5 @@
+process.noDeprecation = true;
+
 module.exports = {
   entry: './src/index.ts',
   mode: 'production',
