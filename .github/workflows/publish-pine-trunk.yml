@@ -1,8 +1,9 @@
 name: Build and publish pine-trunk
 
-on:
-  push:
-    branches: ['main']
+# on:
+#   push:
+#     branches: ['main']
+on: push
 
 env:
   REGISTRY: ghcr.io
