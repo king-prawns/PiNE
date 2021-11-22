@@ -1,6 +1,0 @@
-{
-  "*.ts{,x}": [
-    "prettier --write --config ./config/prettier/.prettierrc",
-    "eslint --config ./config/eslint/.eslintrc --no-error-on-unmatched-pattern --fix"
-  ]
-}
