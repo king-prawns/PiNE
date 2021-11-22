@@ -47,5 +47,4 @@ jobs:
           platforms: linux/arm/v7
           push: true
           file: './Dockerfile.trunk'
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ghcr.io/${{ github.repository_owner }}/pine-trunk:latest
