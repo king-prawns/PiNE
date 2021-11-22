@@ -1,9 +1,8 @@
 name: Build and publish pine-roots
 
-# on:
-#   release:
-#     types: [created]
-on: push
+on:
+  release:
+    types: [created]
 
 jobs:
   build-and-publish-pine-roots:

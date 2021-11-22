@@ -50,5 +50,6 @@ jobs:
           context: .
           platforms: linux/arm/v7
           push: true
+          working-directory: trunk
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
