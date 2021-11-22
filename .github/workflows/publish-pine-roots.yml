@@ -1,12 +1,17 @@
 name: Build and publish pine-roots
 
-on:
-  release:
-    types: [created]
+# on:
+#   release:
+#     types: [created]
+on: push
 
 jobs:
   build-and-publish-pine-roots:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: roots
 
     steps:
       - name: ✅ Checkout
@@ -20,9 +25,7 @@ jobs:
         run: npm ci
       - name: 👷🏽‍♂️ Build package
         run: npm run build
-        working-directory: roots
       - name: 🚀 Publish to npm
         run: npm publish
-        working-directory: roots
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
