@@ -7,7 +7,7 @@ import {PORT_TRUNK} from '../../shared/const';
 const app = express();
 app.use(cors());
 
-app.get('/manifest/:file', async (req, res) => {
+app.get('/!manifest/:file', async (req, res) => {
   const manifestUrl: string = req.query.url as string;
   const proxyHost = `${req.protocol}://${req.hostname}`;
 
