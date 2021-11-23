@@ -1,8 +1,9 @@
 name: Build and publish pine-roots
 
-on:
-  release:
-    types: [created]
+# on:
+#   release:
+#     types: [created]
+on: push
 
 jobs:
   build-and-publish-pine-roots:
@@ -19,12 +20,21 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-          registry-url: https://npm.pkg.github.com/
+          # registry-url: https://npm.pkg.github.com/
       - name: ⚙️ Install dependencies
         run: npm ci
       - name: 👷🏽‍♂️ Build package
         run: npm run build
       - name: 🚀 Publish to npm
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        id: publish
+        # run: npm publish
+        # env:
+        #   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          registry: https://npm.pkg.github.com/
+          dry-run: true
+      - if: steps.publish.outputs.type != 'none'
+        run: |
+          echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"
