@@ -1,4 +1,4 @@
-- [x] (code) create base (hello world)
+- [x] (code) create `pine-trunk` base package
 - [x] (code) create base endpoint
 - [x] (code) add Webpack
 - [x] (code) add Docker Compose
@@ -13,12 +13,14 @@
 - [x] (code) print http requests in console
 - [x] (code) rewrite manifest
 - [x] (code) add lerna
-- [x] (code) create roots package
-- [x] (code) create a web app
-- [ ] (code) print player stats in web app
-- [ ] (code) create visualiser for video player
+- [x] (code) create `pine-roots` package
+- [x] (code) create `pine-branch` web app
+- [ ] (code) print player stats in pine-branch
+- [ ] (code) create `visualiser` for video player
+- [ ] (code) create client driver for visualiser
 - [ ] (code) throttle requests
-- [ ] (code) add throttling filter
+- [ ] (code) add throttle filter
+- [ ] (code) control throttle filter from pine-branch
 - [ ] (code) add http request chart / timeline in web app
 - [ ] (code) add block requests filter
 - [ ] (code) add latency filter
@@ -26,3 +28,4 @@
 - [ ] (code) add jitter filter
 - [ ] (code) add offline filter
 - [ ] (code) add simulation (schedule filter over time)
+- [ ] (code) `MSE/EME` poc
