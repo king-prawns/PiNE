@@ -15,7 +15,7 @@
 - [x] (code) add lerna
 - [x] (code) create `pine-roots` package
 - [x] (code) create `pine-branch` web app
-- [ ] (code) print player stats in pine-branch
+- [x] (code) print player stats in pine-branch
 - [ ] (code) create `visualiser` for video player
 - [ ] (code) create client driver for visualiser
 - [ ] (code) throttle requests
