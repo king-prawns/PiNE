@@ -9,10 +9,6 @@ jobs:
   build-and-publish-pine-roots:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: roots
-
     steps:
       - name: ✅ Checkout
         uses: actions/checkout@v2
@@ -23,8 +19,10 @@ jobs:
           # registry-url: https://npm.pkg.github.com/
       - name: ⚙️ Install dependencies
         run: npm ci
+        working-directory: roots
       - name: 👷🏽‍♂️ Build package
         run: npm run build
+        working-directory: roots
       - name: 🚀 Publish to npm
         id: publish
         # run: npm publish
@@ -35,6 +33,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           registry: https://npm.pkg.github.com/
           dry-run: true
+          package: ./roots/package.json
       - if: steps.publish.outputs.type != 'none'
         run: |
           echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"
