@@ -7,6 +7,7 @@ module.exports = {
   ...baseConfig,
   output: {
     path: path.resolve(__dirname, '../../dist'),
+    libraryTarget: 'commonjs',
     filename: 'pine-roots.js'
   },
   module: {
