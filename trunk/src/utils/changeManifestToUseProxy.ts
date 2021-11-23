@@ -1,5 +1,5 @@
 import parser, {j2xParser as J2XParser} from 'fast-xml-parser';
-import {PORT_TRUNK} from '../../shared/const';
+import {PORT_TRUNK} from '../../../shared/const';
 
 import {XmlRepresentation} from './types/xmlRepresentation';
 
