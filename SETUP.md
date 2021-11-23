@@ -18,8 +18,8 @@
 - Enable SSH: `RPi Configuration > Interfaces > SSH Enabled`
 - Copy docker-compose.yml from the repo to RPi: `scp docker-compose.yml pi@IP_ADDRESS:`
 - Login:
-  - `export GITHUB_PAT=GITHUB_PERSONAL_ACCESS_TOKEN`
-  - `echo $GITHUB_PAT | docker login ghcr.io -u GITHUB_USERNAME --password-stdin`
+  - `export NPM_AUTH_TOKEN=GITHUB_PERSONAL_ACCESS_TOKEN`
+  - `echo $NPM_AUTH_TOKEN | docker login ghcr.io -u GITHUB_USERNAME --password-stdin`
 - Run `docker-compose pull`
 - Run `docker-compose up -d`
 
