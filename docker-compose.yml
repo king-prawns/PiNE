@@ -5,3 +5,8 @@ services:
     image: ghcr.io/king-prawns/pine-trunk:latest
     ports:
       - "5000:5000"
+  branch:
+    build: .
+    image: ghcr.io/king-prawns/pine-branch:latest
+    ports:
+      - "5001:5001"
