@@ -32,7 +32,7 @@ jobs:
         #   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         uses: JS-DevTools/npm-publish@v1
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           registry: https://npm.pkg.github.com/
           dry-run: true
       - if: steps.publish.outputs.type != 'none'
