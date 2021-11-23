@@ -14,8 +14,9 @@
 - [x] (code) rewrite manifest
 - [x] (code) add lerna
 - [x] (code) create roots package
-- [ ] (code) create a web app
-- [ ] (code) print http requests in web app
+- [x] (code) create a web app
+- [ ] (code) print player stats in web app
+- [ ] (code) create visualiser for video player
 - [ ] (code) throttle requests
 - [ ] (code) add throttling filter
 - [ ] (code) add http request chart / timeline in web app
@@ -25,4 +26,3 @@
 - [ ] (code) add jitter filter
 - [ ] (code) add offline filter
 - [ ] (code) add simulation (schedule filter over time)
-- [ ] (code) create visualiser for video player

@@ -1,0 +1,8 @@
+{
+  "extends": "../../../config/typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react"
+  },
+  "include": ["../../src/**/*"],
+  "exclude": ["../../src/**/*.test.ts{,x}"]
+}

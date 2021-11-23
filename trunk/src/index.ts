@@ -1,4 +1,4 @@
-import changeManifestToUseProxy from './changeManifestToUseProxy';
+import changeManifestToUseProxy from './utils/changeManifestToUseProxy';
 import express from 'express';
 import cors from 'cors';
 import axios, {AxiosResponse} from 'axios';

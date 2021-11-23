@@ -1,0 +1,12 @@
+FROM arm32v7/node:14 AS builder
+WORKDIR /app
+COPY . ./
+WORKDIR /app/branch
+RUN npm install
+RUN npm run build
+
+FROM arm32v7/node:14 AS starter
+WORKDIR /app
+COPY --from=builder /app/branch/dist ./dist
+RUN npm install -g http-server
+CMD [ "http-server", "./dist", "-p", "5001" ]
