@@ -28,6 +28,8 @@ fs.remove(path.resolve(__dirname, '../dist'), err => {
       );
 
       console.log('\n');
+      console.log(chalk.red(werr));
+      console.log('\n');
       console.log(chalk.red('Build error. 😭'));
       return;
     }
