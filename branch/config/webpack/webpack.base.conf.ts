@@ -1,9 +1,10 @@
 import path from 'path';
+import webpack from 'webpack';
 
 // @ts-ignore
 process.noDeprecation = true;
 
-const baseConfig = {
+const baseConfig: webpack.Configuration = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },

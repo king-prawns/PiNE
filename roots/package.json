@@ -11,28 +11,38 @@
   "author": "king-prawns",
   "license": "MIT",
   "scripts": {
-    "build": "webpack build --config ./config/webpack/webpack.config.js",
+    "build": "ts-node-dev -P ./config/typescript/tsconfig.json ./config/webpack/prod.ts",
     "lint": "eslint --config ../config/eslint/.eslintrc ./src/**/*.ts",
     "prettier": "prettier --config ../config/prettier/.prettierrc --list-different src/**/*.ts --ignore-path ../config/prettier/.prettierignore",
     "typecheck": "tsc -project ./config/typescript/tsconfig.json --noEmit",
     "test": "jest --config=./config/jest/jest.config.js --silent"
   },
   "devDependencies": {
+    "@babel/plugin-transform-object-assign": "7.16.0",
+    "@babel/preset-env": "7.16.4",
+    "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.3",
     "@types/sinon": "10.0.6",
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "@typescript-eslint/parser": "5.4.0",
+    "babel-loader": "8.2.3",
+    "chalk": "4.1.2",
     "clean-webpack-plugin": "4.0.0",
     "eslint": "8.3.0",
+    "fs-extra": "10.0.0",
     "jest": "27.3.1",
     "prettier": "2.4.1",
     "sinon": "12.0.1",
     "ts-jest": "27.0.7",
     "ts-loader": "9.2.6",
+    "ts-node-dev": "1.1.8",
     "typescript": "4.5.2",
     "typescript-declaration-webpack-plugin": "0.2.2",
     "webpack": "5.64.2",
-    "webpack-cli": "4.9.1"
+    "webpack-cli": "4.9.1",
+    "webpack-remove-debug": "0.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "socket.io-client": "4.4.0"
+  }
 }
