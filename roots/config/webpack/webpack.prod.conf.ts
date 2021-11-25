@@ -1,6 +1,5 @@
 import path from 'path';
 import webpack from 'webpack';
-import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 // @ts-ignore
 import TypescriptDeclarationPlugin from 'typescript-declaration-webpack-plugin';
 
@@ -15,6 +14,7 @@ const prodConfig: webpack.Configuration = {
     extensions: ['.tsx', '.ts', '.js']
   },
   output: {
+    clean: true,
     path: path.resolve(__dirname, '../../dist'),
     libraryTarget: 'commonjs',
     filename: 'pine-roots.js'
@@ -46,7 +46,7 @@ const prodConfig: webpack.Configuration = {
       }
     ]
   },
-  plugins: [new CleanWebpackPlugin(), new TypescriptDeclarationPlugin()]
+  plugins: [new TypescriptDeclarationPlugin()]
 };
 
 export default prodConfig;

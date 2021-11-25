@@ -27,7 +27,6 @@
     "@typescript-eslint/parser": "5.4.0",
     "babel-loader": "8.2.3",
     "chalk": "4.1.2",
-    "clean-webpack-plugin": "4.0.0",
     "eslint": "8.3.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "fs-extra": "10.0.0",

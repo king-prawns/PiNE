@@ -1,6 +1,5 @@
 import path from 'path';
 import webpack from 'webpack';
-import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 
 // @ts-ignore
 process.noDeprecation = true;
@@ -14,6 +13,7 @@ const prodConfig: webpack.Configuration = {
     extensions: ['.tsx', '.ts', '.js']
   },
   output: {
+    clean: true,
     path: path.resolve(__dirname, '../../dist'),
     filename: 'pine-trunk.js'
   },
@@ -29,8 +29,7 @@ const prodConfig: webpack.Configuration = {
         }
       }
     ]
-  },
-  plugins: [new CleanWebpackPlugin()]
+  }
 };
 
 export default prodConfig;
