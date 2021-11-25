@@ -11,16 +11,19 @@ const app = express();
 app.use(cors());
 
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+});
 
 app.get('/manifest/:file', manifestRoute);
 app.get('/chunk/:file', chunkRoute);
 
 io.on('connection', socket => {
-  // eslint-disable-next-line no-console
   console.log('a user connected');
   socket.on('disconnect', () => {
-    // eslint-disable-next-line no-console
     console.log('user disconnected');
   });
 });
