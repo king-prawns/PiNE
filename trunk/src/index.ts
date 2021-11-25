@@ -1,57 +1,28 @@
-import changeManifestToUseProxy from './utils/changeManifestToUseProxy';
-import express from 'express';
 import cors from 'cors';
-import axios, {AxiosResponse} from 'axios';
+import express from 'express';
+import http from 'http';
+import {Server} from 'socket.io';
+
 import {PORT_TRUNK} from '../../shared/const';
+import chunkRoute from './proxy/chunkRoute';
+import manifestRoute from './proxy/manifestRoute';
 
 const app = express();
 app.use(cors());
 
-app.get('/manifest/:file', async (req, res) => {
-  const manifestUrl: string = req.query.url as string;
-  const proxyHost = `${req.protocol}://${req.hostname}`;
+const server = http.createServer(app);
+const io = new Server(server);
 
-  let response: AxiosResponse;
-  try {
+app.get('/manifest/:file', manifestRoute);
+app.get('/chunk/:file', chunkRoute);
+
+io.on('connection', socket => {
+  // eslint-disable-next-line no-console
+  console.log('a user connected');
+  socket.on('disconnect', () => {
     // eslint-disable-next-line no-console
-    console.log('Proxying manifest: ', manifestUrl);
-
-    response = await axios.get(manifestUrl);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(
-      `Failed to make request to ${manifestUrl}.  Errored with: ${e}`
-    );
-
-    return;
-  }
-
-  const adjustedManifest = changeManifestToUseProxy(
-    response.data,
-    manifestUrl,
-    proxyHost
-  );
-
-  res.send(adjustedManifest);
+    console.log('user disconnected');
+  });
 });
 
-app.get('/chunk/:file', async (req, res) => {
-  const chunkUrl = req.query.url as string;
-  try {
-    // eslint-disable-next-line no-console
-    console.log('Proxying chunk: ', chunkUrl);
-
-    const streamResponse = await axios.get(chunkUrl, {
-      responseType: 'stream'
-    });
-
-    streamResponse.data.pipe(res);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(`Failed to make request to ${chunkUrl}.  Errored with: ${e}`);
-
-    return;
-  }
-});
-
-app.listen(PORT_TRUNK);
+server.listen(PORT_TRUNK);
