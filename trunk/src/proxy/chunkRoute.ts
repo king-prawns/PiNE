@@ -4,7 +4,7 @@ import express from 'express';
 const chunkRoute = async (
   req: express.Request,
   res: express.Response
-): Promise<Response> => {
+): Promise<Response | void> => {
   const chunkUrl = req.query.url as string;
   try {
     // eslint-disable-next-line no-console

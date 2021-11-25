@@ -6,7 +6,7 @@ import changeManifestToUseProxy from './changeManifestToUseProxy';
 const manifestRoute = async (
   req: express.Request,
   res: express.Response
-): Promise<Response> => {
+): Promise<Response | void> => {
   const manifestUrl: string = req.query.url as string;
   const proxyHost = `${req.protocol}://${req.hostname}`;
 
