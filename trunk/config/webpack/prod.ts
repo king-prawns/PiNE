@@ -14,22 +14,27 @@ fs.remove(path.resolve(__dirname, '../dist'), err => {
     console.log('\n');
 
     if (werr || stats?.hasErrors()) {
-      console.log(
-        stats?.toString({
-          hash: false,
-          timings: false,
-          modules: false,
-          chunks: false,
-          colors: true,
-          assets: false,
-          children: false,
-          entrypoints: false
-        })
-      );
+      if (stats) {
+        console.log(
+          stats?.toString({
+            hash: false,
+            timings: false,
+            modules: false,
+            chunks: false,
+            colors: true,
+            assets: false,
+            children: false,
+            entrypoints: false
+          })
+        );
+        console.log('\n');
+      }
 
-      console.log('\n');
-      console.log(chalk.red(werr));
-      console.log('\n');
+      if (werr) {
+        console.log(chalk.red(werr));
+        console.log('\n');
+      }
+
       console.log(chalk.red('Build error. 😭'));
       return;
     }

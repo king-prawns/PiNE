@@ -10,7 +10,6 @@ process.noDeprecation = true;
 const prodConfig: webpack.Configuration = {
   entry: './src/index.ts',
   mode: 'production',
-  target: 'node',
   devtool: 'source-map',
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
