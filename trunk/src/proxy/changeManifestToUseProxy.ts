@@ -1,6 +1,6 @@
 import parser, {j2xParser as J2XParser} from 'fast-xml-parser';
-import {PORT_TRUNK} from '../../../shared/const';
 
+import PORT from '../const/port';
 import {XmlRepresentation} from './types/xmlRepresentation';
 
 const toJsonOptions = {
@@ -98,7 +98,7 @@ const changeUrl = (
   const fileExtension = getFileExtension(originalValue);
   const absoluteUrl = `${originUrl}/${baseUrl}${originalValue}`;
 
-  return `${proxyHost}:${PORT_TRUNK}/chunk/pine.${fileExtension}?url=${absoluteUrl}`;
+  return `${proxyHost}:${PORT.TRUNK}/chunk/pine.${fileExtension}?url=${absoluteUrl}`;
 };
 
 export default changeManifestToUseProxy;

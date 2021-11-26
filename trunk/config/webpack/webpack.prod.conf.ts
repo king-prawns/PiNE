@@ -1,10 +1,19 @@
-const path = require('path');
-const baseConfig = require('../../../config/webpack/webpack.config.base');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+import path from 'path';
+import webpack from 'webpack';
 
-module.exports = {
-  ...baseConfig,
+// @ts-ignore
+process.noDeprecation = true;
+
+const prodConfig: webpack.Configuration = {
+  entry: './src/index.ts',
+  mode: 'production',
+  target: 'node',
+  devtool: 'source-map',
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js']
+  },
   output: {
+    clean: true,
     path: path.resolve(__dirname, '../../dist'),
     filename: 'pine-trunk.js'
   },
@@ -20,6 +29,7 @@ module.exports = {
         }
       }
     ]
-  },
-  plugins: [new CleanWebpackPlugin()]
+  }
 };
+
+export default prodConfig;

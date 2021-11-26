@@ -5,12 +5,12 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
-import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 
 const prodConfig = merge(base, {
   mode: 'production',
   devtool: 'source-map',
   output: {
+    clean: true,
     path: path.resolve(__dirname, '../../dist'),
     publicPath: '/',
     filename: '[chunkhash].pine-branch.js'
@@ -54,7 +54,6 @@ const prodConfig = merge(base, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[chunkhash].pine-branch.css'
     }),

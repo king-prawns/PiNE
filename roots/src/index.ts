@@ -1,3 +1,1 @@
-import replaceManifestUrl from './utils/replaceManifestUrl';
-
-export {replaceManifestUrl};
+export {default as proxyfy} from './client/proxyfy';

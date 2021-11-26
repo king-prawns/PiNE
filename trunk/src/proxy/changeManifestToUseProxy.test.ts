@@ -1,7 +1,7 @@
 import changeManifestToUseProxy from './changeManifestToUseProxy';
 import {
-  originalDashManifest,
-  manipulatedDashManifest
+  manipulatedDashManifest,
+  originalDashManifest
 } from './changeManifestToUseProxy.mock';
 
 describe('changeManifestToUseProxy', () => {
