@@ -1,4 +1,4 @@
-import PORT from '../../src/const/port';
+import PORT from '../../src/shared/const/port';
 import WebpackDevServer from 'webpack-dev-server';
 import path from 'path';
 import webpack from 'webpack';

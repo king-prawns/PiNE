@@ -3,9 +3,9 @@ import express from 'express';
 import http from 'http';
 import {Server} from 'socket.io';
 
-import PORT from '../src/const/port';
 import chunkRoute from './proxy/chunkRoute';
 import manifestRoute from './proxy/manifestRoute';
+import PORT from './shared/const/port';
 import connection from './socket/connection';
 
 const app = express();

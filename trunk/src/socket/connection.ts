@@ -1,9 +1,9 @@
 import {Socket} from 'socket.io';
 
-import ClientToServerEvents from '../interfaces/ClientToServerEvents';
-import InterServerEvents from '../interfaces/InterServerEvents';
-import ServerToClientEvents from '../interfaces/ServerToClientEvents';
-import SocketData from '../interfaces/SocketData';
+import ClientToServerEvents from '../shared/interfaces/ClientToServerEvents';
+import InterServerEvents from '../shared/interfaces/InterServerEvents';
+import ServerToClientEvents from '../shared/interfaces/ServerToClientEvents';
+import SocketData from '../shared/interfaces/SocketData';
 
 const connection = (
   socket: Socket<
