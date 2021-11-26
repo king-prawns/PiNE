@@ -16,6 +16,7 @@
 - [x] (code) create `pine-roots` package
 - [x] (code) create `pine-branch` web app
 - [x] (code) add socket.io
+- [ ] (code) add logger
 - [ ] (code) print player stats in pine-branch
 - [ ] (code) create `visualiser` for video player
 - [ ] (code) create client driver for visualiser
