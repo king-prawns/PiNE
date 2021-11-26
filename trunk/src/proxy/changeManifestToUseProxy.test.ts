@@ -1,7 +1,8 @@
 import changeManifestToUseProxy from './changeManifestToUseProxy';
 import {
   manipulatedDashManifest,
-  originalDashManifest} from './changeManifestToUseProxy.mock';
+  originalDashManifest
+} from './changeManifestToUseProxy.mock';
 
 describe('changeManifestToUseProxy', () => {
   it('should manipulate the manifest to use the proxy', () => {
