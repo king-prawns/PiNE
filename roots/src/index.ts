@@ -1,1 +1,1 @@
-export {default as createDriver} from './client/createDriver';
+export {default as proxyfy} from './client/proxyfy';

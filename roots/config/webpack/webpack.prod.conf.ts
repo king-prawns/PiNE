@@ -1,7 +1,5 @@
 import path from 'path';
 import webpack from 'webpack';
-// @ts-ignore
-import TypescriptDeclarationPlugin from 'typescript-declaration-webpack-plugin';
 
 // @ts-ignore
 process.noDeprecation = true;
@@ -45,8 +43,7 @@ const prodConfig: webpack.Configuration = {
         }
       }
     ]
-  },
-  plugins: [new TypescriptDeclarationPlugin()]
+  }
 };
 
 export default prodConfig;

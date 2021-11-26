@@ -3,7 +3,7 @@ import express from 'express';
 import http from 'http';
 import {Server} from 'socket.io';
 
-import {PORT_TRUNK} from '../../shared/const';
+import {PORT_TRUNK} from '../src/const/port';
 import chunkRoute from './proxy/chunkRoute';
 import manifestRoute from './proxy/manifestRoute';
 import connection from './socket/connection';

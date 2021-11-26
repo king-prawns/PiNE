@@ -1,4 +1,4 @@
-import {PORT_BRANCH} from '../../../shared/const';
+import {PORT_BRANCH} from '../../src/const/port';
 import WebpackDevServer from 'webpack-dev-server';
 import path from 'path';
 import webpack from 'webpack';

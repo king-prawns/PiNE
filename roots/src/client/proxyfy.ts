@@ -1,9 +1,9 @@
-import {PORT_TRUNK} from '../../../shared/const';
+import {PORT_TRUNK} from '../const/port';
 import createProxyManifestUrl from './createProxyManifestUrl';
 import createSocket from './createSocket';
 import getProxyHost from './getProxyHost';
 
-const createDriver = (manifestUrl: string, _driver?: any): string => {
+const proxyfy = (manifestUrl: string, _driver?: any): string => {
   const proxyHost = getProxyHost();
 
   createSocket(proxyHost, PORT_TRUNK);
@@ -17,4 +17,4 @@ const createDriver = (manifestUrl: string, _driver?: any): string => {
   return proxyManifestUrl;
 };
 
-export default createDriver;
+export default proxyfy;
