@@ -35,7 +35,7 @@ fs.remove(path.resolve(__dirname, '../dist'), err => {
         console.log('\n');
       }
 
-      console.log(chalk.red('Build error. 😭'));
+      console.log(chalk.red('Build error 😭'));
       return;
     }
 
@@ -49,6 +49,6 @@ fs.remove(path.resolve(__dirname, '../dist'), err => {
       })}\n\n`
     );
 
-    console.log(chalk.green('Build complete. 🎉\n'));
+    console.log(chalk.green('Build complete 🎉\n'));
   });
 });
