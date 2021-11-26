@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "lib": ["es2015", "dom"],
     "module": "commonjs",
+    "jsx": "react",
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": true,

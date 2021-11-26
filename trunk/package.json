@@ -10,6 +10,7 @@
   "author": "king-prawns",
   "license": "MIT",
   "scripts": {
+    "cp:shared": "ts-node-dev ./config/webpack/copy.ts",
     "dev": "ts-node-dev -P ./config/typescript/tsconfig.json ./src/index.ts",
     "build": "ts-node-dev -P ./config/typescript/tsconfig.json ./config/webpack/prod.ts",
     "lint": "eslint --config ../config/eslint/.eslintrc ./src/**/*.ts",

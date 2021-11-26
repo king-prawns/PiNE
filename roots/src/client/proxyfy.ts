@@ -1,5 +1,5 @@
-import PORT from '../const/port';
 import {Driver} from '../interfaces/driver';
+import PORT from '../shared/const/port';
 import createProxyManifestUrl from './createProxyManifestUrl';
 import createSocket from './createSocket';
 import getProxyHost from './getProxyHost';

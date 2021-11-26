@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/king-prawns/PiNE#readme",
   "scripts": {
-    "postinstall": "lerna bootstrap",
+    "postinstall": "lerna bootstrap && npm run cp:shared",
+    "cp:shared": "lerna run --parallel cp:shared",
     "lint": "lerna run --parallel lint",
     "prettier": "lerna run --parallel prettier",
     "typecheck": "lerna run --parallel typecheck",
