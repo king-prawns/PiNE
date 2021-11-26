@@ -1,4 +1,4 @@
-import {PORT_BRANCH} from '../../src/const/port';
+import PORT from '../../src/const/port';
 import WebpackDevServer from 'webpack-dev-server';
 import path from 'path';
 import webpack from 'webpack';
@@ -10,7 +10,7 @@ import devConfig from './webpack.dev.conf';
 const {log} = console;
 
 const DEFAULT_HOST = 'localhost';
-const DEFAULT_PORT = PORT_BRANCH;
+const DEFAULT_PORT = PORT.BRANCH;
 const options = {
   host: DEFAULT_HOST,
   port: DEFAULT_PORT,

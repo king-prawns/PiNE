@@ -1,1 +1,6 @@
-export const PORT_TRUNK = 5000;
+enum PORT {
+  TRUNK = 5000,
+  BRANCH = 5001
+}
+
+export default PORT;
