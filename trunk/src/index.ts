@@ -24,5 +24,3 @@ app.get('/chunk/:file', chunkRoute);
 io.on('connection', connection);
 
 server.listen(PORT.TRUNK);
-
-// TODO: create Logger with context
