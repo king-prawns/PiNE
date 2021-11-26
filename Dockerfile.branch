@@ -3,6 +3,7 @@ WORKDIR /app
 COPY . ./
 WORKDIR /app/branch
 RUN npm install
+RUN npm run cp:shared
 RUN npm run build
 
 FROM arm32v7/node:14 AS starter
