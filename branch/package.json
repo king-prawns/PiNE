@@ -44,7 +44,6 @@
     "http-server": "14.0.0",
     "jest": "27.3.1",
     "mini-css-extract-plugin": "2.4.5",
-    "opn": "6.0.0",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "prettier": "2.4.1",
     "sinon": "12.0.1",
