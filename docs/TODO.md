@@ -18,7 +18,7 @@
 - [x] (code) add socket.io
 - [x] (code) add shared folder
 - [x] (code) add logger
-- [ ] (code) print player stats in pine-branch
+- [x] (code) print player stats in pine-branch
 - [ ] (code) create `visualiser` for video player
 - [ ] (code) create client driver for visualiser
 - [ ] (code) throttle requests
