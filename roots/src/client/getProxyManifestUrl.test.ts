@@ -1,9 +1,9 @@
-import createProxyManifestUrl from './createProxyManifestUrl';
+import getProxyManifestUrl from './getProxyManifestUrl';
 
-describe('createProxyManifestUrl', () => {
+describe('getProxyManifestUrl', () => {
   it('should create a proxy manifest url', () => {
     expect(
-      createProxyManifestUrl(
+      getProxyManifestUrl(
         'http://localhost',
         5000,
         'http://example/manifest.mpd'

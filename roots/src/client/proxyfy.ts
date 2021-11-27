@@ -1,21 +1,24 @@
-import {Driver} from '../interfaces/driver';
+import Proxy from '../interfaces/proxy';
 import PORT from '../shared/const/port';
-import createProxyManifestUrl from './createProxyManifestUrl';
-import createSocket from './createSocket';
+import getDriver from './getDriver';
 import getProxyHost from './getProxyHost';
+import getProxyManifestUrl from './getProxyManifestUrl';
+import getSocket from './getSocket';
 
-const proxyfy = (manifestUrl: string, _driver?: Driver): string => {
+const proxyfy = (manifestUrl: string): Proxy => {
   const proxyHost = getProxyHost();
 
-  createSocket(proxyHost, PORT.TRUNK);
+  const socket = getSocket(proxyHost, PORT.TRUNK);
 
-  const proxyManifestUrl = createProxyManifestUrl(
+  const driver = getDriver(socket);
+
+  const proxyManifestUrl = getProxyManifestUrl(
     proxyHost,
     PORT.TRUNK,
     manifestUrl
   );
 
-  return proxyManifestUrl;
+  return {proxyManifestUrl, driver};
 };
 
 export default proxyfy;
