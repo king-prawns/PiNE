@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-interface SocketData {}
+interface SocketData {
+  id: string;
+}
 
 export default SocketData;

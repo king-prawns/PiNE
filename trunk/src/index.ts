@@ -6,7 +6,8 @@ import {Server} from 'socket.io';
 import chunkRoute from './proxy/chunkRoute';
 import manifestRoute from './proxy/manifestRoute';
 import PORT from './shared/const/port';
-import connection from './socket/connection';
+import branchConnection from './socket/branch/connection';
+import clientConnection from './socket/client/connection';
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ const io = new Server(server, {
 
 app.get('/manifest/:file', manifestRoute);
 app.get('/chunk/:file', chunkRoute);
-io.on('connection', connection);
+io.of('/client').on('connection', clientConnection);
+io.of('/branch').on('connection', branchConnection);
 
 server.listen(PORT.TRUNK);

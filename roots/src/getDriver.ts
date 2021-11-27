@@ -2,10 +2,10 @@ import {Socket} from 'socket.io-client';
 
 import Driver from './interfaces/driver';
 import ClientToTrunkEvents from './shared/interfaces/ClientToTrunkEvents';
-import ServerToClientEvents from './shared/interfaces/ServerToClientEvents';
+import TrunkToClientEvents from './shared/interfaces/TrunkToClientEvents';
 
 const getDriver = (
-  socket: Socket<ServerToClientEvents, ClientToTrunkEvents>
+  socket: Socket<TrunkToClientEvents, ClientToTrunkEvents>
 ): Driver => {
   return {
     onHttpRequest: (url): void => {

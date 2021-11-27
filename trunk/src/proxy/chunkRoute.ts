@@ -1,7 +1,7 @@
 import axios from 'axios';
 import express from 'express';
 
-import proxyLogger from './logger';
+import logger from './logger';
 
 const chunkRoute = async (
   req: express.Request,
@@ -9,7 +9,7 @@ const chunkRoute = async (
 ): Promise<Response | void> => {
   const chunkUrl = req.query.url as string;
   try {
-    proxyLogger.log('chunk:', chunkUrl);
+    logger.log('chunk:', chunkUrl);
 
     const streamResponse = await axios.get(chunkUrl, {
       responseType: 'stream'
@@ -17,9 +17,7 @@ const chunkRoute = async (
 
     streamResponse.data.pipe(res);
   } catch (e) {
-    proxyLogger.error(
-      `Failed to make request to ${chunkUrl}.  Errored with: ${e}`
-    );
+    logger.error(`Failed to make request to ${chunkUrl}.  Errored with: ${e}`);
 
     return;
   }

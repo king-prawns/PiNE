@@ -1,14 +1,17 @@
 import React from 'react';
 
-import hello from './utils/hello';
+import getSocket from './socket/getSocket';
 
 class App extends React.Component {
-  componentDidMount(): void {}
+  componentDidMount(): void {
+    const socket = getSocket();
+    console.log('mounted', socket);
+  }
 
   render(): JSX.Element {
     return (
       <>
-        <span>{hello()}</span>
+        <span>Hello</span>
       </>
     );
   }
