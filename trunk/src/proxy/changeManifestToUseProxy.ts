@@ -46,7 +46,7 @@ const changeManifestToUseProxy = (
   ): XmlRepresentation => {
     Object.keys(manifest).forEach(key => {
       if (Array.isArray(manifest[key])) {
-        (manifest[key] as XmlRepresentation[]).forEach(p => {
+        (manifest[key] as Array<XmlRepresentation>).forEach(p => {
           recursiveUpdateManifest(p, baseUrl);
         });
       } else {

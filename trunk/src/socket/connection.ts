@@ -4,6 +4,7 @@ import ClientToServerEvents from '../shared/interfaces/ClientToServerEvents';
 import InterServerEvents from '../shared/interfaces/InterServerEvents';
 import ServerToClientEvents from '../shared/interfaces/ServerToClientEvents';
 import SocketData from '../shared/interfaces/SocketData';
+import socketLogger from './logger';
 
 const connection = (
   socket: Socket<
@@ -13,11 +14,9 @@ const connection = (
     SocketData
   >
 ): void => {
-  // eslint-disable-next-line no-console
-  console.log('[Socket] user connected');
+  socketLogger.log('user connected');
   socket.on('disconnect', () => {
-    // eslint-disable-next-line no-console
-    console.log('[Socket] user disconnected');
+    socketLogger.log('user disconnected');
   });
 };
 
