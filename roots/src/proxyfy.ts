@@ -1,9 +1,9 @@
-import Proxy from '../interfaces/proxy';
-import PORT from '../shared/const/port';
 import getDriver from './getDriver';
 import getProxyHost from './getProxyHost';
 import getProxyManifestUrl from './getProxyManifestUrl';
 import getSocket from './getSocket';
+import Proxy from './interfaces/proxy';
+import PORT from './shared/const/port';
 
 const proxyfy = (manifestUrl: string): Proxy => {
   const proxyHost = getProxyHost();
