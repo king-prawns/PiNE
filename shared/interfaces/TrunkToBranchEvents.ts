@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-interface TrunkToBranchEvents {}
+interface TrunkToBranchEvents {
+  sendStats: (obj: any) => void;
+}
 
 export default TrunkToBranchEvents;

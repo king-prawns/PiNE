@@ -5,12 +5,16 @@ import {Server} from 'socket.io';
 
 import chunkRoute from './proxy/chunkRoute';
 import manifestRoute from './proxy/manifestRoute';
+import NAMESPACE from './shared/const/namespace';
 import PORT from './shared/const/port';
 import branchConnection from './socket/branch/connection';
 import clientConnection from './socket/client/connection';
 
 const app = express();
 app.use(cors());
+
+app.get('/manifest/:file', manifestRoute);
+app.get('/chunk/:file', chunkRoute);
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -20,9 +24,10 @@ const io = new Server(server, {
   }
 });
 
-app.get('/manifest/:file', manifestRoute);
-app.get('/chunk/:file', chunkRoute);
-io.of('/client').on('connection', clientConnection);
-io.of('/branch').on('connection', branchConnection);
+const client = io.of(`/${NAMESPACE.CLIENT}`);
+const branch = io.of(`/${NAMESPACE.BRANCH}`);
+
+client.on('connection', socket => clientConnection(socket, branch));
+branch.on('connection', branchConnection);
 
 server.listen(PORT.TRUNK);

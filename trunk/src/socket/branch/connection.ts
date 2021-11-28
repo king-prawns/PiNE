@@ -15,11 +15,11 @@ const connection = (
     SocketData
   >
 ): void => {
-  logger.log('Client connected');
   socket.data.id = NAMESPACE.BRANCH;
+  logger.log('connected');
 
   socket.on('disconnect', () => {
-    logger.log('Client disconnected');
+    logger.log('disconnected');
   });
 };
 
