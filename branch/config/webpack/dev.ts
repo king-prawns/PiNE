@@ -3,7 +3,6 @@ import WebpackDevServer from 'webpack-dev-server';
 import path from 'path';
 import webpack from 'webpack';
 // @ts-ignore
-import opn from 'opn';
 import chalk from 'chalk';
 import devConfig from './webpack.dev.conf';
 
@@ -33,5 +32,4 @@ server.listen(DEFAULT_PORT, DEFAULT_HOST, err => {
       'WebpackDevServer listening at localhost:'
     )} ${chalk.underline.green(DEFAULT_PORT)}`
   );
-  opn(`http://${DEFAULT_HOST}:${DEFAULT_PORT}`);
 });

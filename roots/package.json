@@ -1,6 +1,6 @@
 {
   "name": "@king-prawns/pine-roots",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "PiNE roots",
   "main": "dist/pine-roots.js",
   "types": "dist/index.d.ts",

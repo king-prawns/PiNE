@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from 'axios';
 import express from 'express';
 
 import changeManifestToUseProxy from './changeManifestToUseProxy';
-import proxyLogger from './logger';
+import logger from './logger';
 
 const manifestRoute = async (
   req: express.Request,
@@ -13,11 +13,11 @@ const manifestRoute = async (
 
   let response: AxiosResponse;
   try {
-    proxyLogger.log('manifest:', manifestUrl);
+    logger.log('manifest:', manifestUrl);
 
     response = await axios.get(manifestUrl);
   } catch (e) {
-    proxyLogger.error(
+    logger.error(
       `Failed to make request to ${manifestUrl}.  Errored with: ${e}`
     );
 
