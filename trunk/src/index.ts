@@ -24,10 +24,7 @@ const io = new Server(server, {
   }
 });
 
-const client = io.of(`/${NAMESPACE.CLIENT}`);
-const branch = io.of(`/${NAMESPACE.BRANCH}`);
-
-client.on('connection', socket => clientConnection(socket, branch));
-branch.on('connection', branchConnection);
+io.of(`/${NAMESPACE.CLIENT}`).on('connection', clientConnection);
+io.of(`/${NAMESPACE.BRANCH}`).on('connection', branchConnection);
 
 server.listen(PORT.TRUNK);
