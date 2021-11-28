@@ -6,8 +6,8 @@ import ClientToTrunkEvents from './shared/interfaces/ClientToTrunkEvents';
 import TrunkToClientEvents from './shared/interfaces/TrunkToClientEvents';
 
 const getSocket = (
-  proxyHost: string
+  proxyUrl: string
 ): Socket<TrunkToClientEvents, ClientToTrunkEvents> =>
-  io(`${proxyHost}:${PORT.TRUNK}/${NAMESPACE.CLIENT}`);
+  io(`${proxyUrl}:${PORT.TRUNK}/${NAMESPACE.CLIENT}`);
 
 export default getSocket;

@@ -6,6 +6,8 @@ import BranchToTrunkEvents from '../shared/interfaces/BranchToTrunkEvents';
 import TrunkToBranchEvents from '../shared/interfaces/TrunkToBranchEvents';
 
 const getSocket = (): Socket<TrunkToBranchEvents, BranchToTrunkEvents> =>
-  io(`http://localhost:${PORT.TRUNK}/${NAMESPACE.BRANCH}`);
+  io(
+    `${window.location.protocol}//${window.location.hostname}:${PORT.TRUNK}/${NAMESPACE.BRANCH}`
+  );
 
 export default getSocket;

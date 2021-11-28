@@ -1,9 +1,9 @@
-import PORT from '../../src/shared/const/port';
-import WebpackDevServer from 'webpack-dev-server';
+import chalk from 'chalk';
 import path from 'path';
 import webpack from 'webpack';
-// @ts-ignore
-import chalk from 'chalk';
+import WebpackDevServer from 'webpack-dev-server';
+
+import PORT from '../../src/shared/const/port';
 import devConfig from './webpack.dev.conf';
 
 const {log} = console;

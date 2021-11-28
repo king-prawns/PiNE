@@ -1,10 +1,11 @@
-import path from 'path';
-import {merge} from 'webpack-merge';
-import base from './webpack.base.conf';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
+import {merge} from 'webpack-merge';
+
+import base from './webpack.base.conf';
 
 const prodConfig = merge(base, {
   mode: 'production',
@@ -37,7 +38,6 @@ const prodConfig = merge(base, {
     rules: [
       {
         test: /(\.css)$/,
-        // @ts-ignore
         use: [
           {
             loader: MiniCssExtractPlugin.loader

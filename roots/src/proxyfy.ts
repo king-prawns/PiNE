@@ -1,17 +1,17 @@
 import getDriver from './getDriver';
-import getProxyHost from './getProxyHost';
 import getProxyManifestUrl from './getProxyManifestUrl';
+import getProxyUrl from './getProxyUrl';
 import getSocket from './getSocket';
 import Proxy from './interfaces/proxy';
 
 const proxyfy = (manifestUrl: string): Proxy => {
-  const proxyHost = getProxyHost();
+  const proxyUrl = getProxyUrl();
 
-  const socket = getSocket(proxyHost);
+  const socket = getSocket(proxyUrl);
 
   const driver = getDriver(socket);
 
-  const proxyManifestUrl = getProxyManifestUrl(proxyHost, manifestUrl);
+  const proxyManifestUrl = getProxyManifestUrl(proxyUrl, manifestUrl);
 
   return {proxyManifestUrl, driver};
 };

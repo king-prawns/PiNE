@@ -16,7 +16,7 @@ const connection = (
     InterServerEvents,
     SocketData
   >,
-  branch: Namespace<
+  branchNs: Namespace<
     BranchToTrunkEvents,
     TrunkToBranchEvents,
     InterServerEvents,
@@ -28,7 +28,8 @@ const connection = (
 
   socket.on('onHttpRequest', url => {
     logger.log('onHttpRequest', url);
-    branch.emit('sendStats', url);
+    // TODO: use global event emitter insteado of this!
+    branchNs.emit('sendStats', url);
   });
 
   socket.on('onHttpResponse', res => {

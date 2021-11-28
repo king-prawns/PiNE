@@ -30,7 +30,7 @@ const xmlDeclaration = '<?xml version="1.0" encoding="utf-8"?>\n';
 const changeManifestToUseProxy = (
   manifest: string,
   manifestUrl: string,
-  proxyHost: string
+  proxyUrl: string
 ): string => {
   const traversalObj = parser.getTraversalObj(manifest, toJsonOptions);
   const manifestXmlRepresentation: XmlRepresentation = parser.convertToJson(
@@ -58,7 +58,7 @@ const changeManifestToUseProxy = (
           case '@_initialization':
           case '@_media':
             manifest[key] = changeUrl(
-              proxyHost,
+              proxyUrl,
               originUrl,
               baseUrl,
               manifest[key] as string
@@ -90,7 +90,7 @@ const getFileExtension = (url: string): string => {
 };
 
 const changeUrl = (
-  proxyHost: string,
+  proxyUrl: string,
   originUrl: string,
   baseUrl: string,
   originalValue: string
@@ -98,7 +98,7 @@ const changeUrl = (
   const fileExtension = getFileExtension(originalValue);
   const absoluteUrl = `${originUrl}/${baseUrl}${originalValue}`;
 
-  return `${proxyHost}:${PORT.TRUNK}/chunk/pine.${fileExtension}?url=${absoluteUrl}`;
+  return `${proxyUrl}:${PORT.TRUNK}/chunk/pine.${fileExtension}?url=${absoluteUrl}`;
 };
 
 export default changeManifestToUseProxy;

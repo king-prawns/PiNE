@@ -14,10 +14,9 @@
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": ["error", {"argsIgnorePattern": "^_"}],
     "@typescript-eslint/no-var-requires": "error",
-    "@typescript-eslint/quotes": ["error", "single"],
     "@typescript-eslint/semi": ["error", "always"],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error"
   },
-  "ignorePatterns": ["**/config/*"]
+  "ignorePatterns": ["**/config/**/*.js"]
 }
