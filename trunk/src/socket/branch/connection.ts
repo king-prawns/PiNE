@@ -1,6 +1,5 @@
 import {Socket} from 'socket.io';
 
-import emitter from '../../emitter';
 import NAMESPACE from '../../shared/const/namespace';
 import BranchToTrunkEvents from '../../shared/interfaces/BranchToTrunkEvents';
 import InterServerEvents from '../../shared/interfaces/InterServerEvents';
@@ -19,12 +18,12 @@ const connection = (
   socket.data.id = NAMESPACE.BRANCH;
   logger.log('connected');
 
-  emitter.on('sendStats', url => {
-    socket.emit('sendStats', url);
-  });
-
   socket.on('disconnect', () => {
     logger.log('disconnected');
+  });
+
+  socket.on('error', err => {
+    logger.log('error', err);
   });
 };
 

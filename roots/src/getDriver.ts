@@ -13,6 +13,24 @@ const getDriver = (
     },
     onHttpResponse: (res): void => {
       socket.emit('onHttpResponse', res);
+    },
+    onPlaying: (): void => {
+      socket.emit('onPlaying');
+    },
+    onPaused: (): void => {
+      socket.emit('onPaused');
+    },
+    onEnded: (): void => {
+      socket.emit('onEnded');
+    },
+    onSeekStarted: (): void => {
+      socket.emit('onSeekStarted');
+    },
+    onSeekEnded: (): void => {
+      socket.emit('onSeekEnded');
+    },
+    onTimeUpdate: (timeMs): void => {
+      socket.emit('onTimeUpdate', timeMs);
     }
   };
 };
