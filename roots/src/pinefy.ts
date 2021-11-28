@@ -4,7 +4,7 @@ import getProxyUrl from './getProxyUrl';
 import getSocket from './getSocket';
 import Proxy from './interfaces/proxy';
 
-const proxyfy = (manifestUrl: string): Proxy => {
+const pinefy = (manifestUrl: string): Proxy => {
   const proxyUrl = getProxyUrl();
 
   const socket = getSocket(proxyUrl);
@@ -16,4 +16,4 @@ const proxyfy = (manifestUrl: string): Proxy => {
   return {proxyManifestUrl, driver};
 };
 
-export default proxyfy;
+export default pinefy;
