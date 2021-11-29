@@ -26,17 +26,11 @@ const getDriver = (
     onEnded: (): void => {
       socket.emit('onEnded');
     },
-    onSeekStarted: (): void => {
-      socket.emit('onSeekStarted');
+    onSeeking: (): void => {
+      socket.emit('onSeeking');
     },
-    onSeekEnded: (): void => {
-      socket.emit('onSeekEnded');
-    },
-    onBufferingStarted: (): void => {
-      socket.emit('onBufferingStarted');
-    },
-    onBufferingEnded: (): void => {
-      socket.emit('onBufferingEnded');
+    onBuffering: (): void => {
+      socket.emit('onBuffering');
     },
     onManifestUpdate: (manifestUrl): void => {
       socket.emit('onManifestUpdate', manifestUrl);

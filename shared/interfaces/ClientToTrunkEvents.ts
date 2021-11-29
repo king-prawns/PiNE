@@ -7,10 +7,8 @@ interface ClientToTrunkEvents {
   onPlaying: () => void;
   onPaused: () => void;
   onEnded: () => void;
-  onSeekStarted: () => void;
-  onSeekEnded: () => void;
-  onBufferingStarted: () => void;
-  onBufferingEnded: () => void;
+  onSeeking: () => void;
+  onBuffering: () => void;
   onManifestUpdate: (manifestUrl: string) => void;
 }
 

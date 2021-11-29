@@ -56,29 +56,14 @@ const connection = (
     branchNs.emit('ended');
   });
 
-  socket.on('onSeekStarted', () => {
-    logger.log('onSeekStarted');
-    branchNs.emit('seekStarted');
+  socket.on('onSeeking', () => {
+    logger.log('onSeeking');
+    branchNs.emit('seeking');
   });
 
-  socket.on('onSeekEnded', () => {
-    logger.log('onSeekEnded');
-    branchNs.emit('seekEnded');
-  });
-
-  socket.on('onBufferingStarted', () => {
-    logger.log('onBufferingStarted');
-    branchNs.emit('bufferingStarted');
-  });
-
-  socket.on('onBufferingEnded', () => {
-    logger.log('onBufferingEnded');
-    branchNs.emit('bufferingEnded');
-  });
-
-  socket.on('onTimeUpdate', timeMs => {
-    logger.log('onTimeUpdate', timeMs);
-    branchNs.emit('timeUpdate', timeMs);
+  socket.on('onBuffering', () => {
+    logger.log('onBuffering');
+    branchNs.emit('buffering');
   });
 
   socket.on('onManifestUpdate', manifestUrl => {

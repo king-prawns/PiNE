@@ -8,10 +8,8 @@ interface TrunkToBranchEvents {
   playing: () => void;
   paused: () => void;
   ended: () => void;
-  seekStarted: () => void;
-  seekEnded: () => void;
-  bufferingStarted: () => void;
-  bufferingEnded: () => void;
+  seeking: () => void;
+  buffering: () => void;
   manifestUpdate: (manifestUrl: string) => void;
 }
 

@@ -49,24 +49,14 @@ class App extends React.Component<IProps, IState> {
         playerState: [...this.state.playerState, 'ended']
       });
     });
-    socket.on('seekStarted', () => {
+    socket.on('seeking', () => {
       this.setState({
-        playerState: [...this.state.playerState, 'seekStarted']
+        playerState: [...this.state.playerState, 'seeking']
       });
     });
-    socket.on('seekEnded', () => {
+    socket.on('buffering', () => {
       this.setState({
-        playerState: [...this.state.playerState, 'seekEnded']
-      });
-    });
-    socket.on('bufferingStarted', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'bufferingStarted']
-      });
-    });
-    socket.on('bufferingEnded', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'bufferingEnded']
+        playerState: [...this.state.playerState, 'buffering']
       });
     });
 
