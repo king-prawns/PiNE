@@ -36,6 +36,11 @@ const connection = (
     branchNs.emit('httpResponse', res);
   });
 
+  socket.on('onLoading', () => {
+    logger.log('onLoading');
+    branchNs.emit('loading');
+  });
+
   socket.on('onPlaying', () => {
     logger.log('onPlaying');
     branchNs.emit('playing');
@@ -61,9 +66,24 @@ const connection = (
     branchNs.emit('seekEnded');
   });
 
+  socket.on('onBufferingStarted', () => {
+    logger.log('onBufferingStarted');
+    branchNs.emit('bufferingStarted');
+  });
+
+  socket.on('onBufferingEnded', () => {
+    logger.log('onBufferingEnded');
+    branchNs.emit('bufferingEnded');
+  });
+
   socket.on('onTimeUpdate', timeMs => {
     logger.log('onTimeUpdate', timeMs);
     branchNs.emit('timeUpdate', timeMs);
+  });
+
+  socket.on('onManifestUpdate', manifestUrl => {
+    logger.log('onManifestUpdate', manifestUrl);
+    branchNs.emit('manifestUpdate', manifestUrl);
   });
 
   socket.on('disconnect', () => {

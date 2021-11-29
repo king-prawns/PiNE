@@ -4,42 +4,37 @@ import getSocket from './socket/getSocket';
 
 type IProps = Record<string, never>;
 type IState = {
-  http: Array<any>;
-  timeMs: Array<number>;
+  manifestUrl: Array<string>;
   playerState: Array<string>;
+  timeMs: Array<number>;
+  http: Array<any>;
 };
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      http: [],
+      manifestUrl: [],
       playerState: [],
-      timeMs: []
+      timeMs: [],
+      http: []
     };
   }
 
   componentDidMount(): void {
     const socket = getSocket();
-    // http
-    socket.on('httpRequest', url => {
-      this.setState({
-        http: [...this.state.http, url]
-      });
-    });
-    socket.on('httpResponse', res => {
-      this.setState({
-        http: [...this.state.http, res]
-      });
-    });
 
-    // time
-    socket.on('timeUpdate', timeMs => {
+    socket.on('manifestUpdate', manifestUrl => {
       this.setState({
-        timeMs: [...this.state.timeMs, timeMs]
+        manifestUrl: [...this.state.manifestUrl, manifestUrl]
       });
     });
 
     // player state
+    socket.on('loading', () => {
+      this.setState({
+        playerState: [...this.state.playerState, 'loading']
+      });
+    });
     socket.on('playing', () => {
       this.setState({
         playerState: [...this.state.playerState, 'playing']
@@ -65,12 +60,43 @@ class App extends React.Component<IProps, IState> {
         playerState: [...this.state.playerState, 'seekEnded']
       });
     });
+    socket.on('bufferingStarted', () => {
+      this.setState({
+        playerState: [...this.state.playerState, 'bufferingStarted']
+      });
+    });
+    socket.on('bufferingEnded', () => {
+      this.setState({
+        playerState: [...this.state.playerState, 'bufferingEnded']
+      });
+    });
 
+    // time
+    socket.on('timeUpdate', timeMs => {
+      this.setState({
+        timeMs: [...this.state.timeMs, timeMs]
+      });
+    });
+
+    // http
+    socket.on('httpRequest', url => {
+      this.setState({
+        http: [...this.state.http, url]
+      });
+    });
+    socket.on('httpResponse', res => {
+      this.setState({
+        http: [...this.state.http, res]
+      });
+    });
+
+    // reset
     socket.on('clientDisconnected', () => {
       this.setState({
-        http: [],
+        manifestUrl: [],
         playerState: [],
-        timeMs: []
+        timeMs: [],
+        http: []
       });
     });
   }
@@ -79,16 +105,25 @@ class App extends React.Component<IProps, IState> {
     return (
       <>
         <section>
+          <h3>Manifest Url</h3>
+          {this.state.manifestUrl.map((manifestUrl, index) => {
+            return <span key={`manifestUrl-${index}`}>{manifestUrl}, </span>;
+          })}
+        </section>
+        <section>
+          <h3>Player State</h3>
           {this.state.playerState.map((playerState, index) => {
             return <span key={`state-${index}`}>{playerState}, </span>;
           })}
         </section>
         <section>
+          <h3>Time Ms</h3>
           {this.state.timeMs.map((timeMs, index) => {
             return <span key={`timeMs-${index}`}>{timeMs}, </span>;
           })}
         </section>
         <section>
+          <h3>Http Req/Res</h3>
           {this.state.http.map((http, index) => {
             return <p key={`http-${index}`}>{JSON.stringify(http)}</p>;
           })}

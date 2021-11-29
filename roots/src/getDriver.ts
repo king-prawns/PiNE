@@ -14,6 +14,9 @@ const getDriver = (
     onHttpResponse: (res): void => {
       socket.emit('onHttpResponse', res);
     },
+    onLoading: (): void => {
+      socket.emit('onLoading');
+    },
     onPlaying: (): void => {
       socket.emit('onPlaying');
     },
@@ -29,8 +32,17 @@ const getDriver = (
     onSeekEnded: (): void => {
       socket.emit('onSeekEnded');
     },
+    onBufferingStarted: (): void => {
+      socket.emit('onBufferingStarted');
+    },
+    onBufferingEnded: (): void => {
+      socket.emit('onBufferingEnded');
+    },
     onTimeUpdate: (timeMs): void => {
       socket.emit('onTimeUpdate', timeMs);
+    },
+    onManifestUpdate: (manifestUrl): void => {
+      socket.emit('onManifestUpdate', manifestUrl);
     }
   };
 };
