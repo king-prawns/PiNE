@@ -6,7 +6,6 @@ type IProps = Record<string, never>;
 type IState = {
   manifestUrl: Array<string>;
   playerState: Array<string>;
-  timeMs: Array<number>;
   http: Array<any>;
 };
 class App extends React.Component<IProps, IState> {
@@ -77,7 +76,6 @@ class App extends React.Component<IProps, IState> {
       this.setState({
         manifestUrl: [],
         playerState: [],
-        timeMs: [],
         http: []
       });
     });
