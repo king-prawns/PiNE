@@ -11,7 +11,6 @@ interface ClientToTrunkEvents {
   onSeekEnded: () => void;
   onBufferingStarted: () => void;
   onBufferingEnded: () => void;
-  onTimeUpdate: (timeMs: number) => void;
   onManifestUpdate: (manifestUrl: string) => void;
 }
 

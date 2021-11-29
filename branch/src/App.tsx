@@ -15,7 +15,6 @@ class App extends React.Component<IProps, IState> {
     this.state = {
       manifestUrl: [],
       playerState: [],
-      timeMs: [],
       http: []
     };
   }
@@ -71,13 +70,6 @@ class App extends React.Component<IProps, IState> {
       });
     });
 
-    // time
-    socket.on('timeUpdate', timeMs => {
-      this.setState({
-        timeMs: [...this.state.timeMs, timeMs]
-      });
-    });
-
     // http
     socket.on('httpRequest', url => {
       this.setState({
@@ -114,12 +106,6 @@ class App extends React.Component<IProps, IState> {
           <h3>Player State</h3>
           {this.state.playerState.map((playerState, index) => {
             return <span key={`state-${index}`}>{playerState}, </span>;
-          })}
-        </section>
-        <section>
-          <h3>Time Ms</h3>
-          {this.state.timeMs.map((timeMs, index) => {
-            return <span key={`timeMs-${index}`}>{timeMs}, </span>;
           })}
         </section>
         <section>

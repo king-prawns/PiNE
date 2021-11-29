@@ -12,7 +12,6 @@ interface TrunkToBranchEvents {
   seekEnded: () => void;
   bufferingStarted: () => void;
   bufferingEnded: () => void;
-  timeUpdate: (timeMs: number) => void;
   manifestUpdate: (manifestUrl: string) => void;
 }
 

@@ -38,9 +38,6 @@ const getDriver = (
     onBufferingEnded: (): void => {
       socket.emit('onBufferingEnded');
     },
-    onTimeUpdate: (timeMs): void => {
-      socket.emit('onTimeUpdate', timeMs);
-    },
     onManifestUpdate: (manifestUrl): void => {
       socket.emit('onManifestUpdate', manifestUrl);
     }
