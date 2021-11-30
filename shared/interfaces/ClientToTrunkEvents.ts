@@ -1,3 +1,4 @@
+import BufferedInfo from './BufferedInfo';
 import HttpResponse from './HttpResponse';
 
 interface ClientToTrunkEvents {
@@ -10,6 +11,10 @@ interface ClientToTrunkEvents {
   onSeeking: () => void;
   onBuffering: () => void;
   onManifestUpdate: (manifestUrl: string) => void;
+  onVariantUpdate: (bandwidthMbs: number) => void;
+  onEstimatedBandwidthUpdate: (bandwidthMbs: number) => void;
+  onBufferedInfoUpdate: (bufferedInfo: BufferedInfo) => void;
+  onUsedJSHeapSizeUpdate: (usedJSHeapSizeMb: number) => void;
 }
 
 export default ClientToTrunkEvents;

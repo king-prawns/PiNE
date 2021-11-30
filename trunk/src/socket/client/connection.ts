@@ -71,6 +71,26 @@ const connection = (
     branchNs.emit('manifestUpdate', manifestUrl);
   });
 
+  socket.on('onVariantUpdate', bandwidthMbs => {
+    logger.log('onVariantUpdate', bandwidthMbs);
+    branchNs.emit('variantUpdate', bandwidthMbs);
+  });
+
+  socket.on('onEstimatedBandwidthUpdate', bandwidthMbs => {
+    logger.log('onEstimatedBandwidthUpdate', bandwidthMbs);
+    branchNs.emit('estimatedBandwidthUpdate', bandwidthMbs);
+  });
+
+  socket.on('onBufferedInfoUpdate', bufferedInfo => {
+    logger.log('onBufferedInfoUpdate', bufferedInfo);
+    branchNs.emit('bufferedInfoUpdate', bufferedInfo);
+  });
+
+  socket.on('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb => {
+    logger.log('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb);
+    branchNs.emit('usedJSHeapSizeUpdate', usedJSHeapSizeMb);
+  });
+
   socket.on('disconnect', () => {
     logger.log('disconnected');
     branchNs.emit('clientDisconnected');

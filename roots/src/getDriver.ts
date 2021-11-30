@@ -34,6 +34,18 @@ const getDriver = (
     },
     onManifestUpdate: (manifestUrl): void => {
       socket.emit('onManifestUpdate', manifestUrl);
+    },
+    onVariantUpdate: (bandwidthMbs): void => {
+      socket.emit('onVariantUpdate', bandwidthMbs);
+    },
+    onEstimatedBandwidthUpdate: (bandwidthMbs): void => {
+      socket.emit('onEstimatedBandwidthUpdate', bandwidthMbs);
+    },
+    onBufferedInfoUpdate: (bufferedInfo): void => {
+      socket.emit('onBufferedInfoUpdate', bufferedInfo);
+    },
+    onUsedJSHeapSizeUpdate: (usedJSHeapSizeMb): void => {
+      socket.emit('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb);
     }
   };
 };

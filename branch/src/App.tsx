@@ -1,12 +1,18 @@
 import React from 'react';
 
+import BufferedInfo from './shared/interfaces/BufferedInfo';
+import HttpResponse from './shared/interfaces/HttpResponse';
 import getSocket from './socket/getSocket';
 
 type IProps = Record<string, never>;
 type IState = {
   manifestUrl: Array<string>;
   playerState: Array<string>;
-  http: Array<any>;
+  variant: Array<number>;
+  estimatedBandwidth: Array<number>;
+  usedJSHeapSize: Array<number>;
+  bufferedInfo: Array<BufferedInfo>;
+  http: Array<string | HttpResponse>;
 };
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -14,6 +20,10 @@ class App extends React.Component<IProps, IState> {
     this.state = {
       manifestUrl: [],
       playerState: [],
+      variant: [],
+      estimatedBandwidth: [],
+      usedJSHeapSize: [],
+      bufferedInfo: [],
       http: []
     };
   }
@@ -59,6 +69,34 @@ class App extends React.Component<IProps, IState> {
       });
     });
 
+    // variant
+    socket.on('variantUpdate', bandwidthMbs => {
+      this.setState({
+        variant: [...this.state.variant, bandwidthMbs]
+      });
+    });
+
+    // estimated Bandwidth
+    socket.on('estimatedBandwidthUpdate', bandwidthMbs => {
+      this.setState({
+        estimatedBandwidth: [...this.state.estimatedBandwidth, bandwidthMbs]
+      });
+    });
+
+    // used JS Heap Size
+    socket.on('usedJSHeapSizeUpdate', usedJSHeapSizeMb => {
+      this.setState({
+        usedJSHeapSize: [...this.state.usedJSHeapSize, usedJSHeapSizeMb]
+      });
+    });
+
+    // buffered info
+    socket.on('bufferedInfoUpdate', bufferedInfo => {
+      this.setState({
+        bufferedInfo: [...this.state.bufferedInfo, bufferedInfo]
+      });
+    });
+
     // http
     socket.on('httpRequest', url => {
       this.setState({
@@ -76,6 +114,10 @@ class App extends React.Component<IProps, IState> {
       this.setState({
         manifestUrl: [],
         playerState: [],
+        variant: [],
+        estimatedBandwidth: [],
+        usedJSHeapSize: [],
+        bufferedInfo: [],
         http: []
       });
     });
@@ -94,6 +136,40 @@ class App extends React.Component<IProps, IState> {
           <h3>Player State</h3>
           {this.state.playerState.map((playerState, index) => {
             return <span key={`state-${index}`}>{playerState}, </span>;
+          })}
+        </section>
+        <section>
+          <h3>Variant</h3>
+          {this.state.variant.map((variant, index) => {
+            return <span key={`variant-${index}`}>{variant}, </span>;
+          })}
+        </section>
+        <section>
+          <h3>Estimated Bandwidth</h3>
+          {this.state.estimatedBandwidth.map((estimatedBandwidth, index) => {
+            return (
+              <span key={`estimatedBandwidth-${index}`}>
+                {estimatedBandwidth},{' '}
+              </span>
+            );
+          })}
+        </section>
+        <section>
+          <h3>Used JS heap size</h3>
+          {this.state.usedJSHeapSize.map((usedJSHeapSize, index) => {
+            return (
+              <span key={`usedJSHeapSize-${index}`}>{usedJSHeapSize}, </span>
+            );
+          })}
+        </section>
+        <section>
+          <h3>Buffered info</h3>
+          {this.state.bufferedInfo.map((bufferedInfo, index) => {
+            return (
+              <span key={`bufferdInfo-${index}`}>
+                {JSON.stringify(bufferedInfo)},{' '}
+              </span>
+            );
           })}
         </section>
         <section>
