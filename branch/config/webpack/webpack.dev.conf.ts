@@ -1,5 +1,6 @@
-import {merge} from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import {merge} from 'webpack-merge';
+
 import baseConfig from './webpack.base.conf';
 
 const devConfig = merge(baseConfig, {
@@ -18,7 +19,6 @@ const devConfig = merge(baseConfig, {
     rules: [
       {
         test: /(\.css)$/,
-        // @ts-ignore
         use: [
           {
             loader: 'style-loader'

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import chalk from 'chalk';
 import fs from 'fs-extra';
 import path from 'path';
@@ -12,7 +14,7 @@ fs.remove(SHARED_FOLDER_TO, err => {
     throw err;
   }
 
-  const copyRecursiveSync = (src: string, dest: string) => {
+  const copyRecursiveSync = (src: string, dest: string): void => {
     const exists = fs.existsSync(src);
     const stats = exists && fs.statSync(src);
     const isDirectory = exists && stats && stats.isDirectory();

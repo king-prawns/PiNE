@@ -16,7 +16,7 @@ const connection = (
     InterServerEvents,
     SocketData
   >,
-  branch: Namespace<
+  branchNs: Namespace<
     BranchToTrunkEvents,
     TrunkToBranchEvents,
     InterServerEvents,
@@ -28,15 +28,76 @@ const connection = (
 
   socket.on('onHttpRequest', url => {
     logger.log('onHttpRequest', url);
-    branch.emit('sendStats', url);
+    branchNs.emit('httpRequest', url);
   });
 
   socket.on('onHttpResponse', res => {
     logger.log('onHttpResponse', res);
+    branchNs.emit('httpResponse', res);
+  });
+
+  socket.on('onLoading', () => {
+    logger.log('onLoading');
+    branchNs.emit('loading');
+  });
+
+  socket.on('onPlaying', () => {
+    logger.log('onPlaying');
+    branchNs.emit('playing');
+  });
+
+  socket.on('onPaused', () => {
+    logger.log('onPaused');
+    branchNs.emit('paused');
+  });
+
+  socket.on('onEnded', () => {
+    logger.log('onEnded');
+    branchNs.emit('ended');
+  });
+
+  socket.on('onSeeking', () => {
+    logger.log('onSeeking');
+    branchNs.emit('seeking');
+  });
+
+  socket.on('onBuffering', () => {
+    logger.log('onBuffering');
+    branchNs.emit('buffering');
+  });
+
+  socket.on('onManifestUpdate', manifestUrl => {
+    logger.log('onManifestUpdate', manifestUrl);
+    branchNs.emit('manifestUpdate', manifestUrl);
+  });
+
+  socket.on('onVariantUpdate', bandwidthMbs => {
+    logger.log('onVariantUpdate', bandwidthMbs);
+    branchNs.emit('variantUpdate', bandwidthMbs);
+  });
+
+  socket.on('onEstimatedBandwidthUpdate', bandwidthMbs => {
+    logger.log('onEstimatedBandwidthUpdate', bandwidthMbs);
+    branchNs.emit('estimatedBandwidthUpdate', bandwidthMbs);
+  });
+
+  socket.on('onBufferInfoUpdate', bufferInfo => {
+    logger.log('onBufferInfoUpdate', bufferInfo);
+    branchNs.emit('bufferInfoUpdate', bufferInfo);
+  });
+
+  socket.on('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb => {
+    logger.log('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb);
+    branchNs.emit('usedJSHeapSizeUpdate', usedJSHeapSizeMb);
   });
 
   socket.on('disconnect', () => {
     logger.log('disconnected');
+    branchNs.emit('clientDisconnected');
+  });
+
+  socket.on('error', err => {
+    logger.log('error', err);
   });
 };
 

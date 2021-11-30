@@ -21,6 +21,10 @@ const connection = (
   socket.on('disconnect', () => {
     logger.log('disconnected');
   });
+
+  socket.on('error', err => {
+    logger.log('error', err);
+  });
 };
 
 export default connection;

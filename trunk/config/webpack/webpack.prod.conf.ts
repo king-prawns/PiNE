@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 process.noDeprecation = true;
 

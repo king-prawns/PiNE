@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
+
+import chalk from 'chalk';
+import fs from 'fs-extra';
 import path from 'path';
 import webpack from 'webpack';
-import fs from 'fs-extra';
-import chalk from 'chalk';
+
 import prodConfig from './webpack.prod.conf';
 
 console.log(chalk.green('Building...'));
@@ -36,6 +39,7 @@ fs.remove(path.resolve(__dirname, '../dist'), err => {
       }
 
       console.log(chalk.red('Build error 😭'));
+
       return;
     }
 
