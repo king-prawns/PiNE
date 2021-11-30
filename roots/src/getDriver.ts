@@ -41,8 +41,8 @@ const getDriver = (
     onEstimatedBandwidthUpdate: (bandwidthMbs): void => {
       socket.emit('onEstimatedBandwidthUpdate', bandwidthMbs);
     },
-    onBufferedInfoUpdate: (bufferedInfo): void => {
-      socket.emit('onBufferedInfoUpdate', bufferedInfo);
+    onBufferInfoUpdate: (bufferInfo): void => {
+      socket.emit('onBufferInfoUpdate', bufferInfo);
     },
     onUsedJSHeapSizeUpdate: (usedJSHeapSizeMb): void => {
       socket.emit('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb);

@@ -1,4 +1,4 @@
-import BufferedInfo from './BufferedInfo';
+import BufferInfo from './BufferInfo';
 import HttpResponse from './HttpResponse';
 
 interface TrunkToBranchEvents {
@@ -14,7 +14,7 @@ interface TrunkToBranchEvents {
   manifestUpdate: (manifestUrl: string) => void;
   variantUpdate: (bandwidthMbs: number) => void;
   estimatedBandwidthUpdate: (bandwidthMbs: number) => void;
-  bufferedInfoUpdate: (bufferedInfo: BufferedInfo) => void;
+  bufferInfoUpdate: (bufferInfo: BufferInfo) => void;
   usedJSHeapSizeUpdate: (usedJSHeapSizeMb: number) => void;
 }
 

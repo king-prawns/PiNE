@@ -81,9 +81,9 @@ const connection = (
     branchNs.emit('estimatedBandwidthUpdate', bandwidthMbs);
   });
 
-  socket.on('onBufferedInfoUpdate', bufferedInfo => {
-    logger.log('onBufferedInfoUpdate', bufferedInfo);
-    branchNs.emit('bufferedInfoUpdate', bufferedInfo);
+  socket.on('onBufferInfoUpdate', bufferInfo => {
+    logger.log('onBufferInfoUpdate', bufferInfo);
+    branchNs.emit('bufferInfoUpdate', bufferInfo);
   });
 
   socket.on('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb => {

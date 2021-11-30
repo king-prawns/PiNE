@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BufferedInfo from './shared/interfaces/BufferedInfo';
+import BufferInfo from './shared/interfaces/BufferInfo';
 import HttpResponse from './shared/interfaces/HttpResponse';
 import getSocket from './socket/getSocket';
 
@@ -11,7 +11,7 @@ type IState = {
   variant: Array<number>;
   estimatedBandwidth: Array<number>;
   usedJSHeapSize: Array<number>;
-  bufferedInfo: Array<BufferedInfo>;
+  bufferInfo: Array<BufferInfo>;
   http: Array<string | HttpResponse>;
 };
 class App extends React.Component<IProps, IState> {
@@ -23,7 +23,7 @@ class App extends React.Component<IProps, IState> {
       variant: [],
       estimatedBandwidth: [],
       usedJSHeapSize: [],
-      bufferedInfo: [],
+      bufferInfo: [],
       http: []
     };
   }
@@ -90,10 +90,10 @@ class App extends React.Component<IProps, IState> {
       });
     });
 
-    // buffered info
-    socket.on('bufferedInfoUpdate', bufferedInfo => {
+    // buffer info
+    socket.on('bufferInfoUpdate', bufferInfo => {
       this.setState({
-        bufferedInfo: [...this.state.bufferedInfo, bufferedInfo]
+        bufferInfo: [...this.state.bufferInfo, bufferInfo]
       });
     });
 
@@ -117,7 +117,7 @@ class App extends React.Component<IProps, IState> {
         variant: [],
         estimatedBandwidth: [],
         usedJSHeapSize: [],
-        bufferedInfo: [],
+        bufferInfo: [],
         http: []
       });
     });
@@ -163,11 +163,11 @@ class App extends React.Component<IProps, IState> {
           })}
         </section>
         <section>
-          <h3>Buffered info</h3>
-          {this.state.bufferedInfo.map((bufferedInfo, index) => {
+          <h3>Buffer info</h3>
+          {this.state.bufferInfo.map((bufferInfo, index) => {
             return (
-              <span key={`bufferdInfo-${index}`}>
-                {JSON.stringify(bufferedInfo)},{' '}
+              <span key={`bufferInfo-${index}`}>
+                {JSON.stringify(bufferInfo)},{' '}
               </span>
             );
           })}
