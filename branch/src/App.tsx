@@ -10,8 +10,8 @@ type IState = {
   playerState: Array<string>;
   variant: Array<number>;
   estimatedBandwidth: Array<number>;
-  usedJSHeapSize: Array<number>;
   bufferInfo: Array<BufferInfo>;
+  usedJSHeapSize: Array<number>;
   http: Array<string | HttpResponse>;
 };
 class App extends React.Component<IProps, IState> {
@@ -22,8 +22,8 @@ class App extends React.Component<IProps, IState> {
       playerState: [],
       variant: [],
       estimatedBandwidth: [],
-      usedJSHeapSize: [],
       bufferInfo: [],
+      usedJSHeapSize: [],
       http: []
     };
   }
@@ -71,29 +71,38 @@ class App extends React.Component<IProps, IState> {
 
     // variant
     socket.on('variantUpdate', bandwidthMbs => {
-      this.setState({
-        variant: [...this.state.variant, bandwidthMbs]
-      });
+      if (bandwidthMbs !== this.state.variant.slice(-1)[0]) {
+        this.setState({
+          variant: [...this.state.variant, bandwidthMbs]
+        });
+      }
     });
 
     // estimated Bandwidth
     socket.on('estimatedBandwidthUpdate', bandwidthMbs => {
-      this.setState({
-        estimatedBandwidth: [...this.state.estimatedBandwidth, bandwidthMbs]
-      });
+      if (bandwidthMbs !== this.state.estimatedBandwidth.slice(-1)[0]) {
+        this.setState({
+          estimatedBandwidth: [...this.state.estimatedBandwidth, bandwidthMbs]
+        });
+      }
+    });
+
+    // buffer info
+    socket.on('bufferInfoUpdate', bufferInfo => {
+      if (
+        bufferInfo.audio !== this.state.bufferInfo.slice(-1)[0]?.audio ||
+        bufferInfo.video !== this.state.bufferInfo.slice(-1)[0]?.video
+      ) {
+        this.setState({
+          bufferInfo: [...this.state.bufferInfo, bufferInfo]
+        });
+      }
     });
 
     // used JS Heap Size
     socket.on('usedJSHeapSizeUpdate', usedJSHeapSizeMb => {
       this.setState({
         usedJSHeapSize: [...this.state.usedJSHeapSize, usedJSHeapSizeMb]
-      });
-    });
-
-    // buffer info
-    socket.on('bufferInfoUpdate', bufferInfo => {
-      this.setState({
-        bufferInfo: [...this.state.bufferInfo, bufferInfo]
       });
     });
 
@@ -116,8 +125,8 @@ class App extends React.Component<IProps, IState> {
         playerState: [],
         variant: [],
         estimatedBandwidth: [],
-        usedJSHeapSize: [],
         bufferInfo: [],
+        usedJSHeapSize: [],
         http: []
       });
     });
