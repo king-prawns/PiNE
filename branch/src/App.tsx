@@ -2,12 +2,13 @@ import React from 'react';
 
 import BufferInfo from './shared/interfaces/BufferInfo';
 import HttpResponse from './shared/interfaces/HttpResponse';
+import PlayerState from './shared/interfaces/PlayerState';
 import getSocket from './socket/getSocket';
 
 type IProps = Record<string, never>;
 type IState = {
   manifestUrl: Array<string>;
-  playerState: Array<string>;
+  playerState: Array<PlayerState>;
   variant: Array<number>;
   estimatedBandwidth: Array<number>;
   bufferInfo: Array<BufferInfo>;
@@ -38,35 +39,12 @@ class App extends React.Component<IProps, IState> {
     });
 
     // player state
-    socket.on('loading', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'loading']
-      });
-    });
-    socket.on('playing', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'playing']
-      });
-    });
-    socket.on('paused', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'paused']
-      });
-    });
-    socket.on('ended', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'ended']
-      });
-    });
-    socket.on('seeking', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'seeking']
-      });
-    });
-    socket.on('buffering', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'buffering']
-      });
+    socket.on('playerStateUpdate', playerState => {
+      if (playerState !== this.state.playerState.slice(-1)[0]) {
+        this.setState({
+          playerState: [...this.state.playerState, playerState]
+        });
+      }
     });
 
     // variant
@@ -144,7 +122,7 @@ class App extends React.Component<IProps, IState> {
         <section>
           <h3>Player State</h3>
           {this.state.playerState.map((playerState, index) => {
-            return <span key={`state-${index}`}>{playerState}, </span>;
+            return <span key={`playerState-${index}`}>{playerState}, </span>;
           })}
         </section>
         <section>

@@ -1,15 +1,11 @@
 import BufferInfo from './BufferInfo';
 import HttpResponse from './HttpResponse';
+import PLAYER_STATE from './PlayerState';
 
 interface ClientToTrunkEvents {
   onHttpRequest: (url: string) => void;
   onHttpResponse: (res: HttpResponse) => void;
-  onLoading: () => void;
-  onPlaying: () => void;
-  onPaused: () => void;
-  onEnded: () => void;
-  onSeeking: () => void;
-  onBuffering: () => void;
+  onPlayerStateUpdate: (playerState: PLAYER_STATE) => void;
   onManifestUpdate: (manifestUrl: string) => void;
   onVariantUpdate: (bandwidthMbs: number) => void;
   onEstimatedBandwidthUpdate: (bandwidthMbs: number) => void;
