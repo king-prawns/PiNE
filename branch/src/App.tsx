@@ -2,28 +2,32 @@ import React from 'react';
 
 import BufferInfo from './shared/interfaces/BufferInfo';
 import HttpResponse from './shared/interfaces/HttpResponse';
+import PlayerMetadata from './shared/interfaces/PlayerMetadata';
+import PlayerState from './shared/interfaces/PlayerState';
 import getSocket from './socket/getSocket';
 
 type IProps = Record<string, never>;
 type IState = {
+  playerMetadata: Array<PlayerMetadata>;
   manifestUrl: Array<string>;
-  playerState: Array<string>;
+  playerState: Array<PlayerState>;
   variant: Array<number>;
   estimatedBandwidth: Array<number>;
-  usedJSHeapSize: Array<number>;
   bufferInfo: Array<BufferInfo>;
+  usedJSHeapSize: Array<number>;
   http: Array<string | HttpResponse>;
 };
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
+      playerMetadata: [],
       manifestUrl: [],
       playerState: [],
       variant: [],
       estimatedBandwidth: [],
-      usedJSHeapSize: [],
       bufferInfo: [],
+      usedJSHeapSize: [],
       http: []
     };
   }
@@ -31,6 +35,14 @@ class App extends React.Component<IProps, IState> {
   componentDidMount(): void {
     const socket = getSocket();
 
+    // player metadata
+    socket.on('playerMetadataUpdate', playerMetadata => {
+      this.setState({
+        playerMetadata: [...this.state.playerMetadata, playerMetadata]
+      });
+    });
+
+    // manifest
     socket.on('manifestUpdate', manifestUrl => {
       this.setState({
         manifestUrl: [...this.state.manifestUrl, manifestUrl]
@@ -38,62 +50,48 @@ class App extends React.Component<IProps, IState> {
     });
 
     // player state
-    socket.on('loading', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'loading']
-      });
-    });
-    socket.on('playing', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'playing']
-      });
-    });
-    socket.on('paused', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'paused']
-      });
-    });
-    socket.on('ended', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'ended']
-      });
-    });
-    socket.on('seeking', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'seeking']
-      });
-    });
-    socket.on('buffering', () => {
-      this.setState({
-        playerState: [...this.state.playerState, 'buffering']
-      });
+    socket.on('playerStateUpdate', playerState => {
+      if (playerState !== this.state.playerState.slice(-1)[0]) {
+        this.setState({
+          playerState: [...this.state.playerState, playerState]
+        });
+      }
     });
 
     // variant
     socket.on('variantUpdate', bandwidthMbs => {
-      this.setState({
-        variant: [...this.state.variant, bandwidthMbs]
-      });
+      if (bandwidthMbs !== this.state.variant.slice(-1)[0]) {
+        this.setState({
+          variant: [...this.state.variant, bandwidthMbs]
+        });
+      }
     });
 
     // estimated Bandwidth
     socket.on('estimatedBandwidthUpdate', bandwidthMbs => {
-      this.setState({
-        estimatedBandwidth: [...this.state.estimatedBandwidth, bandwidthMbs]
-      });
+      if (bandwidthMbs !== this.state.estimatedBandwidth.slice(-1)[0]) {
+        this.setState({
+          estimatedBandwidth: [...this.state.estimatedBandwidth, bandwidthMbs]
+        });
+      }
+    });
+
+    // buffer info
+    socket.on('bufferInfoUpdate', bufferInfo => {
+      if (
+        bufferInfo.audio !== this.state.bufferInfo.slice(-1)[0]?.audio ||
+        bufferInfo.video !== this.state.bufferInfo.slice(-1)[0]?.video
+      ) {
+        this.setState({
+          bufferInfo: [...this.state.bufferInfo, bufferInfo]
+        });
+      }
     });
 
     // used JS Heap Size
     socket.on('usedJSHeapSizeUpdate', usedJSHeapSizeMb => {
       this.setState({
         usedJSHeapSize: [...this.state.usedJSHeapSize, usedJSHeapSizeMb]
-      });
-    });
-
-    // buffer info
-    socket.on('bufferInfoUpdate', bufferInfo => {
-      this.setState({
-        bufferInfo: [...this.state.bufferInfo, bufferInfo]
       });
     });
 
@@ -112,12 +110,13 @@ class App extends React.Component<IProps, IState> {
     // reset
     socket.on('clientDisconnected', () => {
       this.setState({
+        playerMetadata: [],
         manifestUrl: [],
         playerState: [],
         variant: [],
         estimatedBandwidth: [],
-        usedJSHeapSize: [],
         bufferInfo: [],
+        usedJSHeapSize: [],
         http: []
       });
     });
@@ -127,6 +126,16 @@ class App extends React.Component<IProps, IState> {
     return (
       <>
         <section>
+          <h3>Player Metadata</h3>
+          {this.state.playerMetadata.map((playerMetadata, index) => {
+            return (
+              <p key={`playerMetadata-${index}`}>
+                {JSON.stringify(playerMetadata)}
+              </p>
+            );
+          })}
+        </section>
+        <section>
           <h3>Manifest Url</h3>
           {this.state.manifestUrl.map((manifestUrl, index) => {
             return <span key={`manifestUrl-${index}`}>{manifestUrl}, </span>;
@@ -135,7 +144,7 @@ class App extends React.Component<IProps, IState> {
         <section>
           <h3>Player State</h3>
           {this.state.playerState.map((playerState, index) => {
-            return <span key={`state-${index}`}>{playerState}, </span>;
+            return <span key={`playerState-${index}`}>{playerState}, </span>;
           })}
         </section>
         <section>

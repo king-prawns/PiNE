@@ -1,6 +1,6 @@
 import {Socket} from 'socket.io-client';
 
-import Driver from './interfaces/driver';
+import Driver from './interfaces/Driver';
 import ClientToTrunkEvents from './shared/interfaces/ClientToTrunkEvents';
 import TrunkToClientEvents from './shared/interfaces/TrunkToClientEvents';
 
@@ -14,23 +14,8 @@ const getDriver = (
     onHttpResponse: (res): void => {
       socket.emit('onHttpResponse', res);
     },
-    onLoading: (): void => {
-      socket.emit('onLoading');
-    },
-    onPlaying: (): void => {
-      socket.emit('onPlaying');
-    },
-    onPaused: (): void => {
-      socket.emit('onPaused');
-    },
-    onEnded: (): void => {
-      socket.emit('onEnded');
-    },
-    onSeeking: (): void => {
-      socket.emit('onSeeking');
-    },
-    onBuffering: (): void => {
-      socket.emit('onBuffering');
+    onPlayerStateUpdate: (playerState): void => {
+      socket.emit('onPlayerStateUpdate', playerState);
     },
     onManifestUpdate: (manifestUrl): void => {
       socket.emit('onManifestUpdate', manifestUrl);
@@ -46,6 +31,9 @@ const getDriver = (
     },
     onUsedJSHeapSizeUpdate: (usedJSHeapSizeMb): void => {
       socket.emit('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb);
+    },
+    onPlayerMetadataUpdate: (playerMetadata): void => {
+      socket.emit('onPlayerMetadataUpdate', playerMetadata);
     }
   };
 };

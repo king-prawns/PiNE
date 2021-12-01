@@ -1,6 +1,6 @@
 import {Namespace, Socket} from 'socket.io';
 
-import NAMESPACE from '../../shared/const/namespace';
+import NAMESPACE from '../../shared/const/Namespace';
 import BranchToTrunkEvents from '../../shared/interfaces/BranchToTrunkEvents';
 import ClientToTrunkEvents from '../../shared/interfaces/ClientToTrunkEvents';
 import InterServerEvents from '../../shared/interfaces/InterServerEvents';
@@ -36,34 +36,9 @@ const connection = (
     branchNs.emit('httpResponse', res);
   });
 
-  socket.on('onLoading', () => {
-    logger.log('onLoading');
-    branchNs.emit('loading');
-  });
-
-  socket.on('onPlaying', () => {
-    logger.log('onPlaying');
-    branchNs.emit('playing');
-  });
-
-  socket.on('onPaused', () => {
-    logger.log('onPaused');
-    branchNs.emit('paused');
-  });
-
-  socket.on('onEnded', () => {
-    logger.log('onEnded');
-    branchNs.emit('ended');
-  });
-
-  socket.on('onSeeking', () => {
-    logger.log('onSeeking');
-    branchNs.emit('seeking');
-  });
-
-  socket.on('onBuffering', () => {
-    logger.log('onBuffering');
-    branchNs.emit('buffering');
+  socket.on('onPlayerStateUpdate', playerState => {
+    logger.log('onPlayerStateUpdate');
+    branchNs.emit('playerStateUpdate', playerState);
   });
 
   socket.on('onManifestUpdate', manifestUrl => {
@@ -89,6 +64,11 @@ const connection = (
   socket.on('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb => {
     logger.log('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb);
     branchNs.emit('usedJSHeapSizeUpdate', usedJSHeapSizeMb);
+  });
+
+  socket.on('onPlayerMetadataUpdate', playerMetadata => {
+    logger.log('onPlayerMetadataUpdate', playerMetadata);
+    branchNs.emit('playerMetadataUpdate', playerMetadata);
   });
 
   socket.on('disconnect', () => {

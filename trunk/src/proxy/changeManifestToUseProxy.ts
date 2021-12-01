@@ -1,7 +1,7 @@
 import parser, {j2xParser as J2XParser} from 'fast-xml-parser';
 
-import PORT from '../shared/const/port';
-import {XmlRepresentation} from './types/xmlRepresentation';
+import PORT from '../shared/const/Port';
+import XmlRepresentation from './interfaces/XmlRepresentation';
 
 const toJsonOptions = {
   attributeNamePrefix: '@_',

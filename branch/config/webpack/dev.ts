@@ -3,7 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 
-import PORT from '../../src/shared/const/port';
+import PORT from '../../src/shared/const/Port';
 import devConfig from './webpack.dev.conf';
 
 const {log} = console;

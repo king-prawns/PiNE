@@ -5,8 +5,8 @@ import {Server} from 'socket.io';
 
 import chunkRoute from './proxy/chunkRoute';
 import manifestRoute from './proxy/manifestRoute';
-import NAMESPACE from './shared/const/namespace';
-import PORT from './shared/const/port';
+import NAMESPACE from './shared/const/Namespace';
+import PORT from './shared/const/Port';
 import branchConnection from './socket/branch/connection';
 import clientConnection from './socket/client/connection';
 

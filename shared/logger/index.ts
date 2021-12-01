@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import COLOR from './color';
+import COLOR from './Color';
 
 class Logger {
   private _debug = true;
