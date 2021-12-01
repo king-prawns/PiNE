@@ -19,7 +19,7 @@
 - [x] (code) add shared folder
 - [x] (code) add logger
 - [x] (code) print player stats in pine-branch
-- [x] (code) create `visualiser` for video player
+- [ ] (code) create `visualiser` for video player
 - [ ] (code) create client driver for visualiser
 - [ ] (code) throttle requests
 - [ ] (code) add throttle filter
