@@ -35,7 +35,7 @@ class App extends React.Component<IProps, IState> {
   componentDidMount(): void {
     const socket = getSocket();
 
-    // metadata
+    // player metadata
     socket.on('playerMetadataUpdate', playerMetadata => {
       this.setState({
         playerMetadata: [...this.state.playerMetadata, playerMetadata]
