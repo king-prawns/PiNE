@@ -1,6 +1,6 @@
 import {Socket} from 'socket.io-client';
 
-import Driver from './interfaces/driver';
+import Driver from './interfaces/Driver';
 import ClientToTrunkEvents from './shared/interfaces/ClientToTrunkEvents';
 import TrunkToClientEvents from './shared/interfaces/TrunkToClientEvents';
 
@@ -31,6 +31,9 @@ const getDriver = (
     },
     onUsedJSHeapSizeUpdate: (usedJSHeapSizeMb): void => {
       socket.emit('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb);
+    },
+    onPlayerMetadataUpdate: (playerMetadata): void => {
+      socket.emit('onPlayerMetadataUpdate', playerMetadata);
     }
   };
 };

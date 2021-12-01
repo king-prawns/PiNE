@@ -1,7 +1,7 @@
 import {io, Socket} from 'socket.io-client';
 
-import NAMESPACE from './shared/const/namespace';
-import PORT from './shared/const/port';
+import NAMESPACE from './shared/const/Namespace';
+import PORT from './shared/const/Port';
 import ClientToTrunkEvents from './shared/interfaces/ClientToTrunkEvents';
 import TrunkToClientEvents from './shared/interfaces/TrunkToClientEvents';
 

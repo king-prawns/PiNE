@@ -1,4 +1,4 @@
-import Driver from './driver';
+import Driver from './Driver';
 
 type Proxy = {
   proxyManifestUrl: string;

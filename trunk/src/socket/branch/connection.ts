@@ -1,6 +1,6 @@
 import {Socket} from 'socket.io';
 
-import NAMESPACE from '../../shared/const/namespace';
+import NAMESPACE from '../../shared/const/Namespace';
 import BranchToTrunkEvents from '../../shared/interfaces/BranchToTrunkEvents';
 import InterServerEvents from '../../shared/interfaces/InterServerEvents';
 import SocketData from '../../shared/interfaces/SocketData';

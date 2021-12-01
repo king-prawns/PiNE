@@ -2,11 +2,13 @@ import React from 'react';
 
 import BufferInfo from './shared/interfaces/BufferInfo';
 import HttpResponse from './shared/interfaces/HttpResponse';
+import PlayerMetadata from './shared/interfaces/PlayerMetadata';
 import PlayerState from './shared/interfaces/PlayerState';
 import getSocket from './socket/getSocket';
 
 type IProps = Record<string, never>;
 type IState = {
+  playerMetadata: Array<PlayerMetadata>;
   manifestUrl: Array<string>;
   playerState: Array<PlayerState>;
   variant: Array<number>;
@@ -19,6 +21,7 @@ class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
+      playerMetadata: [],
       manifestUrl: [],
       playerState: [],
       variant: [],
@@ -32,6 +35,14 @@ class App extends React.Component<IProps, IState> {
   componentDidMount(): void {
     const socket = getSocket();
 
+    // metadata
+    socket.on('playerMetadataUpdate', playerMetadata => {
+      this.setState({
+        playerMetadata: [...this.state.playerMetadata, playerMetadata]
+      });
+    });
+
+    // manifest
     socket.on('manifestUpdate', manifestUrl => {
       this.setState({
         manifestUrl: [...this.state.manifestUrl, manifestUrl]
@@ -99,6 +110,7 @@ class App extends React.Component<IProps, IState> {
     // reset
     socket.on('clientDisconnected', () => {
       this.setState({
+        playerMetadata: [],
         manifestUrl: [],
         playerState: [],
         variant: [],
@@ -113,6 +125,16 @@ class App extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <>
+        <section>
+          <h3>Player Metadata</h3>
+          {this.state.playerMetadata.map((playerMetadata, index) => {
+            return (
+              <p key={`playerMetadata-${index}`}>
+                {JSON.stringify(playerMetadata)}
+              </p>
+            );
+          })}
+        </section>
         <section>
           <h3>Manifest Url</h3>
           {this.state.manifestUrl.map((manifestUrl, index) => {
