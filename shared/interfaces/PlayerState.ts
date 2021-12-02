@@ -1,12 +1,12 @@
 enum PlayerState {
-  UNKNOWN,
-  LOADING,
-  BUFFERING,
-  SEEKING,
-  PLAYING,
-  PAUSED,
-  ENDED,
-  ERRORED
+  UNKNOWN = 'UNKNOWN',
+  LOADING = 'LOADING',
+  BUFFERING = 'BUFFERING',
+  SEEKING = 'SEEKING',
+  PLAYING = 'PLAYING',
+  PAUSED = 'PAUSED',
+  ENDED = 'ENDED',
+  ERRORED = 'ERRORED'
 }
 
 export default PlayerState;
