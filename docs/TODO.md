@@ -31,4 +31,6 @@
 - [ ] (code) add jitter filter
 - [ ] (code) add offline filter
 - [ ] (code) add simulation (schedule filter over time)
+- [ ] (code) manifest/chunk localhost
+- [ ] (code) assertions
 - [ ] (code) `MSE/EME` poc
