@@ -1,6 +1,6 @@
 {
   "name": "@king-prawns/pine-cone",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "PiNE cone",
   "main": "dist/pine-cone.js",
   "types": "dist/index.d.ts",
