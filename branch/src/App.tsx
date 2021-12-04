@@ -1,3 +1,4 @@
+import {Cone} from '@king-prawns/pine-cone';
 import React from 'react';
 
 import BufferInfo from './shared/interfaces/BufferInfo';
@@ -125,6 +126,9 @@ class App extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <>
+        <section>
+          <Cone />
+        </section>
         <section>
           <h3>Player Metadata</h3>
           {this.state.playerMetadata.map((playerMetadata, index) => {
