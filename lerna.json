@@ -1,6 +1,6 @@
 {
   "version": "independent",
-  "packages": ["trunk", "branch", "roots"],
+  "packages": ["branch", "cone", "roots", "trunk"],
   "command": {
     "init": {
       "exact": true
