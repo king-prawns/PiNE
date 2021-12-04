@@ -1,0 +1,14 @@
+{
+  "extends": "../../../config/typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "../../dist"
+  },
+  "include": ["../../src/**/*"],
+  "exclude": [
+    "../../src/**/*.test.ts",
+    "../../src/**/*.test.tsx",
+    "../../src/sandbox/*",
+    "../../src/shared/*"
+  ]
+}

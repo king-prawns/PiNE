@@ -1,4 +1,4 @@
-### Description :book:
+### Description 📖
 
 <!---
 Examples of what you might include in the description:
@@ -9,12 +9,12 @@ Examples of what you might include in the description:
 - Explanation of any "gotchas" or potentially controversial content
 --->
 
-### Checklist :white_check_mark:
+### Checklist ✅
 
--   [ ] There is full unit test coverage for any code changes introduced in this PR.
--   [ ] I/we have given the PR a concise yet descriptive title.
--   [ ] I/we have given the PR a description providing adequate context surrounding the bug/feature.
--   [ ] I/we have prefixed the PR title with the type of version that I/we think the PR represents (e.g. `[NO VERSION]` `[PATCH]` `[MINOR]` `[MAJOR]`).
+- [ ] There is full unit test coverage for any code changes introduced in this PR.
+- [ ] I/we have given the PR a concise yet descriptive title.
+- [ ] I/we have given the PR a description providing adequate context surrounding the bug/feature.
+- [ ] I/we have prefixed the PR title with the type of version that I/we think the PR represents (e.g. `[NO VERSION]` `[PATCH]` `[MINOR]` `[MAJOR]`).
 <!---
 Examples of which prefix you should use:
 [NO VERSION] repo tech debt; config/build changes; documentation updates; etc

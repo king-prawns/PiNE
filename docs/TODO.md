@@ -18,9 +18,9 @@
 - [x] (code) add socket.io
 - [x] (code) add shared folder
 - [x] (code) add logger
+- [x] (code) create client driver
 - [x] (code) print player stats in pine-branch
-- [ ] (code) create `visualiser` for video player
-- [ ] (code) create client driver for visualiser
+- [x] (code) create `pine-cone` package
 - [ ] (code) throttle requests
 - [ ] (code) add throttle filter
 - [ ] (code) control throttle filter from pine-branch
@@ -31,4 +31,6 @@
 - [ ] (code) add jitter filter
 - [ ] (code) add offline filter
 - [ ] (code) add simulation (schedule filter over time)
+- [ ] (code) manifest/chunk localhost
+- [ ] (code) assertions
 - [ ] (code) `MSE/EME` poc

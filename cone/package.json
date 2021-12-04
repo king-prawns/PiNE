@@ -1,8 +1,8 @@
 {
-  "name": "@king-prawns/pine-roots",
-  "version": "1.2.1",
-  "description": "PiNE roots",
-  "main": "dist/pine-roots.js",
+  "name": "@king-prawns/pine-cone",
+  "version": "1.0.0",
+  "description": "PiNE cone",
+  "main": "dist/pine-cone.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -12,6 +12,7 @@
   "license": "MIT",
   "scripts": {
     "cp:shared": "ts-node-dev ./config/webpack/copy.ts",
+    "dev": "ts-node-dev -P ./config/typescript/tsconfig.json ./config/webpack/dev.ts",
     "build": "ts-node-dev -P ./config/typescript/tsconfig.json ./config/webpack/prod.ts",
     "lint": "eslint --config ../config/eslint/.eslintrc ./src/**/*.ts",
     "prettier": "prettier --config ../config/prettier/.prettierrc --list-different src/**/*.ts --ignore-path ../config/prettier/.prettierignore",
@@ -19,30 +20,46 @@
     "test": "jest --config=./config/jest/jest.config.js --silent"
   },
   "devDependencies": {
-    "@babel/plugin-transform-object-assign": "7.16.0",
-    "@babel/preset-env": "7.16.4",
+    "@types/enzyme": "3.10.10",
+    "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.3",
+    "@types/mini-css-extract-plugin": "2.4.0",
+    "@types/optimize-css-assets-webpack-plugin": "5.0.4",
+    "@types/react": "17.0.34",
+    "@types/react-dom": "17.0.11",
     "@types/sinon": "10.0.6",
+    "@types/webpack-dev-server": "4.5.0",
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "@typescript-eslint/parser": "5.4.0",
-    "babel-loader": "8.2.3",
     "chalk": "4.1.2",
+    "css-loader": "6.5.1",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.6",
     "eslint": "8.3.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "fs-extra": "10.0.0",
+    "html-loader": "3.0.1",
+    "html-webpack-plugin": "5.5.0",
     "jest": "27.3.1",
+    "mini-css-extract-plugin": "2.4.5",
+    "optimize-css-assets-webpack-plugin": "6.0.1",
     "prettier": "2.4.1",
     "sinon": "12.0.1",
+    "style-loader": "3.3.1",
+    "terser-webpack-plugin": "5.2.5",
     "ts-jest": "27.0.7",
     "ts-loader": "9.2.6",
     "ts-node-dev": "1.1.8",
     "typescript": "4.5.2",
+    "url-loader": "4.1.1",
     "webpack": "5.64.2",
     "webpack-cli": "4.9.1",
-    "webpack-remove-debug": "0.1.0"
+    "webpack-dev-server": "4.5.0",
+    "webpack-merge": "5.8.0"
   },
   "dependencies": {
-    "socket.io-client": "4.4.0"
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   }
 }
