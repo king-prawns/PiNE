@@ -1,6 +1,10 @@
 import React from 'react';
 
 import PlayerState from './shared/interfaces/PlayerState';
+import CmdFromWorker from './worker/const/CmdFromWorker';
+import CmdToWorker from './worker/const/CmdToWorker';
+import MessageFromWorker from './worker/interfaces/MessageFromWorker';
+import MessageToWorker from './worker/interfaces/MessageToWorker';
 
 type IProps = {
   playerState: PlayerState | null;
@@ -15,7 +19,7 @@ type IState = {
 };
 
 class Cone extends React.Component<IProps, IState> {
-  private _isRunning = false;
+  private _isRunning: boolean = false;
   private _worker: Worker;
   constructor(props: IProps) {
     super(props);
@@ -28,7 +32,7 @@ class Cone extends React.Component<IProps, IState> {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    this._worker = new Worker(new URL('./worker/index.js', import.meta.url));
+    this._worker = new Worker(new URL('./worker/index.ts', import.meta.url));
   }
 
   componentWillReceiveProps(props: IProps): void {
@@ -37,12 +41,14 @@ class Cone extends React.Component<IProps, IState> {
   }
 
   componentDidMount(): void {
-    this._worker.onmessage = ({data}): void => {
-      const {time, cmd} = data;
+    this._worker.onmessage = (
+      message: MessageEvent<MessageFromWorker>
+    ): void => {
+      const {time, cmd} = message.data;
       if (time) {
         this.setState({time});
       }
-      if (cmd === 'stopped') {
+      if (cmd === CmdFromWorker.STOPPED) {
         this._isRunning = false;
       }
     };
@@ -60,8 +66,8 @@ class Cone extends React.Component<IProps, IState> {
       if (key === 'playerState') {
         if (!this._isRunning && props[key] === PlayerState.LOADING) {
           this._worker.postMessage({
-            cmd: 'start'
-          });
+            cmd: CmdToWorker.START
+          } as MessageToWorker);
           this._isRunning = true;
         }
         if (
@@ -70,8 +76,8 @@ class Cone extends React.Component<IProps, IState> {
             props.playerState === PlayerState.ERRORED)
         ) {
           this._worker.postMessage({
-            cmd: 'stop'
-          });
+            cmd: CmdToWorker.STOP
+          } as MessageToWorker);
         }
       }
 
@@ -87,11 +93,13 @@ class Cone extends React.Component<IProps, IState> {
     return (
       <>
         <h3>Player State</h3>
-        {this.state.playerState.map((playerState, index) => {
-          return <span key={`playerState-${index}`}>{playerState}, </span>;
-        })}
+        {this.state.playerState.map(
+          (playerState: PlayerState, index: number) => {
+            return <span key={`playerState-${index}`}>{playerState}, </span>;
+          }
+        )}
         <h3>Variant</h3>
-        {this.state.variant.map((variant, index) => {
+        {this.state.variant.map((variant: number, index: number) => {
           return <span key={`variant-${index}`}>{variant}, </span>;
         })}
         <h3>Time</h3>
