@@ -15,8 +15,7 @@ type IState = {
 };
 
 class Cone extends React.Component<IProps, IState> {
-  private isEnded = false;
-
+  private timer = 0;
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -32,19 +31,44 @@ class Cone extends React.Component<IProps, IState> {
     this.addPropToState(props, 'variant');
   }
 
-  shouldComponentUpdate(): boolean {
-    return true;
-  }
-
   private addPropToState(props: IProps, key: keyof IProps): void {
     if (
       props[key] !== null &&
       props[key] !== this.state[key][this.state[key].length - 1]
     ) {
-      this.setState({
-        [key]: [...this.state[key], props[key]]
-      } as Pick<IState, 'playerState' | 'variant'>);
+      if (key === 'playerState') {
+        if (props[key] === PlayerState.LOADING) {
+          this.startTimer();
+        }
+        if (
+          props.playerState === PlayerState.ENDED ||
+          props.playerState === PlayerState.ERRORED
+        ) {
+          this.stopTimer();
+        }
+      }
+
+      if (this.timer) {
+        this.setState({
+          [key]: [...this.state[key], props[key]]
+        } as Pick<IState, 'playerState' | 'variant'>);
+      }
     }
+  }
+
+  private startTimer(): void {
+    if (!this.timer) {
+      this.timer = window.setInterval(() => {
+        this.setState({time: this.state.time + 1});
+      }, 1000);
+    }
+  }
+
+  private stopTimer(): void {
+    window.setTimeout(() => {
+      window.clearInterval(this.timer);
+      this.timer = 0;
+    }, 5000);
   }
 
   render(): JSX.Element {
@@ -58,6 +82,8 @@ class Cone extends React.Component<IProps, IState> {
         {this.state.variant.map((variant, index) => {
           return <span key={`variant-${index}`}>{variant}, </span>;
         })}
+        <h3>Time</h3>
+        <p>{this.state.time}</p>
       </>
     );
   }
