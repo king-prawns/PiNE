@@ -1,10 +1,11 @@
 import React from 'react';
 
 import PlayerState from './shared/interfaces/PlayerState';
-import CmdFromWorker from './worker/const/CmdFromWorker';
-import CmdToWorker from './worker/const/CmdToWorker';
-import MessageFromWorker from './worker/interfaces/MessageFromWorker';
-import MessageToWorker from './worker/interfaces/MessageToWorker';
+import CmdFromWorker from './workers/const/CmdFromWorker';
+import CmdToWorker from './workers/const/CmdToWorker';
+import MessageFromWorker from './workers/interfaces/MessageFromWorker';
+import MessageToWorker from './workers/interfaces/MessageToWorker';
+import TimerWorker from './workers/timer.worker';
 
 type IProps = {
   playerState: PlayerState | null;
@@ -30,9 +31,7 @@ class Cone extends React.Component<IProps, IState> {
       time: 0
     };
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this._worker = new Worker(new URL('./worker/index.ts', import.meta.url));
+    this._worker = new TimerWorker();
   }
 
   componentWillReceiveProps(props: IProps): void {

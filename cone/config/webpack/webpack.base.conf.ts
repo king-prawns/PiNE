@@ -17,6 +17,13 @@ const baseConfig: webpack.Configuration = {
         options: {minimize: true}
       },
       {
+        test: /\.worker\.ts$/,
+        loader: 'worker-loader',
+        options: {
+          inline: 'fallback'
+        }
+      },
+      {
         test: /\.tsx?$/,
         exclude: [/node_modules/],
         loader: 'ts-loader',

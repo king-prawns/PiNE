@@ -3,8 +3,6 @@ import CmdToWorker from './const/CmdToWorker';
 import MessageFromWorker from './interfaces/MessageFromWorker';
 import MessageToWorker from './interfaces/MessageToWorker';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 let timer: number = 0;
 
 self.onmessage = (message: MessageEvent<MessageToWorker>): void => {
@@ -30,3 +28,6 @@ self.onmessage = (message: MessageEvent<MessageToWorker>): void => {
       break;
   }
 };
+
+// ts complains about missing default export
+export default null as any;

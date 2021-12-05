@@ -4,7 +4,7 @@ import React from 'react';
 import Cone from './Cone';
 
 describe('Cone', () => {
-  const props = {};
+  const props: any = {};
 
   describe('render', () => {
     it('should render without error', () => {
