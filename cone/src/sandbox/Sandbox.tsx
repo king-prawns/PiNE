@@ -8,10 +8,10 @@ import PlayerState from '../shared/interfaces/PlayerState';
 
 type IProps = Record<string, never>;
 type IState = {
-  playerMetadata: Array<PlayerMetadata>;
+  playerMetadata: PlayerMetadata | null;
   manifestUrl: Array<string>;
-  playerState: Array<PlayerState>;
-  variant: Array<number>;
+  playerState: PlayerState | null;
+  variant: number | null;
   estimatedBandwidth: Array<number>;
   bufferInfo: Array<BufferInfo>;
   usedJSHeapSize: Array<number>;
@@ -19,14 +19,17 @@ type IState = {
 };
 
 class Sandbox extends React.Component<IProps, IState> {
-  private interval = 0;
+  private variantInterval = 0;
+  private playerStateInterval = 0;
+  private playerStateTimeout = 0;
+
   constructor(props: IProps) {
     super(props);
     this.state = {
-      playerMetadata: [],
+      playerMetadata: null,
       manifestUrl: [],
-      playerState: [],
-      variant: [],
+      playerState: null,
+      variant: null,
       estimatedBandwidth: [],
       bufferInfo: [],
       usedJSHeapSize: [],
@@ -35,22 +38,49 @@ class Sandbox extends React.Component<IProps, IState> {
   }
 
   componentDidMount(): void {
-    this.interval = window.setInterval(() => {
+    // variant
+    this.variantInterval = window.setInterval(() => {
       this.setState({
-        variant: [...this.state.variant, Math.floor(Math.random() * 100)]
+        variant: Math.floor(Math.random() * 100)
       });
-    }, 4000);
+    }, 5000);
+
+    // player state
+    this.setState({
+      playerState: PlayerState.LOADING
+    });
+    this.playerStateInterval = window.setInterval(() => {
+      const states = [
+        PlayerState.PLAYING,
+        PlayerState.PAUSED,
+        PlayerState.BUFFERING
+      ];
+      const randomIndex = Math.floor(Math.random() * states.length);
+      this.setState({
+        playerState: states[randomIndex]
+      });
+    }, 7000);
+    this.playerStateTimeout = window.setTimeout(() => {
+      this.setState({
+        playerState: PlayerState.ENDED
+      });
+    }, 50000);
   }
 
   componentWillUnmount(): void {
-    window.clearInterval(this.interval);
+    window.clearInterval(this.variantInterval);
+    window.clearInterval(this.playerStateInterval);
+    window.clearTimeout(this.playerStateTimeout);
   }
 
   render(): JSX.Element {
     return (
       <>
         <h1>Sandbox</h1>
-        <Cone variant={this.state.variant} />
+        <Cone
+          playerState={this.state.playerState}
+          variant={this.state.variant}
+        />
       </>
     );
   }
