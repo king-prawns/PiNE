@@ -14,8 +14,8 @@ type IProps = Record<string, never>;
 type IState = {
   playerMetadata: Array<PlayerMetadata>;
   manifestUrl: Array<string>;
-  playerState: Array<PlayerState>;
-  variant: Array<number>;
+  playerState: PlayerState | null;
+  variant: number | null;
   estimatedBandwidth: Array<number>;
   bufferInfo: Array<BufferInfo>;
   usedJSHeapSize: Array<number>;
@@ -27,8 +27,8 @@ class App extends React.Component<IProps, IState> {
     this.state = {
       playerMetadata: [],
       manifestUrl: [],
-      playerState: [],
-      variant: [],
+      playerState: null,
+      variant: null,
       estimatedBandwidth: [],
       bufferInfo: [],
       usedJSHeapSize: [],
@@ -56,20 +56,12 @@ class App extends React.Component<IProps, IState> {
 
     // player state
     socket.on('playerStateUpdate', (playerState: PlayerState) => {
-      if (playerState !== this.state.playerState.slice(-1)[0]) {
-        this.setState({
-          playerState: [...this.state.playerState, playerState]
-        });
-      }
+      this.setState({playerState});
     });
 
     // variant
     socket.on('variantUpdate', (bandwidthMbs: number) => {
-      if (bandwidthMbs !== this.state.variant.slice(-1)[0]) {
-        this.setState({
-          variant: [...this.state.variant, bandwidthMbs]
-        });
-      }
+      this.setState({variant: bandwidthMbs});
     });
 
     // estimated Bandwidth
@@ -117,8 +109,8 @@ class App extends React.Component<IProps, IState> {
       this.setState({
         playerMetadata: [],
         manifestUrl: [],
-        playerState: [],
-        variant: [],
+        playerState: null,
+        variant: null,
         estimatedBandwidth: [],
         bufferInfo: [],
         usedJSHeapSize: [],
@@ -131,7 +123,13 @@ class App extends React.Component<IProps, IState> {
     return (
       <>
         <section>
-          <Cone />
+          <Cone
+            playerState={this.state.playerState}
+            variant={this.state.variant}
+          />
+        </section>
+        <section>
+          <h3>-----------------</h3>
         </section>
         <section>
           <h3>Player Metadata</h3>
@@ -149,20 +147,6 @@ class App extends React.Component<IProps, IState> {
           <h3>Manifest Url</h3>
           {this.state.manifestUrl.map((manifestUrl: string, index: number) => {
             return <span key={`manifestUrl-${index}`}>{manifestUrl}, </span>;
-          })}
-        </section>
-        <section>
-          <h3>Player State</h3>
-          {this.state.playerState.map(
-            (playerState: PlayerState, index: number) => {
-              return <span key={`playerState-${index}`}>{playerState}, </span>;
-            }
-          )}
-        </section>
-        <section>
-          <h3>Variant</h3>
-          {this.state.variant.map((variant: number, index: number) => {
-            return <span key={`variant-${index}`}>{variant}, </span>;
           })}
         </section>
         <section>
