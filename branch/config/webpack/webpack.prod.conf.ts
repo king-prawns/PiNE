@@ -3,11 +3,12 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
+import {Configuration} from 'webpack';
 import {merge} from 'webpack-merge';
 
 import base from './webpack.base.conf';
 
-const prodConfig = merge(base, {
+const prodConfig: Configuration = merge(base, {
   mode: 'production',
   devtool: 'source-map',
   output: {

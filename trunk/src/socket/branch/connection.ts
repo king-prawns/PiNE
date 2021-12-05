@@ -22,7 +22,7 @@ const connection = (
     logger.log('disconnected');
   });
 
-  socket.on('error', err => {
+  socket.on('error', (err: Error) => {
     logger.log('error', err);
   });
 };

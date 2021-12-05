@@ -50,12 +50,12 @@ class Sandbox extends React.Component<IProps, IState> {
       playerState: PlayerState.LOADING
     });
     this.playerStateInterval = window.setInterval(() => {
-      const states = [
+      const states: Array<PlayerState> = [
         PlayerState.PLAYING,
         PlayerState.PAUSED,
         PlayerState.BUFFERING
       ];
-      const randomIndex = Math.floor(Math.random() * states.length);
+      const randomIndex: number = Math.floor(Math.random() * states.length);
       this.setState({
         playerState: states[randomIndex]
       });

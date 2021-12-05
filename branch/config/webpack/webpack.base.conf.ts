@@ -1,11 +1,11 @@
 import path from 'path';
-import webpack from 'webpack';
+import {Configuration} from 'webpack';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 process.noDeprecation = true;
 
-const baseConfig: webpack.Configuration = {
+const baseConfig: Configuration = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },

@@ -3,17 +3,17 @@
 import chalk from 'chalk';
 import fs from 'fs-extra';
 import path from 'path';
-import webpack from 'webpack';
+import webpack, {Stats} from 'webpack';
 
 import prodConfig from './webpack.prod.conf';
 
 console.log(chalk.green('Building...'));
-fs.remove(path.resolve(__dirname, '../dist'), err => {
+fs.remove(path.resolve(__dirname, '../dist'), (err: Error) => {
   if (err) {
     console.log(chalk.red('error - fs.remove'));
     throw err;
   }
-  webpack(prodConfig, (werr, stats) => {
+  webpack(prodConfig, (werr: Error | undefined, stats: Stats | undefined) => {
     console.log('\n');
 
     if (werr || stats?.hasErrors()) {

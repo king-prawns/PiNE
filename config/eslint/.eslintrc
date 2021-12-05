@@ -18,6 +18,7 @@
       "error",
       {
         "arrowParameter": true,
+        "variableDeclarationIgnoreFunction": true,
         "variableDeclaration": true
       }
     ],

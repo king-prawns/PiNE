@@ -1,9 +1,10 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import {Configuration} from 'webpack';
 import {merge} from 'webpack-merge';
 
 import baseConfig from './webpack.base.conf';
 
-const devConfig = merge(baseConfig, {
+const devConfig: Configuration = merge(baseConfig, {
   mode: 'development',
   devtool: 'inline-source-map',
   output: {

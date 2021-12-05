@@ -11,7 +11,7 @@ jest.mock('./socket/getSocket', () => ({
 }));
 
 describe('App', () => {
-  const props = {};
+  const props: any = {};
 
   describe('render', () => {
     it('should render without error', () => {

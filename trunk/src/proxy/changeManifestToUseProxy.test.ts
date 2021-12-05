@@ -6,7 +6,7 @@ import {
 
 describe('changeManifestToUseProxy', () => {
   it('should manipulate the manifest to use the proxy', () => {
-    const manifest = changeManifestToUseProxy(
+    const manifest: string = changeManifestToUseProxy(
       originalDashManifest,
       'https://mymanifest.com/mpd/manifest.mpd',
       'http://myproxy'
