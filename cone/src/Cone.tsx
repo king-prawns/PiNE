@@ -15,7 +15,8 @@ type IState = {
 };
 
 class Cone extends React.Component<IProps, IState> {
-  private timer = 0;
+  private _isRunning = false;
+  private _worker: Worker;
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -24,11 +25,31 @@ class Cone extends React.Component<IProps, IState> {
       zoom: 1,
       time: 0
     };
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    this._worker = new Worker(new URL('./worker/index.js', import.meta.url));
   }
 
   componentWillReceiveProps(props: IProps): void {
     this.addPropToState(props, 'playerState');
     this.addPropToState(props, 'variant');
+  }
+
+  componentDidMount(): void {
+    this._worker.onmessage = ({data}): void => {
+      const {time, cmd} = data;
+      if (time) {
+        this.setState({time});
+      }
+      if (cmd === 'stopped') {
+        this._isRunning = false;
+      }
+    };
+  }
+
+  componentWillUnmount(): void {
+    this._worker.terminate();
   }
 
   private addPropToState(props: IProps, key: keyof IProps): void {
@@ -37,38 +58,29 @@ class Cone extends React.Component<IProps, IState> {
       props[key] !== this.state[key][this.state[key].length - 1]
     ) {
       if (key === 'playerState') {
-        if (props[key] === PlayerState.LOADING) {
-          this.startTimer();
+        if (!this._isRunning && props[key] === PlayerState.LOADING) {
+          this._worker.postMessage({
+            cmd: 'start'
+          });
+          this._isRunning = true;
         }
         if (
-          props.playerState === PlayerState.ENDED ||
-          props.playerState === PlayerState.ERRORED
+          this._isRunning &&
+          (props.playerState === PlayerState.ENDED ||
+            props.playerState === PlayerState.ERRORED)
         ) {
-          this.stopTimer();
+          this._worker.postMessage({
+            cmd: 'stop'
+          });
         }
       }
 
-      if (this.timer) {
+      if (this._isRunning) {
         this.setState({
           [key]: [...this.state[key], props[key]]
         } as Pick<IState, 'playerState' | 'variant'>);
       }
     }
-  }
-
-  private startTimer(): void {
-    if (!this.timer) {
-      this.timer = window.setInterval(() => {
-        this.setState({time: this.state.time + 1});
-      }, 1000);
-    }
-  }
-
-  private stopTimer(): void {
-    window.setTimeout(() => {
-      window.clearInterval(this.timer);
-      this.timer = 0;
-    }, 5000);
   }
 
   render(): JSX.Element {
