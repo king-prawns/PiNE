@@ -138,7 +138,7 @@ class Sandbox extends React.Component<IProps, IState> {
           }
         ])
       });
-    }, 1000);
+    }, 1500);
   }
 
   componentWillUnmount(): void {
