@@ -1,11 +1,12 @@
 import BufferInfo from './BufferInfo';
+import HttpRequest from './HttpRequest';
 import HttpResponse from './HttpResponse';
 import PlayerMetadata from './PlayerMetadata';
 import PlayerState from './PlayerState';
 
 interface TrunkToBranchEvents {
   clientDisconnected: () => void;
-  httpRequest: (url: string) => void;
+  httpRequest: (req: HttpRequest) => void;
   httpResponse: (res: HttpResponse) => void;
   playerStateUpdate: (playerState: PlayerState) => void;
   manifestUpdate: (manifestUrl: string) => void;

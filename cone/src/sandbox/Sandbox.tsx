@@ -2,6 +2,7 @@ import React from 'react';
 
 import Cone from '../Cone';
 import BufferInfo from '../shared/interfaces/BufferInfo';
+import HttpRequest from '../shared/interfaces/HttpRequest';
 import HttpResponse from '../shared/interfaces/HttpResponse';
 import PlayerMetadata from '../shared/interfaces/PlayerMetadata';
 import PlayerState from '../shared/interfaces/PlayerState';
@@ -9,55 +10,63 @@ import PlayerState from '../shared/interfaces/PlayerState';
 type IProps = Record<string, never>;
 type IState = {
   playerMetadata: PlayerMetadata | null;
-  manifestUrl: Array<string>;
+  manifestUrl: string | null;
   playerState: PlayerState | null;
   variant: number | null;
-  estimatedBandwidth: Array<number>;
-  bufferInfo: Array<BufferInfo>;
-  usedJSHeapSize: Array<number>;
-  http: Array<string | HttpResponse>;
+  estimatedBandwidth: number | null;
+  bufferInfo: BufferInfo | null;
+  usedJSHeapSize: number | null;
+  httpRequest: HttpRequest | null;
+  httpResponse: HttpResponse | null;
 };
 
 class Sandbox extends React.Component<IProps, IState> {
-  private variantInterval = 0;
+  private manifestInterval = 0;
   private playerStateInterval = 0;
   private playerStateTimeout = 0;
+  private variantInterval = 0;
+  private estimatedBandwidthInterval = 0;
+  private bufferInfoInterval = 0;
+  private usedJSHeapSizeInterval = 0;
+  private httpRequestInterval = 0;
+  private httpResponseInterval = 0;
 
   constructor(props: IProps) {
     super(props);
     this.state = {
       playerMetadata: null,
-      manifestUrl: [],
+      manifestUrl: null,
       playerState: null,
       variant: null,
-      estimatedBandwidth: [],
-      bufferInfo: [],
-      usedJSHeapSize: [],
-      http: []
+      estimatedBandwidth: null,
+      bufferInfo: null,
+      usedJSHeapSize: null,
+      httpRequest: null,
+      httpResponse: null
     };
   }
 
   componentDidMount(): void {
-    // variant
-    this.variantInterval = window.setInterval(() => {
+    this.manifestInterval = window.setInterval(() => {
       this.setState({
-        variant: Math.floor(Math.random() * 100)
+        manifestUrl: this.getRandomItem<string>([
+          'manifest1.mpd',
+          'manifest2.mpd',
+          'manifest3.mpd'
+        ])
       });
-    }, 5000);
+    }, 22000);
 
-    // player state
     this.setState({
       playerState: PlayerState.LOADING
     });
     this.playerStateInterval = window.setInterval(() => {
-      const states: Array<PlayerState> = [
-        PlayerState.PLAYING,
-        PlayerState.PAUSED,
-        PlayerState.BUFFERING
-      ];
-      const randomIndex: number = Math.floor(Math.random() * states.length);
       this.setState({
-        playerState: states[randomIndex]
+        playerState: this.getRandomItem<PlayerState>([
+          PlayerState.PLAYING,
+          PlayerState.PAUSED,
+          PlayerState.BUFFERING
+        ])
       });
     }, 7000);
     this.playerStateTimeout = window.setTimeout(() => {
@@ -65,12 +74,89 @@ class Sandbox extends React.Component<IProps, IState> {
         playerState: PlayerState.ENDED
       });
     }, 50000);
+
+    this.variantInterval = window.setInterval(() => {
+      this.setState({
+        variant: Math.floor(Math.random() * 100)
+      });
+    }, 5000);
+
+    this.estimatedBandwidthInterval = window.setInterval(() => {
+      this.setState({
+        estimatedBandwidth: Math.floor(Math.random() * 100)
+      });
+    }, 8000);
+
+    this.bufferInfoInterval = window.setInterval(() => {
+      this.setState({
+        bufferInfo: {
+          audio: Math.floor(Math.random() * 10),
+          video: Math.floor(Math.random() * 10)
+        }
+      });
+    }, 2500);
+
+    this.usedJSHeapSizeInterval = window.setInterval(() => {
+      this.setState({
+        usedJSHeapSize: Math.floor(Math.random() * 100000)
+      });
+    }, 1500);
+
+    this.httpRequestInterval = window.setInterval(() => {
+      this.setState({
+        httpRequest: this.getRandomItem<HttpRequest>([
+          'http://example.com/1',
+          'http://example.com/2',
+          'http://example.com/3',
+          'http://example.com/4'
+        ])
+      });
+    }, 1000);
+
+    this.httpResponseInterval = window.setInterval(() => {
+      this.setState({
+        httpResponse: this.getRandomItem<HttpResponse>([
+          {
+            url: 'http://example.com/1',
+            byteLength: 11111,
+            timeMs: 100
+          },
+          {
+            url: 'http://example.com/2',
+            byteLength: 22222,
+            timeMs: 200
+          },
+          {
+            url: 'http://example.com/3',
+            byteLength: 33333,
+            timeMs: 300
+          },
+          {
+            url: 'http://example.com/4',
+            byteLength: 44444,
+            timeMs: 400
+          }
+        ])
+      });
+    }, 1000);
   }
 
   componentWillUnmount(): void {
-    window.clearInterval(this.variantInterval);
+    window.clearInterval(this.manifestInterval);
     window.clearInterval(this.playerStateInterval);
+    window.clearInterval(this.variantInterval);
     window.clearTimeout(this.playerStateTimeout);
+    window.clearInterval(this.estimatedBandwidthInterval);
+    window.clearInterval(this.bufferInfoInterval);
+    window.clearInterval(this.usedJSHeapSizeInterval);
+    window.clearInterval(this.httpRequestInterval);
+    window.clearInterval(this.httpResponseInterval);
+  }
+
+  private getRandomItem<T>(items: Array<T>): T {
+    const randomIndex: number = Math.floor(Math.random() * items.length);
+
+    return items[randomIndex];
   }
 
   render(): JSX.Element {
@@ -78,8 +164,15 @@ class Sandbox extends React.Component<IProps, IState> {
       <>
         <h1>Sandbox</h1>
         <Cone
+          playerMetadata={this.state.playerMetadata}
+          manifestUrl={this.state.manifestUrl}
           playerState={this.state.playerState}
           variant={this.state.variant}
+          estimatedBandwidth={this.state.estimatedBandwidth}
+          bufferInfo={this.state.bufferInfo}
+          usedJSHeapSize={this.state.usedJSHeapSize}
+          httpRequest={this.state.httpRequest}
+          httpResponse={this.state.httpResponse}
         />
       </>
     );

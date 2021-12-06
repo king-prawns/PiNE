@@ -1,5 +1,9 @@
 import React from 'react';
 
+import BufferInfo from './shared/interfaces/BufferInfo';
+import HttpRequest from './shared/interfaces/HttpRequest';
+import HttpResponse from './shared/interfaces/HttpResponse';
+import PlayerMetadata from './shared/interfaces/PlayerMetadata';
 import PlayerState from './shared/interfaces/PlayerState';
 import CmdFromWorker from './workers/const/CmdFromWorker';
 import CmdToWorker from './workers/const/CmdToWorker';
@@ -8,16 +12,43 @@ import MessageToWorker from './workers/interfaces/MessageToWorker';
 import TimerWorker from './workers/timer.worker';
 
 type IProps = {
+  playerMetadata: PlayerMetadata | null;
   playerState: PlayerState | null;
+  manifestUrl: string | null;
   variant: number | null;
+  estimatedBandwidth: number | null;
+  bufferInfo: BufferInfo | null;
+  usedJSHeapSize: number | null;
+  httpRequest: HttpRequest | null;
+  httpResponse: HttpResponse | null;
 };
 
 type IState = {
+  playerMetadata: Array<PlayerMetadata>;
   playerState: Array<PlayerState>;
   variant: Array<number>;
+  manifestUrl: Array<string>;
+  estimatedBandwidth: Array<number>;
+  bufferInfo: Array<BufferInfo>;
+  usedJSHeapSize: Array<number>;
+  httpRequest: Array<HttpRequest>;
+  httpResponse: Array<HttpResponse>;
   zoom: number;
   time: number;
 };
+
+type ChartKeys = Pick<
+  IState,
+  | 'playerMetadata'
+  | 'manifestUrl'
+  | 'playerState'
+  | 'variant'
+  | 'estimatedBandwidth'
+  | 'bufferInfo'
+  | 'usedJSHeapSize'
+  | 'httpRequest'
+  | 'httpResponse'
+>;
 
 class Cone extends React.Component<IProps, IState> {
   private _isRunning: boolean = false;
@@ -25,8 +56,15 @@ class Cone extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
+      playerMetadata: [],
       playerState: [],
+      manifestUrl: [],
       variant: [],
+      estimatedBandwidth: [],
+      bufferInfo: [],
+      usedJSHeapSize: [],
+      httpRequest: [],
+      httpResponse: [],
       zoom: 1,
       time: 0
     };
@@ -35,8 +73,15 @@ class Cone extends React.Component<IProps, IState> {
   }
 
   componentWillReceiveProps(props: IProps): void {
+    this.addPropToState(props, 'playerMetadata');
     this.addPropToState(props, 'playerState');
+    this.addPropToState(props, 'manifestUrl');
     this.addPropToState(props, 'variant');
+    this.addPropToState(props, 'estimatedBandwidth');
+    this.addPropToState(props, 'bufferInfo');
+    this.addPropToState(props, 'usedJSHeapSize');
+    this.addPropToState(props, 'httpRequest');
+    this.addPropToState(props, 'httpResponse');
   }
 
   componentDidMount(): void {
@@ -83,7 +128,7 @@ class Cone extends React.Component<IProps, IState> {
       if (this._isRunning) {
         this.setState({
           [key]: [...this.state[key], props[key]]
-        } as Pick<IState, 'playerState' | 'variant'>);
+        } as ChartKeys);
       }
     }
   }
@@ -91,6 +136,22 @@ class Cone extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <>
+        <h3>Time</h3>
+        <p>{this.state.time}</p>
+        <h3>Player Metadata</h3>
+        {this.state.playerMetadata.map(
+          (playerMetadata: PlayerMetadata, index: number) => {
+            return (
+              <span key={`playerMetadata-${index}`}>
+                {JSON.stringify(playerMetadata)},{' '}
+              </span>
+            );
+          }
+        )}
+        <h3>Manifest Url</h3>
+        {this.state.manifestUrl.map((manifestUrl: string, index: number) => {
+          return <span key={`manifestUrl-${index}`}>{manifestUrl}, </span>;
+        })}
         <h3>Player State</h3>
         {this.state.playerState.map(
           (playerState: PlayerState, index: number) => {
@@ -101,8 +162,48 @@ class Cone extends React.Component<IProps, IState> {
         {this.state.variant.map((variant: number, index: number) => {
           return <span key={`variant-${index}`}>{variant}, </span>;
         })}
-        <h3>Time</h3>
-        <p>{this.state.time}</p>
+        <h3>Estimated Bandwidth</h3>
+        {this.state.estimatedBandwidth.map(
+          (estimatedBandwidth: number, index: number) => {
+            return (
+              <span key={`estimatedBandwidth-${index}`}>
+                {estimatedBandwidth},{' '}
+              </span>
+            );
+          }
+        )}
+        <h3>Buffer Info</h3>
+        {this.state.bufferInfo.map((bufferInfo: BufferInfo, index: number) => {
+          return (
+            <span key={`bufferInfo-${index}`}>
+              {JSON.stringify(bufferInfo)},{' '}
+            </span>
+          );
+        })}
+        <h3>Used JS Heap Size</h3>
+        {this.state.usedJSHeapSize.map(
+          (usedJSHeapSize: number, index: number) => {
+            return (
+              <span key={`usedJSHeapSize-${index}`}>{usedJSHeapSize}, </span>
+            );
+          }
+        )}
+        <h3>Http Request</h3>
+        {this.state.httpRequest.map(
+          (httpRequest: HttpRequest, index: number) => {
+            return <span key={`httpRequest-${index}`}>{httpRequest},</span>;
+          }
+        )}
+        <h3>Http Response</h3>
+        {this.state.httpResponse.map(
+          (httpResponse: HttpResponse, index: number) => {
+            return (
+              <span key={`httpResponse-${index}`}>
+                {JSON.stringify(httpResponse)},{' '}
+              </span>
+            );
+          }
+        )}
       </>
     );
   }

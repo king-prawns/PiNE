@@ -4,6 +4,7 @@ import NAMESPACE from '../../shared/const/Namespace';
 import BranchToTrunkEvents from '../../shared/interfaces/BranchToTrunkEvents';
 import BufferInfo from '../../shared/interfaces/BufferInfo';
 import ClientToTrunkEvents from '../../shared/interfaces/ClientToTrunkEvents';
+import HttpRequest from '../../shared/interfaces/HttpRequest';
 import HttpResponse from '../../shared/interfaces/HttpResponse';
 import InterServerEvents from '../../shared/interfaces/InterServerEvents';
 import PlayerMetadata from '../../shared/interfaces/PlayerMetadata';
@@ -30,9 +31,9 @@ const connection = (
   socket.data.id = NAMESPACE.CLIENT;
   logger.log('connected');
 
-  socket.on('onHttpRequest', (url: string) => {
-    logger.log('onHttpRequest', url);
-    branchNs.emit('httpRequest', url);
+  socket.on('onHttpRequest', (req: HttpRequest) => {
+    logger.log('onHttpRequest', req);
+    branchNs.emit('httpRequest', req);
   });
 
   socket.on('onHttpResponse', (res: HttpResponse) => {

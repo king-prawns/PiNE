@@ -4,6 +4,7 @@ import {Socket} from 'socket.io-client';
 
 import BranchToTrunkEvents from './shared/interfaces/BranchToTrunkEvents';
 import BufferInfo from './shared/interfaces/BufferInfo';
+import HttpRequest from './shared/interfaces/HttpRequest';
 import HttpResponse from './shared/interfaces/HttpResponse';
 import PlayerMetadata from './shared/interfaces/PlayerMetadata';
 import PlayerState from './shared/interfaces/PlayerState';
@@ -12,27 +13,29 @@ import getSocket from './socket/getSocket';
 
 type IProps = Record<string, never>;
 type IState = {
-  playerMetadata: Array<PlayerMetadata>;
-  manifestUrl: Array<string>;
+  playerMetadata: PlayerMetadata | null;
+  manifestUrl: string | null;
   playerState: PlayerState | null;
   variant: number | null;
-  estimatedBandwidth: Array<number>;
-  bufferInfo: Array<BufferInfo>;
-  usedJSHeapSize: Array<number>;
-  http: Array<string | HttpResponse>;
+  estimatedBandwidth: number | null;
+  bufferInfo: BufferInfo | null;
+  usedJSHeapSize: number | null;
+  httpRequest: HttpRequest | null;
+  httpResponse: HttpResponse | null;
 };
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      playerMetadata: [],
-      manifestUrl: [],
+      playerMetadata: null,
+      manifestUrl: null,
       playerState: null,
       variant: null,
-      estimatedBandwidth: [],
-      bufferInfo: [],
-      usedJSHeapSize: [],
-      http: []
+      estimatedBandwidth: null,
+      bufferInfo: null,
+      usedJSHeapSize: null,
+      httpRequest: null,
+      httpResponse: null
     };
   }
 
@@ -40,81 +43,53 @@ class App extends React.Component<IProps, IState> {
     const socket: Socket<TrunkToBranchEvents, BranchToTrunkEvents> =
       getSocket();
 
-    // player metadata
     socket.on('playerMetadataUpdate', (playerMetadata: PlayerMetadata) => {
-      this.setState({
-        playerMetadata: [...this.state.playerMetadata, playerMetadata]
-      });
+      this.setState({playerMetadata: {...playerMetadata}});
     });
 
-    // manifest
     socket.on('manifestUpdate', (manifestUrl: string) => {
-      this.setState({
-        manifestUrl: [...this.state.manifestUrl, manifestUrl]
-      });
+      this.setState({manifestUrl});
     });
 
-    // player state
     socket.on('playerStateUpdate', (playerState: PlayerState) => {
       this.setState({playerState});
     });
 
-    // variant
     socket.on('variantUpdate', (bandwidthMbs: number) => {
       this.setState({variant: bandwidthMbs});
     });
 
-    // estimated Bandwidth
     socket.on('estimatedBandwidthUpdate', (bandwidthMbs: number) => {
-      if (bandwidthMbs !== this.state.estimatedBandwidth.slice(-1)[0]) {
-        this.setState({
-          estimatedBandwidth: [...this.state.estimatedBandwidth, bandwidthMbs]
-        });
-      }
+      this.setState({estimatedBandwidth: bandwidthMbs});
     });
 
-    // buffer info
     socket.on('bufferInfoUpdate', (bufferInfo: BufferInfo) => {
-      if (
-        bufferInfo.audio !== this.state.bufferInfo.slice(-1)[0]?.audio ||
-        bufferInfo.video !== this.state.bufferInfo.slice(-1)[0]?.video
-      ) {
-        this.setState({
-          bufferInfo: [...this.state.bufferInfo, bufferInfo]
-        });
-      }
+      this.setState({bufferInfo: {...bufferInfo}});
     });
 
-    // used JS Heap Size
     socket.on('usedJSHeapSizeUpdate', (usedJSHeapSizeMb: number) => {
-      this.setState({
-        usedJSHeapSize: [...this.state.usedJSHeapSize, usedJSHeapSizeMb]
-      });
+      this.setState({usedJSHeapSize: usedJSHeapSizeMb});
     });
 
-    // http
-    socket.on('httpRequest', (url: string) => {
-      this.setState({
-        http: [...this.state.http, url]
-      });
+    socket.on('httpRequest', (req: HttpRequest) => {
+      this.setState({httpRequest: req});
     });
+
     socket.on('httpResponse', (res: HttpResponse) => {
-      this.setState({
-        http: [...this.state.http, res]
-      });
+      this.setState({httpResponse: {...res}});
     });
 
-    // reset
     socket.on('clientDisconnected', () => {
       this.setState({
-        playerMetadata: [],
-        manifestUrl: [],
+        playerMetadata: null,
+        manifestUrl: null,
         playerState: null,
         variant: null,
-        estimatedBandwidth: [],
-        bufferInfo: [],
-        usedJSHeapSize: [],
-        http: []
+        estimatedBandwidth: null,
+        bufferInfo: null,
+        usedJSHeapSize: null,
+        httpRequest: null,
+        httpResponse: null
       });
     });
   }
@@ -124,70 +99,16 @@ class App extends React.Component<IProps, IState> {
       <>
         <section>
           <Cone
+            playerMetadata={this.state.playerMetadata}
+            manifestUrl={this.state.manifestUrl}
             playerState={this.state.playerState}
             variant={this.state.variant}
+            estimatedBandwidth={this.state.estimatedBandwidth}
+            bufferInfo={this.state.bufferInfo}
+            usedJSHeapSize={this.state.usedJSHeapSize}
+            httpRequest={this.state.httpRequest}
+            httpResponse={this.state.httpResponse}
           />
-        </section>
-        <section>
-          <h3>-----------------</h3>
-        </section>
-        <section>
-          <h3>Player Metadata</h3>
-          {this.state.playerMetadata.map(
-            (playerMetadata: PlayerMetadata, index: number) => {
-              return (
-                <p key={`playerMetadata-${index}`}>
-                  {JSON.stringify(playerMetadata)}
-                </p>
-              );
-            }
-          )}
-        </section>
-        <section>
-          <h3>Manifest Url</h3>
-          {this.state.manifestUrl.map((manifestUrl: string, index: number) => {
-            return <span key={`manifestUrl-${index}`}>{manifestUrl}, </span>;
-          })}
-        </section>
-        <section>
-          <h3>Estimated Bandwidth</h3>
-          {this.state.estimatedBandwidth.map(
-            (estimatedBandwidth: number, index: number) => {
-              return (
-                <span key={`estimatedBandwidth-${index}`}>
-                  {estimatedBandwidth},{' '}
-                </span>
-              );
-            }
-          )}
-        </section>
-        <section>
-          <h3>Used JS heap size</h3>
-          {this.state.usedJSHeapSize.map(
-            (usedJSHeapSize: number, index: number) => {
-              return (
-                <span key={`usedJSHeapSize-${index}`}>{usedJSHeapSize}, </span>
-              );
-            }
-          )}
-        </section>
-        <section>
-          <h3>Buffer info</h3>
-          {this.state.bufferInfo.map(
-            (bufferInfo: BufferInfo, index: number) => {
-              return (
-                <span key={`bufferInfo-${index}`}>
-                  {JSON.stringify(bufferInfo)},{' '}
-                </span>
-              );
-            }
-          )}
-        </section>
-        <section>
-          <h3>Http Req/Res</h3>
-          {this.state.http.map((http: string | HttpResponse, index: number) => {
-            return <p key={`http-${index}`}>{JSON.stringify(http)}</p>;
-          })}
         </section>
       </>
     );

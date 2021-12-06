@@ -3,6 +3,7 @@ import {Socket} from 'socket.io-client';
 import Driver from './interfaces/Driver';
 import BufferInfo from './shared/interfaces/BufferInfo';
 import ClientToTrunkEvents from './shared/interfaces/ClientToTrunkEvents';
+import HttpRequest from './shared/interfaces/HttpRequest';
 import HttpResponse from './shared/interfaces/HttpResponse';
 import PlayerMetadata from './shared/interfaces/PlayerMetadata';
 import PlayerState from './shared/interfaces/PlayerState';
@@ -12,8 +13,8 @@ const getDriver = (
   socket: Socket<TrunkToClientEvents, ClientToTrunkEvents>
 ): Driver => {
   return {
-    onHttpRequest: (url: string): void => {
-      socket.emit('onHttpRequest', url);
+    onHttpRequest: (req: HttpRequest): void => {
+      socket.emit('onHttpRequest', req);
     },
     onHttpResponse: (res: HttpResponse): void => {
       socket.emit('onHttpResponse', res);
