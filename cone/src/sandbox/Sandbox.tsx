@@ -21,6 +21,7 @@ type IState = {
 };
 
 class Sandbox extends React.Component<IProps, IState> {
+  private playerMetadataInterval = 0;
   private manifestInterval = 0;
   private playerStateInterval = 0;
   private playerStateTimeout = 0;
@@ -47,6 +48,16 @@ class Sandbox extends React.Component<IProps, IState> {
   }
 
   componentDidMount(): void {
+    this.setState({
+      playerMetadata: {
+        name: 'Sanbox Player Name',
+        version: 'Sandbox Player Version'
+      }
+    });
+
+    this.setState({
+      manifestUrl: 'manifest0.mpd'
+    });
     this.manifestInterval = window.setInterval(() => {
       this.setState({
         manifestUrl: this.getRandomItem<string>([
@@ -142,6 +153,7 @@ class Sandbox extends React.Component<IProps, IState> {
   }
 
   componentWillUnmount(): void {
+    window.clearInterval(this.playerMetadataInterval);
     window.clearInterval(this.manifestInterval);
     window.clearInterval(this.playerStateInterval);
     window.clearInterval(this.variantInterval);
