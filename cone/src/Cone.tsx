@@ -44,18 +44,7 @@ type Stat<T> = {
   timeMs: number;
 };
 
-type ChartKeys = Pick<
-  IState,
-  | 'playerMetadata'
-  | 'manifestUrl'
-  | 'playerState'
-  | 'variant'
-  | 'estimatedBandwidth'
-  | 'bufferInfo'
-  | 'usedJSHeapSize'
-  | 'httpRequest'
-  | 'httpResponse'
->;
+type ChartKeys = Omit<IState, 'zoom' | 'time'>;
 
 class Cone extends React.Component<IProps, IState> {
   private _isRunning: boolean = false;
@@ -79,18 +68,6 @@ class Cone extends React.Component<IProps, IState> {
     };
   }
 
-  componentWillReceiveProps(props: IProps): void {
-    this.addPropToState(props, 'playerMetadata');
-    this.addPropToState(props, 'playerState');
-    this.addPropToState(props, 'manifestUrl');
-    this.addPropToState(props, 'variant');
-    this.addPropToState(props, 'estimatedBandwidth');
-    this.addPropToState(props, 'bufferInfo');
-    this.addPropToState(props, 'usedJSHeapSize');
-    this.addPropToState(props, 'httpRequest');
-    this.addPropToState(props, 'httpResponse');
-  }
-
   componentDidMount(): void {
     this._worker.onmessage = (
       message: MessageEvent<MessageFromWorker>
@@ -103,6 +80,18 @@ class Cone extends React.Component<IProps, IState> {
         this._isRunning = false;
       }
     };
+  }
+
+  componentWillReceiveProps(props: IProps): void {
+    this.addPropToState(props, 'playerMetadata');
+    this.addPropToState(props, 'playerState');
+    this.addPropToState(props, 'manifestUrl');
+    this.addPropToState(props, 'variant');
+    this.addPropToState(props, 'estimatedBandwidth');
+    this.addPropToState(props, 'bufferInfo');
+    this.addPropToState(props, 'usedJSHeapSize');
+    this.addPropToState(props, 'httpRequest');
+    this.addPropToState(props, 'httpResponse');
   }
 
   componentWillUnmount(): void {
@@ -134,13 +123,13 @@ class Cone extends React.Component<IProps, IState> {
       }
 
       if (this._isRunning) {
-        const now: number = Date.now();
+        const timeMs: number = Date.now() - this._startTime;
         this.setState({
           [key]: [
             ...this.state[key],
             {
               value: props[key],
-              timeMs: now - this._startTime
+              timeMs
             }
           ]
         } as ChartKeys);
