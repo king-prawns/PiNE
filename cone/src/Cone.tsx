@@ -1,5 +1,8 @@
+import './cone.css';
+
 import React from 'react';
 
+import Chart from './components/Chart';
 import BufferInfo from './shared/interfaces/BufferInfo';
 import HttpRequest from './shared/interfaces/HttpRequest';
 import HttpResponse from './shared/interfaces/HttpResponse';
@@ -10,7 +13,6 @@ import CmdToWorker from './workers/const/CmdToWorker';
 import MessageFromWorker from './workers/interfaces/MessageFromWorker';
 import MessageToWorker from './workers/interfaces/MessageToWorker';
 import TimerWorker from './workers/timer.worker';
-
 type IProps = {
   playerMetadata: PlayerMetadata | null;
   playerState: PlayerState | null;
@@ -140,88 +142,90 @@ class Cone extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <>
-        <h3>Time</h3>
-        <p>{this.state.time}</p>
-        <h3>Player Metadata</h3>
-        {this.state.playerMetadata.map(
-          (playerMetadata: Stat<PlayerMetadata>, index: number) => {
-            return (
-              <span key={`playerMetadata-${index}`}>
-                {JSON.stringify(playerMetadata.value)},{' '}
-              </span>
-            );
-          }
-        )}
-        <h3>Manifest Url</h3>
-        {this.state.manifestUrl.map(
-          (manifestUrl: Stat<string>, index: number) => {
-            return (
-              <span key={`manifestUrl-${index}`}>{manifestUrl.value}, </span>
-            );
-          }
-        )}
-        <h3>Player State</h3>
-        {this.state.playerState.map(
-          (playerState: Stat<PlayerState>, index: number) => {
-            return (
-              <span key={`playerState-${index}`}>
-                {playerState.value} | {playerState.timeMs},{' '}
-              </span>
-            );
-          }
-        )}
-        <h3>Variant</h3>
-        {this.state.variant.map((variant: Stat<number>, index: number) => {
-          return <span key={`variant-${index}`}>{variant.value}, </span>;
-        })}
-        <h3>Estimated Bandwidth</h3>
-        {this.state.estimatedBandwidth.map(
-          (estimatedBandwidth: Stat<number>, index: number) => {
-            return (
-              <span key={`estimatedBandwidth-${index}`}>
-                {estimatedBandwidth.value},{' '}
-              </span>
-            );
-          }
-        )}
-        <h3>Buffer Info</h3>
-        {this.state.bufferInfo.map(
-          (bufferInfo: Stat<BufferInfo>, index: number) => {
-            return (
-              <span key={`bufferInfo-${index}`}>
-                {JSON.stringify(bufferInfo.value)},{' '}
-              </span>
-            );
-          }
-        )}
-        <h3>Used JS Heap Size</h3>
-        {this.state.usedJSHeapSize.map(
-          (usedJSHeapSize: Stat<number>, index: number) => {
-            return (
-              <span key={`usedJSHeapSize-${index}`}>
-                {usedJSHeapSize.value},{' '}
-              </span>
-            );
-          }
-        )}
-        <h3>Http Request</h3>
-        {this.state.httpRequest.map(
-          (httpRequest: Stat<HttpRequest>, index: number) => {
-            return (
-              <span key={`httpRequest-${index}`}>{httpRequest.value},</span>
-            );
-          }
-        )}
-        <h3>Http Response</h3>
-        {this.state.httpResponse.map(
-          (httpResponse: Stat<HttpResponse>, index: number) => {
-            return (
-              <span key={`httpResponse-${index}`}>
-                {JSON.stringify(httpResponse.value)},{' '}
-              </span>
-            );
-          }
-        )}
+        <Chart zoom={this.state.zoom}>
+          <h3>Time</h3>
+          <p>{this.state.time}</p>
+          <h3>Player Metadata</h3>
+          {this.state.playerMetadata.map(
+            (playerMetadata: Stat<PlayerMetadata>, index: number) => {
+              return (
+                <span key={`playerMetadata-${index}`}>
+                  {JSON.stringify(playerMetadata.value)},{' '}
+                </span>
+              );
+            }
+          )}
+          <h3>Manifest Url</h3>
+          {this.state.manifestUrl.map(
+            (manifestUrl: Stat<string>, index: number) => {
+              return (
+                <span key={`manifestUrl-${index}`}>{manifestUrl.value}, </span>
+              );
+            }
+          )}
+          <h3>Player State</h3>
+          {this.state.playerState.map(
+            (playerState: Stat<PlayerState>, index: number) => {
+              return (
+                <span key={`playerState-${index}`}>
+                  {playerState.value} | {playerState.timeMs},{' '}
+                </span>
+              );
+            }
+          )}
+          <h3>Variant</h3>
+          {this.state.variant.map((variant: Stat<number>, index: number) => {
+            return <span key={`variant-${index}`}>{variant.value}, </span>;
+          })}
+          <h3>Estimated Bandwidth</h3>
+          {this.state.estimatedBandwidth.map(
+            (estimatedBandwidth: Stat<number>, index: number) => {
+              return (
+                <span key={`estimatedBandwidth-${index}`}>
+                  {estimatedBandwidth.value},{' '}
+                </span>
+              );
+            }
+          )}
+          <h3>Buffer Info</h3>
+          {this.state.bufferInfo.map(
+            (bufferInfo: Stat<BufferInfo>, index: number) => {
+              return (
+                <span key={`bufferInfo-${index}`}>
+                  {JSON.stringify(bufferInfo.value)},{' '}
+                </span>
+              );
+            }
+          )}
+          <h3>Used JS Heap Size</h3>
+          {this.state.usedJSHeapSize.map(
+            (usedJSHeapSize: Stat<number>, index: number) => {
+              return (
+                <span key={`usedJSHeapSize-${index}`}>
+                  {usedJSHeapSize.value},{' '}
+                </span>
+              );
+            }
+          )}
+          <h3>Http Request</h3>
+          {this.state.httpRequest.map(
+            (httpRequest: Stat<HttpRequest>, index: number) => {
+              return (
+                <span key={`httpRequest-${index}`}>{httpRequest.value},</span>
+              );
+            }
+          )}
+          <h3>Http Response</h3>
+          {this.state.httpResponse.map(
+            (httpResponse: Stat<HttpResponse>, index: number) => {
+              return (
+                <span key={`httpResponse-${index}`}>
+                  {JSON.stringify(httpResponse.value)},{' '}
+                </span>
+              );
+            }
+          )}
+        </Chart>
       </>
     );
   }
