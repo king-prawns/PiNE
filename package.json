@@ -27,7 +27,7 @@
     }
   },
   "lint-staged": {
-    "*.ts": [
+    "*.{ts,tsx}": [
       "prettier --write --config ./config/prettier/.prettierrc",
       "eslint --config ./config/eslint/.eslintrc --no-error-on-unmatched-pattern --fix"
     ]
