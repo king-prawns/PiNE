@@ -4,19 +4,23 @@ import React from 'react';
 
 import Chart from './components/Chart';
 import Controls from './components/Controls';
+import PlayerState from './components/PlayerState';
+import IStat from './interfaces/IStat';
+import IStats from './interfaces/IStats';
 import BufferInfo from './shared/interfaces/BufferInfo';
 import HttpRequest from './shared/interfaces/HttpRequest';
 import HttpResponse from './shared/interfaces/HttpResponse';
+import IPlayerState from './shared/interfaces/IPlayerState';
 import PlayerMetadata from './shared/interfaces/PlayerMetadata';
-import PlayerState from './shared/interfaces/PlayerState';
 import CmdFromWorker from './workers/const/CmdFromWorker';
 import CmdToWorker from './workers/const/CmdToWorker';
 import MessageFromWorker from './workers/interfaces/MessageFromWorker';
 import MessageToWorker from './workers/interfaces/MessageToWorker';
 import TimerWorker from './workers/timer.worker';
+
 type IProps = {
   playerMetadata: PlayerMetadata | null;
-  playerState: PlayerState | null;
+  playerState: IPlayerState | null;
   manifestUrl: string | null;
   variant: number | null;
   estimatedBandwidth: number | null;
@@ -27,24 +31,17 @@ type IProps = {
 };
 
 type IState = {
-  playerMetadata: Stats<PlayerMetadata>;
-  playerState: Stats<PlayerState>;
-  variant: Stats<number>;
-  manifestUrl: Stats<string>;
-  estimatedBandwidth: Stats<number>;
-  bufferInfo: Stats<BufferInfo>;
-  usedJSHeapSize: Stats<number>;
-  httpRequest: Stats<HttpRequest>;
-  httpResponse: Stats<HttpResponse>;
+  playerMetadata: IStats<PlayerMetadata>;
+  playerState: IStats<IPlayerState>;
+  variant: IStats<number>;
+  manifestUrl: IStats<string>;
+  estimatedBandwidth: IStats<number>;
+  bufferInfo: IStats<BufferInfo>;
+  usedJSHeapSize: IStats<number>;
+  httpRequest: IStats<HttpRequest>;
+  httpResponse: IStats<HttpResponse>;
   zoom: number;
   time: number;
-};
-
-type Stats<T> = Array<Stat<T>>;
-
-type Stat<T> = {
-  value: T;
-  timeMs: number;
 };
 
 type ChartKeys = Omit<IState, 'zoom' | 'time'>;
@@ -108,7 +105,7 @@ class Cone extends React.Component<IProps, IState> {
       props[key] !== this.state[key][this.state[key].length - 1]?.value
     ) {
       if (key === 'playerState') {
-        if (!this._isRunning && props[key] === PlayerState.LOADING) {
+        if (!this._isRunning && props[key] === IPlayerState.LOADING) {
           this._worker.postMessage({
             cmd: CmdToWorker.START
           } as MessageToWorker);
@@ -116,8 +113,8 @@ class Cone extends React.Component<IProps, IState> {
         }
         if (
           this._isRunning &&
-          (props.playerState === PlayerState.ENDED ||
-            props.playerState === PlayerState.ERRORED)
+          (props.playerState === IPlayerState.ENDED ||
+            props.playerState === IPlayerState.ERRORED)
         ) {
           this._worker.postMessage({
             cmd: CmdToWorker.STOP
@@ -149,13 +146,14 @@ class Cone extends React.Component<IProps, IState> {
       <>
         <Controls zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
         <Chart zoom={this.state.zoom} time={this.state.time}>
+          <PlayerState playerState={this.state.playerState} />
           CHART!
         </Chart>
         <h3>Time</h3>
         <p>{this.state.time}</p>
         <h3>Player Metadata</h3>
         {this.state.playerMetadata.map(
-          (playerMetadata: Stat<PlayerMetadata>, index: number) => {
+          (playerMetadata: IStat<PlayerMetadata>, index: number) => {
             return (
               <p key={`playerMetadata-${index}`}>
                 {JSON.stringify(playerMetadata.value)}
@@ -165,13 +163,13 @@ class Cone extends React.Component<IProps, IState> {
         )}
         <h3>Manifest Url</h3>
         {this.state.manifestUrl.map(
-          (manifestUrl: Stat<string>, index: number) => {
+          (manifestUrl: IStat<string>, index: number) => {
             return <p key={`manifestUrl-${index}`}>{manifestUrl.value}</p>;
           }
         )}
         <h3>Player State</h3>
         {this.state.playerState.map(
-          (playerState: Stat<PlayerState>, index: number) => {
+          (playerState: IStat<IPlayerState>, index: number) => {
             return (
               <p key={`playerState-${index}`}>
                 {playerState.value} | {playerState.timeMs}
@@ -180,12 +178,12 @@ class Cone extends React.Component<IProps, IState> {
           }
         )}
         <h3>Variant</h3>
-        {this.state.variant.map((variant: Stat<number>, index: number) => {
+        {this.state.variant.map((variant: IStat<number>, index: number) => {
           return <p key={`variant-${index}`}>{variant.value}</p>;
         })}
         <h3>Estimated Bandwidth</h3>
         {this.state.estimatedBandwidth.map(
-          (estimatedBandwidth: Stat<number>, index: number) => {
+          (estimatedBandwidth: IStat<number>, index: number) => {
             return (
               <p key={`estimatedBandwidth-${index}`}>
                 {estimatedBandwidth.value}
@@ -195,7 +193,7 @@ class Cone extends React.Component<IProps, IState> {
         )}
         <h3>Buffer Info</h3>
         {this.state.bufferInfo.map(
-          (bufferInfo: Stat<BufferInfo>, index: number) => {
+          (bufferInfo: IStat<BufferInfo>, index: number) => {
             return (
               <p key={`bufferInfo-${index}`}>
                 {JSON.stringify(bufferInfo.value)}
@@ -205,7 +203,7 @@ class Cone extends React.Component<IProps, IState> {
         )}
         <h3>Used JS Heap Size</h3>
         {this.state.usedJSHeapSize.map(
-          (usedJSHeapSize: Stat<number>, index: number) => {
+          (usedJSHeapSize: IStat<number>, index: number) => {
             return (
               <p key={`usedJSHeapSize-${index}`}>{usedJSHeapSize.value}</p>
             );
@@ -213,13 +211,13 @@ class Cone extends React.Component<IProps, IState> {
         )}
         <h3>Http Request</h3>
         {this.state.httpRequest.map(
-          (httpRequest: Stat<HttpRequest>, index: number) => {
+          (httpRequest: IStat<HttpRequest>, index: number) => {
             return <p key={`httpRequest-${index}`}>{httpRequest.value}</p>;
           }
         )}
         <h3>Http Response</h3>
         {this.state.httpResponse.map(
-          (httpResponse: Stat<HttpResponse>, index: number) => {
+          (httpResponse: IStat<HttpResponse>, index: number) => {
             return (
               <p key={`httpResponse-${index}`}>
                 {JSON.stringify(httpResponse.value)}
