@@ -2,26 +2,26 @@ import {Cone} from '@king-prawns/pine-cone';
 import React from 'react';
 import {Socket} from 'socket.io-client';
 
-import BranchToTrunkEvents from './shared/interfaces/BranchToTrunkEvents';
-import BufferInfo from './shared/interfaces/BufferInfo';
-import HttpRequest from './shared/interfaces/HttpRequest';
-import HttpResponse from './shared/interfaces/HttpResponse';
-import PlayerMetadata from './shared/interfaces/PlayerMetadata';
-import PlayerState from './shared/interfaces/PlayerState';
-import TrunkToBranchEvents from './shared/interfaces/TrunkToBranchEvents';
+import EPlayerState from './shared/enum/EPlayerState';
+import IBranchToTrunkEvents from './shared/interfaces/IBranchToTrunkEvents';
+import IBufferInfo from './shared/interfaces/IBufferInfo';
+import IHttpRequest from './shared/interfaces/IHttpRequest';
+import IHttpResponse from './shared/interfaces/IHttpResponse';
+import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
+import ITrunkToBranchEvents from './shared/interfaces/ITrunkToBranchEvents';
 import getSocket from './socket/getSocket';
 
 type IProps = Record<string, never>;
 type IState = {
-  playerMetadata: PlayerMetadata | null;
+  playerMetadata: IPlayerMetadata | null;
   manifestUrl: string | null;
-  playerState: PlayerState | null;
+  playerState: EPlayerState | null;
   variant: number | null;
   estimatedBandwidth: number | null;
-  bufferInfo: BufferInfo | null;
+  bufferInfo: IBufferInfo | null;
   usedJSHeapSize: number | null;
-  httpRequest: HttpRequest | null;
-  httpResponse: HttpResponse | null;
+  httpRequest: IHttpRequest | null;
+  httpResponse: IHttpResponse | null;
 };
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -40,10 +40,10 @@ class App extends React.Component<IProps, IState> {
   }
 
   componentDidMount(): void {
-    const socket: Socket<TrunkToBranchEvents, BranchToTrunkEvents> =
+    const socket: Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =
       getSocket();
 
-    socket.on('playerMetadataUpdate', (playerMetadata: PlayerMetadata) => {
+    socket.on('playerMetadataUpdate', (playerMetadata: IPlayerMetadata) => {
       this.setState({playerMetadata: {...playerMetadata}});
     });
 
@@ -51,7 +51,7 @@ class App extends React.Component<IProps, IState> {
       this.setState({manifestUrl});
     });
 
-    socket.on('playerStateUpdate', (playerState: PlayerState) => {
+    socket.on('playerStateUpdate', (playerState: EPlayerState) => {
       this.setState({playerState});
     });
 
@@ -63,7 +63,7 @@ class App extends React.Component<IProps, IState> {
       this.setState({estimatedBandwidth: bandwidthMbs});
     });
 
-    socket.on('bufferInfoUpdate', (bufferInfo: BufferInfo) => {
+    socket.on('bufferInfoUpdate', (bufferInfo: IBufferInfo) => {
       this.setState({bufferInfo: {...bufferInfo}});
     });
 
@@ -71,11 +71,11 @@ class App extends React.Component<IProps, IState> {
       this.setState({usedJSHeapSize: usedJSHeapSizeMb});
     });
 
-    socket.on('httpRequest', (req: HttpRequest) => {
+    socket.on('httpRequest', (req: IHttpRequest) => {
       this.setState({httpRequest: req});
     });
 
-    socket.on('httpResponse', (res: HttpResponse) => {
+    socket.on('httpResponse', (res: IHttpResponse) => {
       this.setState({httpResponse: {...res}});
     });
 

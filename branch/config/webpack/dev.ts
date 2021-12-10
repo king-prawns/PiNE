@@ -3,13 +3,13 @@ import path from 'path';
 import webpack, {Compiler} from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 
-import PORT from '../../src/shared/const/Port';
+import EPort from '../../src/shared/enum/EPort';
 import devConfig from './webpack.dev.conf';
 
 const {log} = console;
 
 const DEFAULT_HOST: string = 'localhost';
-const DEFAULT_PORT: number = PORT.BRANCH;
+const DEFAULT_PORT: number = EPort.BRANCH;
 const options: WebpackDevServer.Configuration = {
   host: DEFAULT_HOST,
   port: DEFAULT_PORT,

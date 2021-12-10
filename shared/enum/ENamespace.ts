@@ -1,6 +1,6 @@
-enum NAMESPACE {
+enum Namespace {
   CLIENT = 'client',
   BRANCH = 'branch'
 }
 
-export default NAMESPACE;
+export default Namespace;

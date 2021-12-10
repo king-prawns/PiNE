@@ -7,39 +7,39 @@ import Controls from './components/Controls';
 import PlayerState from './components/PlayerState';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
-import BufferInfo from './shared/interfaces/BufferInfo';
-import HttpRequest from './shared/interfaces/HttpRequest';
-import HttpResponse from './shared/interfaces/HttpResponse';
-import IPlayerState from './shared/interfaces/IPlayerState';
-import PlayerMetadata from './shared/interfaces/PlayerMetadata';
-import CmdFromWorker from './workers/const/CmdFromWorker';
-import CmdToWorker from './workers/const/CmdToWorker';
-import MessageFromWorker from './workers/interfaces/MessageFromWorker';
-import MessageToWorker from './workers/interfaces/MessageToWorker';
+import EPlayerState from './shared/enum/EPlayerState';
+import IBufferInfo from './shared/interfaces/IBufferInfo';
+import IHttpRequest from './shared/interfaces/IHttpRequest';
+import IHttpResponse from './shared/interfaces/IHttpResponse';
+import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
+import ECmdFromWorker from './workers/enum/ECmdFromWorker';
+import ECmdToWorker from './workers/enum/ECmdToWorker';
+import IMessageFromWorker from './workers/interfaces/IMessageFromWorker';
+import IMessageToWorker from './workers/interfaces/IMessageToWorker';
 import TimerWorker from './workers/timer.worker';
 
 type IProps = {
-  playerMetadata: PlayerMetadata | null;
-  playerState: IPlayerState | null;
+  playerMetadata: IPlayerMetadata | null;
+  playerState: EPlayerState | null;
   manifestUrl: string | null;
   variant: number | null;
   estimatedBandwidth: number | null;
-  bufferInfo: BufferInfo | null;
+  bufferInfo: IBufferInfo | null;
   usedJSHeapSize: number | null;
-  httpRequest: HttpRequest | null;
-  httpResponse: HttpResponse | null;
+  httpRequest: IHttpRequest | null;
+  httpResponse: IHttpResponse | null;
 };
 
 type IState = {
-  playerMetadata: IStats<PlayerMetadata>;
-  playerState: IStats<IPlayerState>;
+  playerMetadata: IStats<IPlayerMetadata>;
+  playerState: IStats<EPlayerState>;
   variant: IStats<number>;
   manifestUrl: IStats<string>;
   estimatedBandwidth: IStats<number>;
-  bufferInfo: IStats<BufferInfo>;
+  bufferInfo: IStats<IBufferInfo>;
   usedJSHeapSize: IStats<number>;
-  httpRequest: IStats<HttpRequest>;
-  httpResponse: IStats<HttpResponse>;
+  httpRequest: IStats<IHttpRequest>;
+  httpResponse: IStats<IHttpResponse>;
   zoom: number;
   time: number;
 };
@@ -70,13 +70,13 @@ class Cone extends React.Component<IProps, IState> {
 
   componentDidMount(): void {
     this._worker.onmessage = (
-      message: MessageEvent<MessageFromWorker>
+      message: MessageEvent<IMessageFromWorker>
     ): void => {
       const {time, cmd} = message.data;
       if (time) {
         this.setState({time});
       }
-      if (cmd === CmdFromWorker.STOPPED) {
+      if (cmd === ECmdFromWorker.STOPPED) {
         this._isRunning = false;
       }
     };
@@ -105,20 +105,20 @@ class Cone extends React.Component<IProps, IState> {
       props[key] !== this.state[key][this.state[key].length - 1]?.value
     ) {
       if (key === 'playerState') {
-        if (!this._isRunning && props[key] === IPlayerState.LOADING) {
+        if (!this._isRunning && props[key] === EPlayerState.LOADING) {
           this._worker.postMessage({
-            cmd: CmdToWorker.START
-          } as MessageToWorker);
+            cmd: ECmdToWorker.START
+          } as IMessageToWorker);
           this._isRunning = true;
         }
         if (
           this._isRunning &&
-          (props.playerState === IPlayerState.ENDED ||
-            props.playerState === IPlayerState.ERRORED)
+          (props.playerState === EPlayerState.ENDED ||
+            props.playerState === EPlayerState.ERRORED)
         ) {
           this._worker.postMessage({
-            cmd: CmdToWorker.STOP
-          } as MessageToWorker);
+            cmd: ECmdToWorker.STOP
+          } as IMessageToWorker);
         }
       }
 
@@ -153,7 +153,7 @@ class Cone extends React.Component<IProps, IState> {
         <p>{this.state.time}</p>
         <h3>Player Metadata</h3>
         {this.state.playerMetadata.map(
-          (playerMetadata: IStat<PlayerMetadata>, index: number) => {
+          (playerMetadata: IStat<IPlayerMetadata>, index: number) => {
             return (
               <p key={`playerMetadata-${index}`}>
                 {JSON.stringify(playerMetadata.value)}
@@ -169,7 +169,7 @@ class Cone extends React.Component<IProps, IState> {
         )}
         <h3>Player State</h3>
         {this.state.playerState.map(
-          (playerState: IStat<IPlayerState>, index: number) => {
+          (playerState: IStat<EPlayerState>, index: number) => {
             return (
               <p key={`playerState-${index}`}>
                 {playerState.value} | {playerState.timeMs}
@@ -193,7 +193,7 @@ class Cone extends React.Component<IProps, IState> {
         )}
         <h3>Buffer Info</h3>
         {this.state.bufferInfo.map(
-          (bufferInfo: IStat<BufferInfo>, index: number) => {
+          (bufferInfo: IStat<IBufferInfo>, index: number) => {
             return (
               <p key={`bufferInfo-${index}`}>
                 {JSON.stringify(bufferInfo.value)}
@@ -211,13 +211,13 @@ class Cone extends React.Component<IProps, IState> {
         )}
         <h3>Http Request</h3>
         {this.state.httpRequest.map(
-          (httpRequest: IStat<HttpRequest>, index: number) => {
+          (httpRequest: IStat<IHttpRequest>, index: number) => {
             return <p key={`httpRequest-${index}`}>{httpRequest.value}</p>;
           }
         )}
         <h3>Http Response</h3>
         {this.state.httpResponse.map(
-          (httpResponse: IStat<HttpResponse>, index: number) => {
+          (httpResponse: IStat<IHttpResponse>, index: number) => {
             return (
               <p key={`httpResponse-${index}`}>
                 {JSON.stringify(httpResponse.value)}

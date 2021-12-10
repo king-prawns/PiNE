@@ -1,11 +1,11 @@
 import React from 'react';
 
 import IStats from '../interfaces/IStats';
-import IPlayerState from '../shared/interfaces/IPlayerState';
+import EPlayerState from '../shared/enum/EPlayerState';
 import StackedBar from './Charts/StackedBar';
 
 type IProps = {
-  playerState: IStats<IPlayerState>;
+  playerState: IStats<EPlayerState>;
 };
 type IState = Record<string, never>;
 class PlayerState extends React.Component<IProps, IState> {

@@ -1,13 +1,13 @@
 import {io, Socket} from 'socket.io-client';
 
-import NAMESPACE from '../shared/const/Namespace';
-import PORT from '../shared/const/Port';
-import BranchToTrunkEvents from '../shared/interfaces/BranchToTrunkEvents';
-import TrunkToBranchEvents from '../shared/interfaces/TrunkToBranchEvents';
+import ENamespace from '../shared/enum/ENamespace';
+import EPort from '../shared/enum/EPort';
+import IBranchToTrunkEvents from '../shared/interfaces/IBranchToTrunkEvents';
+import ITrunkToBranchEvents from '../shared/interfaces/ITrunkToBranchEvents';
 
-const getSocket = (): Socket<TrunkToBranchEvents, BranchToTrunkEvents> =>
+const getSocket = (): Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =>
   io(
-    `${window.location.protocol}//${window.location.hostname}:${PORT.TRUNK}/${NAMESPACE.BRANCH}`
+    `${window.location.protocol}//${window.location.hostname}:${EPort.TRUNK}/${ENamespace.BRANCH}`
   );
 
 export default getSocket;

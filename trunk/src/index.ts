@@ -5,8 +5,8 @@ import {Namespace, Server, Socket} from 'socket.io';
 
 import chunkRoute from './proxy/chunkRoute';
 import manifestRoute from './proxy/manifestRoute';
-import NAMESPACE from './shared/const/Namespace';
-import PORT from './shared/const/Port';
+import ENamespace from './shared/enum/ENamespace';
+import EPort from './shared/enum/EPort';
 import branchConnection from './socket/branch/connection';
 import clientConnection from './socket/client/connection';
 
@@ -24,10 +24,10 @@ const io: Server = new Server(server, {
   }
 });
 
-const client: Namespace = io.of(`/${NAMESPACE.CLIENT}`);
-const branch: Namespace = io.of(`/${NAMESPACE.BRANCH}`);
+const client: Namespace = io.of(`/${ENamespace.CLIENT}`);
+const branch: Namespace = io.of(`/${ENamespace.BRANCH}`);
 
 client.on('connection', (socket: Socket) => clientConnection(socket, branch));
 branch.on('connection', branchConnection);
 
-server.listen(PORT.TRUNK);
+server.listen(EPort.TRUNK);

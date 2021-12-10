@@ -1,7 +1,7 @@
 import parser, {j2xParser as J2XParser} from 'fast-xml-parser';
 
-import PORT from '../shared/const/Port';
-import XmlRepresentation from './interfaces/XmlRepresentation';
+import EPort from '../shared/enum/EPort';
+import IXmlRepresentation from './interfaces/IXmlRepresentation';
 
 const toJsonOptions: Partial<parser.X2jOptions> = {
   attributeNamePrefix: '@_',
@@ -33,7 +33,7 @@ const changeManifestToUseProxy = (
   proxyUrl: string
 ): string => {
   const traversalObj: any = parser.getTraversalObj(manifest, toJsonOptions);
-  const manifestXmlRepresentation: XmlRepresentation = parser.convertToJson(
+  const manifestXmlRepresentation: IXmlRepresentation = parser.convertToJson(
     traversalObj,
     toJsonOptions
   );
@@ -41,14 +41,14 @@ const changeManifestToUseProxy = (
   const originUrl: string = getUrlWithoutLastSegment(manifestUrl);
 
   const recursiveUpdateManifest = (
-    manifest: XmlRepresentation,
+    manifest: IXmlRepresentation,
     baseUrl: string
-  ): XmlRepresentation => {
+  ): IXmlRepresentation => {
     Object.keys(manifest).forEach((key: string) => {
       if (Array.isArray(manifest[key])) {
-        (manifest[key] as Array<XmlRepresentation>).forEach(
-          (p: XmlRepresentation) => {
-            recursiveUpdateManifest(p, baseUrl);
+        (manifest[key] as Array<IXmlRepresentation>).forEach(
+          (m: IXmlRepresentation) => {
+            recursiveUpdateManifest(m, baseUrl);
           }
         );
       } else {
@@ -73,7 +73,7 @@ const changeManifestToUseProxy = (
     return manifest;
   };
 
-  const adjustedManifest: XmlRepresentation = recursiveUpdateManifest(
+  const adjustedManifest: IXmlRepresentation = recursiveUpdateManifest(
     manifestXmlRepresentation,
     ''
   );
@@ -100,7 +100,7 @@ const changeUrl = (
   const fileExtension: string = getFileExtension(originalValue);
   const absoluteUrl: string = `${originUrl}/${baseUrl}${originalValue}`;
 
-  return `${proxyUrl}:${PORT.TRUNK}/chunk/pine.${fileExtension}?url=${absoluteUrl}`;
+  return `${proxyUrl}:${EPort.TRUNK}/chunk/pine.${fileExtension}?url=${absoluteUrl}`;
 };
 
 export default changeManifestToUseProxy;

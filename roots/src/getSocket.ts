@@ -1,13 +1,13 @@
 import {io, Socket} from 'socket.io-client';
 
-import NAMESPACE from './shared/const/Namespace';
-import PORT from './shared/const/Port';
-import ClientToTrunkEvents from './shared/interfaces/ClientToTrunkEvents';
-import TrunkToClientEvents from './shared/interfaces/TrunkToClientEvents';
+import ENamespace from './shared/enum/ENamespace';
+import EPort from './shared/enum/EPort';
+import IClientToTrunkEvents from './shared/interfaces/IClientToTrunkEvents';
+import ITrunkToClientEvents from './shared/interfaces/ITrunkToClientEvents';
 
 const getSocket = (
   proxyUrl: string
-): Socket<TrunkToClientEvents, ClientToTrunkEvents> =>
-  io(`${proxyUrl}:${PORT.TRUNK}/${NAMESPACE.CLIENT}`);
+): Socket<ITrunkToClientEvents, IClientToTrunkEvents> =>
+  io(`${proxyUrl}:${EPort.TRUNK}/${ENamespace.CLIENT}`);
 
 export default getSocket;

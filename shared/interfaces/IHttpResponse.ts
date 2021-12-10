@@ -1,7 +1,7 @@
-interface HttpResponse {
+interface IHttpResponse {
   url: string;
   timeMs?: number;
   byteLength?: number;
 }
 
-export default HttpResponse;
+export default IHttpResponse;

@@ -1,23 +1,23 @@
 import React from 'react';
 
 import Cone from '../Cone';
-import BufferInfo from '../shared/interfaces/BufferInfo';
-import HttpRequest from '../shared/interfaces/HttpRequest';
-import HttpResponse from '../shared/interfaces/HttpResponse';
-import PlayerMetadata from '../shared/interfaces/PlayerMetadata';
-import PlayerState from '../shared/interfaces/PlayerState';
+import EPlayerState from '../shared/enum/EPlayerState';
+import IBufferInfo from '../shared/interfaces/IBufferInfo';
+import IHttpRequest from '../shared/interfaces/IHttpRequest';
+import IHttpResponse from '../shared/interfaces/IHttpResponse';
+import IPlayerMetadata from '../shared/interfaces/IPlayerMetadata';
 
 type IProps = Record<string, never>;
 type IState = {
-  playerMetadata: PlayerMetadata | null;
+  playerMetadata: IPlayerMetadata | null;
   manifestUrl: string | null;
-  playerState: PlayerState | null;
+  playerState: EPlayerState | null;
   variant: number | null;
   estimatedBandwidth: number | null;
-  bufferInfo: BufferInfo | null;
+  bufferInfo: IBufferInfo | null;
   usedJSHeapSize: number | null;
-  httpRequest: HttpRequest | null;
-  httpResponse: HttpResponse | null;
+  httpRequest: IHttpRequest | null;
+  httpResponse: IHttpResponse | null;
 };
 
 class Sandbox extends React.Component<IProps, IState> {
@@ -69,20 +69,20 @@ class Sandbox extends React.Component<IProps, IState> {
     }, 22000);
 
     this.setState({
-      playerState: PlayerState.LOADING
+      playerState: EPlayerState.LOADING
     });
     this.playerStateInterval = window.setInterval(() => {
       this.setState({
-        playerState: this.getRandomItem<PlayerState>([
-          PlayerState.PLAYING,
-          PlayerState.PAUSED,
-          PlayerState.BUFFERING
+        playerState: this.getRandomItem<EPlayerState>([
+          EPlayerState.PLAYING,
+          EPlayerState.PAUSED,
+          EPlayerState.BUFFERING
         ])
       });
     }, 7000);
     this.playerStateTimeout = window.setTimeout(() => {
       this.setState({
-        playerState: PlayerState.ENDED
+        playerState: EPlayerState.ENDED
       });
     }, 50000);
 
@@ -115,7 +115,7 @@ class Sandbox extends React.Component<IProps, IState> {
 
     this.httpRequestInterval = window.setInterval(() => {
       this.setState({
-        httpRequest: this.getRandomItem<HttpRequest>([
+        httpRequest: this.getRandomItem<IHttpRequest>([
           'http://example.com/1',
           'http://example.com/2',
           'http://example.com/3',
@@ -126,7 +126,7 @@ class Sandbox extends React.Component<IProps, IState> {
 
     this.httpResponseInterval = window.setInterval(() => {
       this.setState({
-        httpResponse: this.getRandomItem<HttpResponse>([
+        httpResponse: this.getRandomItem<IHttpResponse>([
           {
             url: 'http://example.com/1',
             byteLength: 11111,

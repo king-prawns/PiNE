@@ -1,7 +1,7 @@
-export type {default as Driver} from './interfaces/Driver';
-export type {default as Proxy} from './interfaces/Proxy';
+export type {default as IDriver} from './interfaces/IDriver';
+export type {default as IProxy} from './interfaces/IProxy';
 export {default as pinefy} from './pinefy';
-export {default as HttpRequest} from './shared/interfaces/HttpRequest';
-export {default as HttpResponse} from './shared/interfaces/HttpResponse';
-export type {default as PlayerMetadata} from './shared/interfaces/PlayerMetadata';
-export {default as PlayerState} from './shared/interfaces/PlayerState';
+export {default as EPlayerState} from './shared/enum/EPlayerState';
+export {default as IHttpRequest} from './shared/interfaces/IHttpRequest';
+export {default as IHttpResponse} from './shared/interfaces/IHttpResponse';
+export type {default as IPlayerMetadata} from './shared/interfaces/IPlayerMetadata';

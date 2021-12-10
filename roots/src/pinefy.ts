@@ -4,18 +4,18 @@ import getDriver from './getDriver';
 import getProxyManifestUrl from './getProxyManifestUrl';
 import getProxyUrl from './getProxyUrl';
 import getSocket from './getSocket';
-import Driver from './interfaces/Driver';
-import Proxy from './interfaces/Proxy';
-import ClientToTrunkEvents from './shared/interfaces/ClientToTrunkEvents';
-import TrunkToClientEvents from './shared/interfaces/TrunkToClientEvents';
+import IDriver from './interfaces/IDriver';
+import IProxy from './interfaces/IProxy';
+import IClientToTrunkEvents from './shared/interfaces/IClientToTrunkEvents';
+import ITrunkToClientEvents from './shared/interfaces/ITrunkToClientEvents';
 
-const pinefy = (manifestUrl: string): Proxy => {
+const pinefy = (manifestUrl: string): IProxy => {
   const proxyUrl: string = getProxyUrl();
 
-  const socket: Socket<TrunkToClientEvents, ClientToTrunkEvents> =
+  const socket: Socket<ITrunkToClientEvents, IClientToTrunkEvents> =
     getSocket(proxyUrl);
 
-  const driver: Driver = getDriver(socket);
+  const driver: IDriver = getDriver(socket);
 
   const proxyManifestUrl: string = getProxyManifestUrl(proxyUrl, manifestUrl);
 

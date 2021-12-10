@@ -1,6 +1,6 @@
 import Logger from '../../shared/logger';
-import COLOR from '../../shared/logger/Color';
+import EColor from '../../shared/logger/enum/EColor';
 
-const logger: Logger = new Logger('Socket Client', COLOR.FgMagenta);
+const logger: Logger = new Logger('Socket Client', EColor.FgMagenta);
 
 export default logger;
