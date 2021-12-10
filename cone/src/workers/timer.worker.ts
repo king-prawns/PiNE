@@ -12,9 +12,9 @@ self.onmessage = (message: MessageEvent<MessageToWorker>): void => {
     case CmdToWorker.START:
       if (!timer) {
         timer = self.setInterval(() => {
-          time += 1;
+          time += 0.1;
           self.postMessage({time} as MessageFromWorker);
-        }, 1000);
+        }, 100);
       }
       break;
     case CmdToWorker.STOP:

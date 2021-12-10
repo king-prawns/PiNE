@@ -20,7 +20,9 @@ class Controls extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <div className="cone-controls">
+        <label htmlFor="cone-controls-zoom">Zoom</label>
         <input
+          id="cone-controls-zoom"
           type="range"
           min="1"
           max="2"
