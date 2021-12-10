@@ -3,6 +3,7 @@ import './cone.css';
 import React from 'react';
 
 import Chart from './components/Chart';
+import Controls from './components/Controls';
 import BufferInfo from './shared/interfaces/BufferInfo';
 import HttpRequest from './shared/interfaces/HttpRequest';
 import HttpResponse from './shared/interfaces/HttpResponse';
@@ -139,9 +140,14 @@ class Cone extends React.Component<IProps, IState> {
     }
   }
 
+  private onZoomChange = (zoom: number): void => {
+    this.setState({zoom});
+  };
+
   render(): JSX.Element {
     return (
       <>
+        <Controls zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
         <Chart zoom={this.state.zoom}>
           <h3>Time</h3>
           <p>{this.state.time}</p>

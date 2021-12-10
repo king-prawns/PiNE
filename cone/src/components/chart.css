@@ -1,4 +1,4 @@
-.chart {
+.cone-chart {
   background-color: rgb(160, 153, 146);
   height: calc(var(--cone-zoom, 1) * 600px);
   overflow: auto;

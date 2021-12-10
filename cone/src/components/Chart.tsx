@@ -27,7 +27,7 @@ class Chart extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
-    return <div className="chart">{this.props.children}</div>;
+    return <div className="cone-chart">{this.props.children}</div>;
   }
 }
 
