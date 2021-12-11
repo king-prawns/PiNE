@@ -21,7 +21,11 @@ class StackedBar extends React.Component<IProps, IState> {
   private getBlockStyle(data: Data, index: number): React.CSSProperties {
     const nextData: Data | undefined = this.props.data[index + 1];
     if (nextData) {
-      return {width: timeMsToPixel(nextData.timeMs - data.timeMs)};
+      return {
+        width: `calc(${timeMsToPixel(
+          nextData.timeMs - data.timeMs
+        )} * var(--cone-zoom)`
+      };
     } else {
       return {flex: 1};
     }
@@ -49,4 +53,3 @@ class StackedBar extends React.Component<IProps, IState> {
 export default StackedBar;
 
 // TODO: Passare array colors
-// TODO: moltiplicare per lo zoom
