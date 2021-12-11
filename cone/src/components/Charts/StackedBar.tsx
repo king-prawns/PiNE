@@ -18,12 +18,12 @@ class StackedBar extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private getBlockWidth(data: Data, index: number): string {
+  private getBlockStyle(data: Data, index: number): React.CSSProperties {
     const nextData: Data | undefined = this.props.data[index + 1];
     if (nextData) {
-      return timeMsToPixel(nextData.timeMs - data.timeMs);
+      return {width: timeMsToPixel(nextData.timeMs - data.timeMs)};
     } else {
-      return '';
+      return {flex: 1};
     }
   }
 
@@ -35,9 +35,9 @@ class StackedBar extends React.Component<IProps, IState> {
             <div
               className="cone-stacked-bar-block"
               key={`data-${index}`}
-              style={{width: this.getBlockWidth(data, index)}}
+              style={this.getBlockStyle(data, index)}
             >
-              {data.value}
+              <span>{data.value}</span>
             </div>
           );
         })}
@@ -48,5 +48,5 @@ class StackedBar extends React.Component<IProps, IState> {
 
 export default StackedBar;
 
-// TODO: colors???
-// todo width con la precedente
+// TODO: Passare array colors
+// TODO: moltiplicare per lo zoom

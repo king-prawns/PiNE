@@ -11,3 +11,10 @@
   display: flex;
   align-items: center;
 }
+
+.cone-stacked-bar-block > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 3px;
+}

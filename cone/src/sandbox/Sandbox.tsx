@@ -20,7 +20,7 @@ type IState = {
   httpResponse: IHttpResponse | null;
 };
 
-const PLAYBACK_DURATION: number = 30000;
+const PLAYBACK_DURATION: number = 32000;
 
 class Sandbox extends React.Component<IProps, IState> {
   private playerMetadataInterval = 0;
@@ -86,6 +86,7 @@ class Sandbox extends React.Component<IProps, IState> {
       this.setState({
         playerState: EPlayerState.ENDED
       });
+      window.clearInterval(this.playerStateInterval);
     }, PLAYBACK_DURATION);
 
     this.variantInterval = window.setInterval(() => {
