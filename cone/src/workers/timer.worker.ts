@@ -7,13 +7,13 @@ let timer: number = 0;
 
 self.onmessage = (message: MessageEvent<IMessageToWorker>): void => {
   const {data} = message;
-  let time: number = 0;
+  let timeMs: number = 0;
   switch (data.cmd) {
     case ECmdToWorker.START:
       if (!timer) {
         timer = self.setInterval(() => {
-          time += 0.1;
-          self.postMessage({time} as IMessageFromWorker);
+          timeMs += 100;
+          self.postMessage({timeMs} as IMessageFromWorker);
         }, 100);
       }
       break;

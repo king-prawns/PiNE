@@ -1,2 +1,13 @@
 .cone-stacked-bar {
+  width: 100%;
+  height: 10%;
+  background-color: beige;
+  display: flex;
+}
+
+.cone-stacked-bar-block {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }

@@ -2,10 +2,12 @@ import './chart.css';
 
 import React from 'react';
 
+import timeMsToPixel from '../utils/timeMsToPixel';
+
 type IProps = {
   children: React.ReactNode;
   zoom: number;
-  time: number;
+  timeMs: number;
 };
 type IState = Record<string, never>;
 class Chart extends React.Component<IProps, IState> {
@@ -22,8 +24,8 @@ class Chart extends React.Component<IProps, IState> {
       this.setZoom(props.zoom);
     }
 
-    if (props.time !== this.props.time) {
-      this.setTime(props.time);
+    if (props.timeMs !== this.props.timeMs) {
+      this.setTime(props.timeMs);
     }
   }
 
@@ -31,10 +33,10 @@ class Chart extends React.Component<IProps, IState> {
     document.documentElement.style.setProperty('--cone-zoom', `${zoom}`);
   }
 
-  private setTime(time: number): void {
+  private setTime(timeMs: number): void {
     document.documentElement.style.setProperty(
       '--cone-width',
-      `${time * 10}px`
+      `${timeMsToPixel(timeMs)}`
     );
   }
 

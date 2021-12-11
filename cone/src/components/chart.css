@@ -9,4 +9,5 @@
   background-color: rgb(181, 99, 17);
   height: calc(var(--cone-zoom) * var(--cone-height));
   width: calc(var(--cone-zoom) * var(--cone-width));
+  overflow: hidden;
 }

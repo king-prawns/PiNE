@@ -1,7 +1,7 @@
 import ECmdFromWorker from '../enum/ECmdFromWorker';
 
 interface IMessageFromWorker {
-  time?: number;
+  timeMs?: number;
   cmd?: ECmdFromWorker;
 }
 export default IMessageFromWorker;

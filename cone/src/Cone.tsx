@@ -41,10 +41,10 @@ type IState = {
   httpRequest: IStats<IHttpRequest>;
   httpResponse: IStats<IHttpResponse>;
   zoom: number;
-  time: number;
+  timeMs: number;
 };
 
-type ChartKeys = Omit<IState, 'zoom' | 'time'>;
+type ChartKeys = Omit<IState, 'zoom' | 'timeMs'>;
 
 class Cone extends React.Component<IProps, IState> {
   private _isRunning: boolean = false;
@@ -64,7 +64,7 @@ class Cone extends React.Component<IProps, IState> {
       httpRequest: [],
       httpResponse: [],
       zoom: 1,
-      time: 0
+      timeMs: 0
     };
   }
 
@@ -72,9 +72,9 @@ class Cone extends React.Component<IProps, IState> {
     this._worker.onmessage = (
       message: MessageEvent<IMessageFromWorker>
     ): void => {
-      const {time, cmd} = message.data;
-      if (time) {
-        this.setState({time});
+      const {timeMs, cmd} = message.data;
+      if (timeMs) {
+        this.setState({timeMs});
       }
       if (cmd === ECmdFromWorker.STOPPED) {
         this._isRunning = false;
@@ -145,12 +145,12 @@ class Cone extends React.Component<IProps, IState> {
     return (
       <>
         <Controls zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
-        <Chart zoom={this.state.zoom} time={this.state.time}>
+        <Chart zoom={this.state.zoom} timeMs={this.state.timeMs}>
           <PlayerState playerState={this.state.playerState} />
           CHART!
         </Chart>
         <h3>Time</h3>
-        <p>{this.state.time}</p>
+        <p>{this.state.timeMs}</p>
         <h3>Player Metadata</h3>
         {this.state.playerMetadata.map(
           (playerMetadata: IStat<IPlayerMetadata>, index: number) => {
