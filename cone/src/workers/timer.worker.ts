@@ -4,6 +4,7 @@ import IMessageFromWorker from './interfaces/IMessageFromWorker';
 import IMessageToWorker from './interfaces/IMessageToWorker';
 
 let timer: number = 0;
+const COOLDOWN: number = 6000;
 
 self.onmessage = (message: MessageEvent<IMessageToWorker>): void => {
   const {data} = message;
@@ -23,7 +24,7 @@ self.onmessage = (message: MessageEvent<IMessageToWorker>): void => {
           self.postMessage({cmd: ECmdFromWorker.STOPPED} as IMessageFromWorker);
           self.clearInterval(timer);
           timer = 0;
-        }, 5000);
+        }, COOLDOWN);
       }
       break;
   }
