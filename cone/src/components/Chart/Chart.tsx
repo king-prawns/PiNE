@@ -62,5 +62,5 @@ class Chart extends React.Component<IProps, IState> {
 export default Chart;
 
 // TODO:
-// - row
+// - row?
 // - menu laterale

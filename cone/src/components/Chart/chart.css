@@ -1,5 +1,5 @@
 .cone-chart {
-  background-color: rgb(160, 153, 146);
+  background-color: #eeeeee;
   width: 100%;
   height: var(--cone-height);
   overflow: scroll;

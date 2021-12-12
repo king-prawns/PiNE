@@ -5,6 +5,7 @@ import React from 'react';
 import Chart from './components/Chart/Chart';
 import Row from './components/Chart/Row';
 import Controls from './components/Controls/Controls';
+import ManifestUrl from './components/Stats/ManifestUrl';
 import PlayerState from './components/Stats/PlayerState';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
@@ -155,7 +156,9 @@ class Cone extends React.Component<IProps, IState> {
           <Row>
             <PlayerState playerState={this.state.playerState} />
           </Row>
-          CHART!
+          <Row>
+            <ManifestUrl manifestUrl={this.state.manifestUrl} />
+          </Row>
         </Chart>
         <h3>Time</h3>
         <p>{this.state.timeMs}</p>
@@ -173,16 +176,6 @@ class Cone extends React.Component<IProps, IState> {
         {this.state.manifestUrl.map(
           (manifestUrl: IStat<string>, index: number) => {
             return <p key={`manifestUrl-${index}`}>{manifestUrl.value}</p>;
-          }
-        )}
-        <h3>Player State</h3>
-        {this.state.playerState.map(
-          (playerState: IStat<EPlayerState>, index: number) => {
-            return (
-              <p key={`playerState-${index}`}>
-                {playerState.value} | {playerState.timeMs}
-              </p>
-            );
           }
         )}
         <h3>Variant</h3>

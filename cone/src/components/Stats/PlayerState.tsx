@@ -23,7 +23,7 @@ class PlayerState extends React.Component<IProps, IState> {
       case EPlayerState.PLAYING:
         return '#66bb6a';
       case EPlayerState.PAUSED:
-        return '#9e9e9e';
+        return '#a1887f';
       case EPlayerState.ENDED:
         return '#f5f5f5';
       case EPlayerState.ERRORED:
