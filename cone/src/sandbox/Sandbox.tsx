@@ -57,9 +57,6 @@ class Sandbox extends React.Component<IProps, IState> {
       }
     });
 
-    this.setState({
-      manifestUrl: 'manifest0.mpd'
-    });
     this.manifestInterval = window.setInterval(() => {
       this.setState({
         manifestUrl: this.getRandomItem<string>([
@@ -68,7 +65,7 @@ class Sandbox extends React.Component<IProps, IState> {
           'manifest3.mpd'
         ])
       });
-    }, 22000);
+    }, 3000);
 
     this.setState({
       playerState: EPlayerState.LOADING

@@ -64,3 +64,4 @@ export default Chart;
 // TODO:
 // - row?
 // - menu laterale
+// - Stacked bar togliere label?

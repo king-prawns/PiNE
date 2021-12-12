@@ -39,7 +39,10 @@ class StackedBar extends React.Component<IProps, IState> {
     );
 
     let cssProperties: React.CSSProperties = {
-      backgroundColor
+      backgroundColor,
+      position: 'absolute',
+      bottom: 0,
+      left: `calc(${timeMsToPixel(data.timeMs)} * var(--cone-zoom))`
     };
 
     if (nextData) {
@@ -47,12 +50,12 @@ class StackedBar extends React.Component<IProps, IState> {
         ...cssProperties,
         width: `calc(${timeMsToPixel(
           nextData.timeMs - data.timeMs
-        )} * var(--cone-zoom)`
+        )} * var(--cone-zoom))`
       };
     } else {
       cssProperties = {
         ...cssProperties,
-        flex: 1
+        width: '100%'
       };
     }
 
