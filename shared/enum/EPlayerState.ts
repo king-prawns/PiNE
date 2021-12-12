@@ -1,5 +1,4 @@
 enum PlayerState {
-  UNKNOWN = 'UNKNOWN',
   LOADING = 'LOADING',
   BUFFERING = 'BUFFERING',
   PLAYING = 'PLAYING',

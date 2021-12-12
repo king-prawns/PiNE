@@ -8,6 +8,7 @@ type IProps = {
   children: React.ReactNode;
   zoom: number;
   timeMs: number;
+  opacity?: number;
 };
 type IState = Record<string, never>;
 class Chart extends React.Component<IProps, IState> {
@@ -40,10 +41,19 @@ class Chart extends React.Component<IProps, IState> {
     );
   }
 
+  private getOpacity(): number {
+    return this.props.opacity ?? 1;
+  }
+
   render(): JSX.Element {
     return (
       <div className="cone-chart">
-        <div className="cone-chart-content">{this.props.children}</div>
+        <div
+          className="cone-chart-content"
+          style={{opacity: this.getOpacity()}}
+        >
+          {this.props.children}
+        </div>
       </div>
     );
   }

@@ -6,6 +6,7 @@ import timeMsToPixel from '../../utils/timeMsToPixel';
 
 type Data = {
   value: string;
+  backgroundColor?: string;
   timeMs: number;
 };
 type IProps = {
@@ -18,17 +19,44 @@ class StackedBar extends React.Component<IProps, IState> {
     super(props);
   }
 
+  private getBackgroundColor(index: number, backgroundColor?: string): string {
+    if (backgroundColor) {
+      return backgroundColor;
+    } else {
+      if (index % 2 === 0) {
+        return '#9e9e9e';
+      } else {
+        return '#e0e0e0';
+      }
+    }
+  }
+
   private getBlockStyle(data: Data, index: number): React.CSSProperties {
     const nextData: Data | undefined = this.props.data[index + 1];
+    const backgroundColor: string = this.getBackgroundColor(
+      index,
+      data.backgroundColor
+    );
+
+    let cssProperties: React.CSSProperties = {
+      backgroundColor
+    };
+
     if (nextData) {
-      return {
+      cssProperties = {
+        ...cssProperties,
         width: `calc(${timeMsToPixel(
           nextData.timeMs - data.timeMs
         )} * var(--cone-zoom)`
       };
     } else {
-      return {flex: 1};
+      cssProperties = {
+        ...cssProperties,
+        flex: 1
+      };
     }
+
+    return cssProperties;
   }
 
   render(): JSX.Element {
@@ -51,5 +79,3 @@ class StackedBar extends React.Component<IProps, IState> {
 }
 
 export default StackedBar;
-
-// TODO: Passare array colors

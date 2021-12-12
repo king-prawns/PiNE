@@ -42,9 +42,10 @@ type IState = {
   httpResponse: IStats<IHttpResponse>;
   zoom: number;
   timeMs: number;
+  opacity?: number;
 };
 
-type ChartKeys = Omit<IState, 'zoom' | 'timeMs'>;
+type ChartKeys = Omit<IState, 'zoom' | 'timeMs' | 'opacity'>;
 
 class Cone extends React.Component<IProps, IState> {
   private _isRunning: boolean = false;
@@ -145,7 +146,11 @@ class Cone extends React.Component<IProps, IState> {
     return (
       <>
         <Controls zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
-        <Chart zoom={this.state.zoom} timeMs={this.state.timeMs}>
+        <Chart
+          zoom={this.state.zoom}
+          timeMs={this.state.timeMs}
+          opacity={this.state.opacity}
+        >
           <PlayerState playerState={this.state.playerState} />
           CHART!
         </Chart>

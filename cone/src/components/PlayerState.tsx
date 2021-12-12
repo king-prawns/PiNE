@@ -14,12 +14,31 @@ class PlayerState extends React.Component<IProps, IState> {
     super(props);
   }
 
+  private getPlayerStateColor(playerState: EPlayerState): string {
+    switch (playerState) {
+      case EPlayerState.LOADING:
+        return '#ffee58';
+      case EPlayerState.BUFFERING:
+        return '#f9a825';
+      case EPlayerState.PLAYING:
+        return '#66bb6a';
+      case EPlayerState.PAUSED:
+        return '#9e9e9e';
+      case EPlayerState.ENDED:
+        return '#a1887f';
+      case EPlayerState.ERRORED:
+        return '#d84315';
+    }
+  }
+
   private mapPlayerStateToValue(playerState: IStat<EPlayerState>): {
     value: string;
+    backgroundColor?: string;
     timeMs: number;
   } {
     return {
       value: playerState.value.toString(),
+      backgroundColor: this.getPlayerStateColor(playerState.value),
       timeMs: playerState.timeMs
     };
   }

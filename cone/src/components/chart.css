@@ -7,7 +7,7 @@
 
 .cone-chart-content {
   background-color: rgb(181, 99, 17);
-  height: calc(var(--cone-zoom) * var(--cone-height));
-  width: calc(var(--cone-zoom) * var(--cone-width));
+  height: calc(var(--cone-height) * var(--cone-zoom));
+  width: calc(var(--cone-width) * var(--cone-zoom));
   overflow: hidden;
 }

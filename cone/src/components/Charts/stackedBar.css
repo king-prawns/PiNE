@@ -17,4 +17,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   padding-left: 3px;
+  font-size: calc(0.9em);
+  font-family: 'Courier New', Courier, monospace;
 }
