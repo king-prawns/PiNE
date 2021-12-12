@@ -26,7 +26,7 @@ class StackedBar extends React.Component<IProps, IState> {
       if (index % 2 === 0) {
         return '#9e9e9e';
       } else {
-        return '#e0e0e0';
+        return '#bdbdbd';
       }
     }
   }

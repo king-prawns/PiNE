@@ -2,3 +2,11 @@
   position: relative;
   height: 5%;
 }
+
+.cone-row:nth-child(2n + 1) {
+  background-color: #eeeeee;
+}
+
+.cone-row:nth-child(2n) {
+  background-color: #f5f5f5;
+}
