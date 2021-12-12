@@ -27,7 +27,6 @@ class ManifestUrl extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <StackedBar
-        label="Manifest URL"
         data={this.props.manifestUrl.map((stat: IStat<string>) =>
           this.mapManifestUrlToValue(stat)
         )}

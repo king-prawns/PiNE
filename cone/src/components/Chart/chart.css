@@ -1,13 +1,6 @@
 .cone-chart {
-  background-color: #eeeeee;
-  width: 100%;
-  height: var(--cone-height);
-  overflow: scroll;
-}
-
-.cone-chart-content {
   background-color: rgb(181, 99, 17);
+  min-width: 100%;
   height: calc(var(--cone-height) * var(--cone-zoom));
-  width: calc(var(--cone-width) * var(--cone-zoom));
-  overflow: hidden;
+  overflow: scroll;
 }

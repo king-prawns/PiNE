@@ -1,7 +1,7 @@
 .cone-stacked-bar {
-  width: 100%;
+  width: calc(var(--cone-width) * var(--cone-zoom));
+  position: relative;
   height: 100%;
-  display: flex;
 }
 
 .cone-stacked-bar-block {
@@ -16,7 +16,5 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   padding-left: 3px;
-  font-size: calc(0.9em);
-  font-family: 'Courier New', Courier, monospace;
   cursor: default;
 }

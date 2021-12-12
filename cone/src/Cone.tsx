@@ -3,6 +3,7 @@ import './cone.css';
 import React from 'react';
 
 import Chart from './components/Chart/Chart';
+import Legend from './components/Chart/Legend';
 import Row from './components/Chart/Row';
 import Controls from './components/Controls/Controls';
 import ManifestUrl from './components/Stats/ManifestUrl';
@@ -146,7 +147,7 @@ class Cone extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <>
+      <div className="cone">
         <Controls zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
         <Chart
           zoom={this.state.zoom}
@@ -155,9 +156,11 @@ class Cone extends React.Component<IProps, IState> {
         >
           <Row>
             <PlayerState playerState={this.state.playerState} />
+            <Legend label="Player State" />
           </Row>
           <Row>
             <ManifestUrl manifestUrl={this.state.manifestUrl} />
+            <Legend label="Manifest URL" />
           </Row>
         </Chart>
         <h3>Time</h3>
@@ -226,7 +229,7 @@ class Cone extends React.Component<IProps, IState> {
             );
           }
         )}
-      </>
+      </div>
     );
   }
 }

@@ -47,21 +47,11 @@ class Chart extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <div className="cone-chart">
-        <div
-          className="cone-chart-content"
-          style={{opacity: this.getOpacity()}}
-        >
-          {this.props.children}
-        </div>
+      <div className="cone-chart" style={{opacity: this.getOpacity()}}>
+        {this.props.children}
       </div>
     );
   }
 }
 
 export default Chart;
-
-// TODO:
-// - row?
-// - menu laterale
-// - Stacked bar togliere label?

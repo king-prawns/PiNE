@@ -1,6 +1,6 @@
 .cone-row {
-  position: relative;
   height: 5%;
+  display: flex;
 }
 
 .cone-row:nth-child(2n + 1) {

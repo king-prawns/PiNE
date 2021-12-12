@@ -46,7 +46,6 @@ class PlayerState extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <StackedBar
-        label="Player State"
         data={this.props.playerState.map((stat: IStat<EPlayerState>) =>
           this.mapPlayerStateToValue(stat)
         )}

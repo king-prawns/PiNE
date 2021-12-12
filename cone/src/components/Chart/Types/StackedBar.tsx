@@ -10,7 +10,6 @@ type Data = {
   timeMs: number;
 };
 type IProps = {
-  label: string;
   data: Array<Data>;
 };
 type IState = Record<string, never>;
@@ -55,7 +54,9 @@ class StackedBar extends React.Component<IProps, IState> {
     } else {
       cssProperties = {
         ...cssProperties,
-        width: '100%'
+        width: `calc(100% - (calc(${timeMsToPixel(
+          data.timeMs
+        )} * var(--cone-zoom))))`
       };
     }
 
