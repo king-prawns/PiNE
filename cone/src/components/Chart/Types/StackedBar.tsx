@@ -24,7 +24,7 @@ class StackedBar extends React.Component<IProps, IState> {
       return backgroundColor;
     } else {
       if (index % 2 === 0) {
-        return '#9e9e9e';
+        return '#eeeeee';
       } else {
         return '#bdbdbd';
       }
@@ -71,6 +71,7 @@ class StackedBar extends React.Component<IProps, IState> {
               className="cone-stacked-bar-block"
               key={`data-${index}`}
               style={this.getBlockStyle(data, index)}
+              title={data.value}
             >
               <span>{data.value}</span>
             </div>
