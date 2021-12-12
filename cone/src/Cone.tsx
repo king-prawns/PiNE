@@ -2,9 +2,10 @@ import './cone.css';
 
 import React from 'react';
 
-import Chart from './components/Chart';
-import Controls from './components/Controls';
-import PlayerState from './components/PlayerState';
+import Chart from './components/Chart/Chart';
+import Row from './components/Chart/Row';
+import Controls from './components/Controls/Controls';
+import PlayerState from './components/Stats/PlayerState';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
 import EPlayerState from './shared/enum/EPlayerState';
@@ -151,7 +152,9 @@ class Cone extends React.Component<IProps, IState> {
           timeMs={this.state.timeMs}
           opacity={this.state.opacity}
         >
-          <PlayerState playerState={this.state.playerState} />
+          <Row>
+            <PlayerState playerState={this.state.playerState} />
+          </Row>
           CHART!
         </Chart>
         <h3>Time</h3>

@@ -2,7 +2,7 @@ import './chart.css';
 
 import React from 'react';
 
-import timeMsToPixel from '../utils/timeMsToPixel';
+import timeMsToPixel from '../../utils/timeMsToPixel';
 
 type IProps = {
   children: React.ReactNode;
@@ -60,3 +60,7 @@ class Chart extends React.Component<IProps, IState> {
 }
 
 export default Chart;
+
+// TODO:
+// - row
+// - menu laterale

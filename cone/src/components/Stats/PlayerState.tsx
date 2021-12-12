@@ -1,9 +1,9 @@
 import React from 'react';
 
-import IStat from '../interfaces/IStat';
-import IStats from '../interfaces/IStats';
-import EPlayerState from '../shared/enum/EPlayerState';
-import StackedBar from './Charts/StackedBar';
+import IStat from '../../interfaces/IStat';
+import IStats from '../../interfaces/IStats';
+import EPlayerState from '../../shared/enum/EPlayerState';
+import StackedBar from '../Chart/Types/StackedBar';
 
 type IProps = {
   playerState: IStats<EPlayerState>;
@@ -25,7 +25,7 @@ class PlayerState extends React.Component<IProps, IState> {
       case EPlayerState.PAUSED:
         return '#9e9e9e';
       case EPlayerState.ENDED:
-        return '#a1887f';
+        return '#f5f5f5';
       case EPlayerState.ERRORED:
         return '#d84315';
     }
@@ -45,14 +45,12 @@ class PlayerState extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <>
-        <StackedBar
-          label="Player State"
-          data={this.props.playerState.map((stat: IStat<EPlayerState>) =>
-            this.mapPlayerStateToValue(stat)
-          )}
-        />
-      </>
+      <StackedBar
+        label="Player State"
+        data={this.props.playerState.map((stat: IStat<EPlayerState>) =>
+          this.mapPlayerStateToValue(stat)
+        )}
+      />
     );
   }
 }

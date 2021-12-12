@@ -2,7 +2,7 @@ import './stackedBar.css';
 
 import React from 'react';
 
-import timeMsToPixel from '../../utils/timeMsToPixel';
+import timeMsToPixel from '../../../utils/timeMsToPixel';
 
 type Data = {
   value: string;
