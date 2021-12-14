@@ -24,6 +24,8 @@ type IState = {
   httpResponse: IHttpResponse | null;
 };
 class App extends React.Component<IProps, IState> {
+  private cone: React.Ref<Cone> = React.createRef<Cone>();
+
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -37,9 +39,7 @@ class App extends React.Component<IProps, IState> {
       httpRequest: null,
       httpResponse: null
     };
-  }
 
-  componentDidMount(): void {
     const socket: Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =
       getSocket();
 
@@ -80,17 +80,9 @@ class App extends React.Component<IProps, IState> {
     });
 
     socket.on('clientDisconnected', () => {
-      this.setState({
-        playerMetadata: null,
-        manifestUrl: null,
-        playerState: null,
-        variant: null,
-        estimatedBandwidth: null,
-        bufferInfo: null,
-        usedJSHeapSize: null,
-        httpRequest: null,
-        httpResponse: null
-      });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      this.cone.current.reset();
     });
   }
 
@@ -99,6 +91,7 @@ class App extends React.Component<IProps, IState> {
       <>
         <section>
           <Cone
+            ref={this.cone}
             playerMetadata={this.state.playerMetadata}
             manifestUrl={this.state.manifestUrl}
             playerState={this.state.playerState}

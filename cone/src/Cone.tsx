@@ -53,23 +53,23 @@ type ChartKeys = Omit<IState, 'zoom' | 'timeMs' | 'opacity'>;
 class Cone extends React.Component<IProps, IState> {
   private _isRunning: boolean = false;
   private _worker: Worker = new TimerWorker();
-  private _startTime: number = Date.now();
+  private _initialState: IState = {
+    playerMetadata: [],
+    playerState: [],
+    manifestUrl: [],
+    variant: [],
+    estimatedBandwidth: [],
+    bufferInfo: [],
+    usedJSHeapSize: [],
+    httpRequest: [],
+    httpResponse: [],
+    zoom: 1,
+    timeMs: 0
+  };
 
   constructor(props: IProps) {
     super(props);
-    this.state = {
-      playerMetadata: [],
-      playerState: [],
-      manifestUrl: [],
-      variant: [],
-      estimatedBandwidth: [],
-      bufferInfo: [],
-      usedJSHeapSize: [],
-      httpRequest: [],
-      httpResponse: [],
-      zoom: 1,
-      timeMs: 0
-    };
+    this.state = {...this._initialState};
   }
 
   componentDidMount(): void {
@@ -100,7 +100,6 @@ class Cone extends React.Component<IProps, IState> {
 
   componentWillUnmount(): void {
     this._worker.terminate();
-    this._startTime = 0;
   }
 
   private addPropToState(props: IProps, key: keyof IProps): void {
@@ -127,13 +126,12 @@ class Cone extends React.Component<IProps, IState> {
       }
 
       if (this._isRunning) {
-        const timeMs: number = Date.now() - this._startTime;
         this.setState({
           [key]: [
             ...this.state[key],
             {
               value: props[key],
-              timeMs
+              timeMs: this.state.timeMs
             }
           ]
         } as ChartKeys);
@@ -144,6 +142,13 @@ class Cone extends React.Component<IProps, IState> {
   private onZoomChange = (zoom: number): void => {
     this.setState({zoom});
   };
+
+  public reset(): void {
+    this.setState({...this._initialState});
+    this._worker.postMessage({
+      cmd: ECmdToWorker.RESET
+    } as IMessageToWorker);
+  }
 
   render(): JSX.Element {
     return (
