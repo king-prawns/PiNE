@@ -16,25 +16,6 @@ const devConfig: Configuration = merge(baseConfig, {
     'webpack-dev-server/client/index.js?live-reload=true',
     './src/sandbox/index.tsx'
   ],
-  module: {
-    rules: [
-      {
-        test: /(\.css)$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              importLoaders: 2
-            }
-          }
-        ]
-      }
-    ]
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/sandbox/index.html'

@@ -37,6 +37,21 @@ const baseConfig: webpack.Configuration = {
         options: {
           limit: 10000
         }
+      },
+      {
+        test: /(\.css)$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 2
+            }
+          }
+        ]
       }
     ]
   }
