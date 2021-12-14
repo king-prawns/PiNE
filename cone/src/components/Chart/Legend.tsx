@@ -21,3 +21,9 @@ class Row extends React.Component<IProps, IState> {
 }
 
 export default Row;
+
+// TODO:
+// put legend on the right side
+// check on the right side of the chart
+// scroll chart
+// chrome GPU issue render!

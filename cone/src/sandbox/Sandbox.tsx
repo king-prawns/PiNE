@@ -20,7 +20,7 @@ type IState = {
   httpResponse: IHttpResponse | null;
 };
 
-const PLAYBACK_DURATION: number = 32000;
+const PLAYBACK_DURATION: number = 132000;
 
 class Sandbox extends React.Component<IProps, IState> {
   private playerMetadataInterval = 0;

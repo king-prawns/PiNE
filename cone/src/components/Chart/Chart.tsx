@@ -20,13 +20,13 @@ class Chart extends React.Component<IProps, IState> {
     this.setZoom(this.props.zoom);
   }
 
-  componentWillReceiveProps(props: IProps): void {
-    if (props.zoom !== this.props.zoom) {
-      this.setZoom(props.zoom);
+  componentDidUpdate(prevProps: IProps): void {
+    if (this.props.zoom !== prevProps.zoom) {
+      this.setZoom(this.props.zoom);
     }
 
-    if (props.timeMs !== this.props.timeMs) {
-      this.setTime(props.timeMs);
+    if (this.props.timeMs !== prevProps.timeMs) {
+      this.setTime(this.props.timeMs);
     }
   }
 

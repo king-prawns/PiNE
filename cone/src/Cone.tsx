@@ -86,29 +86,26 @@ class Cone extends React.Component<IProps, IState> {
     };
   }
 
-  componentWillReceiveProps(props: IProps): void {
-    this.addPropToState(props, 'playerMetadata');
-    this.addPropToState(props, 'playerState');
-    this.addPropToState(props, 'manifestUrl');
-    this.addPropToState(props, 'variant');
-    this.addPropToState(props, 'estimatedBandwidth');
-    this.addPropToState(props, 'bufferInfo');
-    this.addPropToState(props, 'usedJSHeapSize');
-    this.addPropToState(props, 'httpRequest');
-    this.addPropToState(props, 'httpResponse');
+  componentDidUpdate(prevProps: IProps): void {
+    this.addPropToState(prevProps, 'playerMetadata');
+    this.addPropToState(prevProps, 'playerState');
+    this.addPropToState(prevProps, 'manifestUrl');
+    this.addPropToState(prevProps, 'variant');
+    this.addPropToState(prevProps, 'estimatedBandwidth');
+    this.addPropToState(prevProps, 'bufferInfo');
+    this.addPropToState(prevProps, 'usedJSHeapSize');
+    this.addPropToState(prevProps, 'httpRequest');
+    this.addPropToState(prevProps, 'httpResponse');
   }
 
   componentWillUnmount(): void {
     this._worker.terminate();
   }
 
-  private addPropToState(props: IProps, key: keyof IProps): void {
-    if (
-      props[key] !== null &&
-      props[key] !== this.state[key][this.state[key].length - 1]?.value
-    ) {
+  private addPropToState(prevProps: IProps, key: keyof IProps): void {
+    if (this.props[key] !== null && this.props[key] !== prevProps[key]) {
       if (key === 'playerState') {
-        if (!this._isRunning && props[key] === EPlayerState.LOADING) {
+        if (!this._isRunning && this.props[key] === EPlayerState.LOADING) {
           this._worker.postMessage({
             cmd: ECmdToWorker.START
           } as IMessageToWorker);
@@ -116,8 +113,8 @@ class Cone extends React.Component<IProps, IState> {
         }
         if (
           this._isRunning &&
-          (props.playerState === EPlayerState.ENDED ||
-            props.playerState === EPlayerState.ERRORED)
+          (this.props.playerState === EPlayerState.ENDED ||
+            this.props.playerState === EPlayerState.ERRORED)
         ) {
           this._worker.postMessage({
             cmd: ECmdToWorker.STOP
@@ -130,7 +127,7 @@ class Cone extends React.Component<IProps, IState> {
           [key]: [
             ...this.state[key],
             {
-              value: props[key],
+              value: this.props[key],
               timeMs: this.state.timeMs
             }
           ]
