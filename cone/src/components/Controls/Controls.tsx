@@ -27,7 +27,7 @@ class Controls extends React.Component<IProps, IState> {
           min="1"
           max="2"
           step="0.2"
-          defaultValue={this.props.zoom}
+          value={this.props.zoom}
           onChange={this.onChange}
         />
       </div>
