@@ -1,6 +1,7 @@
 enum ECmdToWorker {
   START = 'start',
-  STOP = 'stop'
+  STOP = 'stop',
+  RESET = 'reset'
 }
 
 export default ECmdToWorker;

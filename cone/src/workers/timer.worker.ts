@@ -6,6 +6,12 @@ import IMessageToWorker from './interfaces/IMessageToWorker';
 let timer: number = 0;
 const COOLDOWN: number = 6000;
 
+const reset = (): void => {
+  self.postMessage({cmd: ECmdFromWorker.STOPPED} as IMessageFromWorker);
+  clearTimeout(timer);
+  timer = 0;
+};
+
 self.onmessage = (message: MessageEvent<IMessageToWorker>): void => {
   const {data} = message;
   let timeMs: number = 0;
@@ -21,10 +27,13 @@ self.onmessage = (message: MessageEvent<IMessageToWorker>): void => {
     case ECmdToWorker.STOP:
       if (timer) {
         self.setTimeout(() => {
-          self.postMessage({cmd: ECmdFromWorker.STOPPED} as IMessageFromWorker);
-          self.clearInterval(timer);
-          timer = 0;
+          reset();
         }, COOLDOWN);
+      }
+      break;
+    case ECmdToWorker.RESET:
+      if (timer) {
+        reset();
       }
       break;
   }
