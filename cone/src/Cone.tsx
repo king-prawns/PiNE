@@ -48,14 +48,12 @@ type IState = {
   httpRequest: IStats<IHttpRequest>;
   httpResponse: IStats<IHttpResponse>;
   zoom: number;
-  timeMs: number;
 };
-
-type ChartKeys = Omit<IState, 'zoom' | 'timeMs'>;
 
 class Cone extends React.Component<IProps, IState> {
   private _isRunning: boolean = false;
   private _worker: Worker = new TimerWorker();
+  private _timeMs: number = 0;
   private _initialState: IState = {
     playerMetadata: [],
     playerState: [],
@@ -66,8 +64,7 @@ class Cone extends React.Component<IProps, IState> {
     usedJSHeapSize: [],
     httpRequest: [],
     httpResponse: [],
-    zoom: 1,
-    timeMs: 0
+    zoom: 1
   };
 
   constructor(props: IProps) {
@@ -81,11 +78,7 @@ class Cone extends React.Component<IProps, IState> {
     ): void => {
       const {timeMs, cmd} = message.data;
       if (timeMs) {
-        this.setState({timeMs});
-        document.documentElement.style.setProperty(
-          '--cone-width',
-          `${timeMsToPixel(timeMs)}`
-        );
+        this.setTimeMs(timeMs);
       }
       if (cmd === ECmdFromWorker.STOPPED) {
         this._isRunning = false;
@@ -135,13 +128,21 @@ class Cone extends React.Component<IProps, IState> {
             ...this.state[key],
             {
               value: this.props[key],
-              timeMs: this.state.timeMs
+              timeMs: this._timeMs
             }
           ]
-        } as ChartKeys);
+        } as Omit<IState, 'zoom'>);
       }
     }
   }
+
+  private setTimeMs = (timeMs: number): void => {
+    this._timeMs = timeMs;
+    document.documentElement.style.setProperty(
+      '--cone-width',
+      `${timeMsToPixel(timeMs)}`
+    );
+  };
 
   private onZoomChange = (zoom: number): void => {
     this.setState({zoom});
@@ -150,6 +151,7 @@ class Cone extends React.Component<IProps, IState> {
 
   public reset(): void {
     this.setState({...this._initialState});
+    this.setTimeMs(0);
     this._worker.postMessage({
       cmd: ECmdToWorker.RESET
     } as IMessageToWorker);
@@ -177,8 +179,6 @@ class Cone extends React.Component<IProps, IState> {
             </Row>
           </Legend>
         </Content>
-        <h3>Time</h3>
-        <p>{this.state.timeMs}</p>
         <h3>Player Metadata</h3>
         {this.state.playerMetadata.map(
           (playerMetadata: IStat<IPlayerMetadata>, index: number) => {
