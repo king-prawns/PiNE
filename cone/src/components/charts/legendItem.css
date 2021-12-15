@@ -5,3 +5,8 @@
   align-items: center;
   padding-left: 10px;
 }
+
+.cone-legend-item > span {
+  color: white;
+  font-weight: bold;
+}

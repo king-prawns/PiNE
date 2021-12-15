@@ -23,9 +23,9 @@ class StackedBar extends React.Component<IProps, IState> {
       return backgroundColor;
     } else {
       if (index % 2 === 0) {
-        return '#eeeeee';
+        return '#90a4ae';
       } else {
-        return '#bdbdbd';
+        return '#607d8b';
       }
     }
   }
