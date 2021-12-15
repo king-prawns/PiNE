@@ -2,9 +2,11 @@ import './cone.css';
 
 import React from 'react';
 
-import Chart from './components/Chart/Chart';
-import Legend from './components/Chart/Legend';
-import Row from './components/Chart/Row';
+import LegendItem from './components/Chart/LegendItem';
+import Chart from './components/containers/Chart';
+import Content from './components/containers/Content';
+import Legend from './components/containers/Legend';
+import Row from './components/containers/Row';
 import Controls from './components/Controls/Controls';
 import ManifestUrl from './components/Stats/ManifestUrl';
 import PlayerState from './components/Stats/PlayerState';
@@ -15,6 +17,7 @@ import IBufferInfo from './shared/interfaces/IBufferInfo';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
+import timeMsToPixel from './utils/timeMsToPixel';
 import ECmdFromWorker from './workers/enum/ECmdFromWorker';
 import ECmdToWorker from './workers/enum/ECmdToWorker';
 import IMessageFromWorker from './workers/interfaces/IMessageFromWorker';
@@ -45,10 +48,9 @@ type IState = {
   httpResponse: IStats<IHttpResponse>;
   zoom: number;
   timeMs: number;
-  opacity?: number;
 };
 
-type ChartKeys = Omit<IState, 'zoom' | 'timeMs' | 'opacity'>;
+type ChartKeys = Omit<IState, 'zoom' | 'timeMs'>;
 
 class Cone extends React.Component<IProps, IState> {
   private _isRunning: boolean = false;
@@ -79,6 +81,10 @@ class Cone extends React.Component<IProps, IState> {
       const {timeMs, cmd} = message.data;
       if (timeMs) {
         this.setState({timeMs});
+        document.documentElement.style.setProperty(
+          '--cone-width',
+          `${timeMsToPixel(timeMs)}`
+        );
       }
       if (cmd === ECmdFromWorker.STOPPED) {
         this._isRunning = false;
@@ -138,6 +144,7 @@ class Cone extends React.Component<IProps, IState> {
 
   private onZoomChange = (zoom: number): void => {
     this.setState({zoom});
+    document.documentElement.style.setProperty('--cone-zoom', `${zoom}`);
   };
 
   public reset(): void {
@@ -151,20 +158,24 @@ class Cone extends React.Component<IProps, IState> {
     return (
       <div className="cone">
         <Controls zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
-        <Chart
-          zoom={this.state.zoom}
-          timeMs={this.state.timeMs}
-          opacity={this.state.opacity}
-        >
-          <Row>
-            <PlayerState playerState={this.state.playerState} />
-            <Legend label="Player State" />
-          </Row>
-          <Row>
-            <ManifestUrl manifestUrl={this.state.manifestUrl} />
-            <Legend label="Manifest URL" />
-          </Row>
-        </Chart>
+        <Content>
+          <Chart>
+            <Row>
+              <PlayerState playerState={this.state.playerState} />
+            </Row>
+            <Row>
+              <ManifestUrl manifestUrl={this.state.manifestUrl} />
+            </Row>
+          </Chart>
+          <Legend>
+            <Row>
+              <LegendItem label="Player State" />
+            </Row>
+            <Row>
+              <LegendItem label="Manifest Url" />
+            </Row>
+          </Legend>
+        </Content>
         <h3>Time</h3>
         <p>{this.state.timeMs}</p>
         <h3>Player Metadata</h3>
