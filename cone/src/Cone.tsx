@@ -2,14 +2,15 @@ import './cone.css';
 
 import React from 'react';
 
-import LegendItem from './components/Chart/LegendItem';
+import LegendItem from './components/charts/LegendItem';
 import Chart from './components/containers/Chart';
 import Content from './components/containers/Content';
 import Legend from './components/containers/Legend';
 import Row from './components/containers/Row';
-import Controls from './components/Controls/Controls';
-import ManifestUrl from './components/Stats/ManifestUrl';
-import PlayerState from './components/Stats/PlayerState';
+import Wrapper from './components/containers/Wrapper';
+import Controls from './components/controls/Controls';
+import ManifestUrl from './components/stats/ManifestUrl';
+import PlayerState from './components/stats/PlayerState';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
 import EPlayerState from './shared/enum/EPlayerState';
@@ -156,7 +157,7 @@ class Cone extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <div className="cone">
+      <Wrapper>
         <Controls zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
         <Content>
           <Chart>
@@ -242,7 +243,7 @@ class Cone extends React.Component<IProps, IState> {
             );
           }
         )}
-      </div>
+      </Wrapper>
     );
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import IStat from '../../interfaces/IStat';
 import IStats from '../../interfaces/IStats';
-import StackedBar from '../Chart/Types/StackedBar';
+import StackedBar from '../charts/StackedBar';
 
 type IProps = {
   manifestUrl: IStats<string>;
