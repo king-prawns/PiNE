@@ -47,13 +47,27 @@ type IState = {
   usedJSHeapSize: IStats<number>;
   httpRequest: IStats<IHttpRequest>;
   httpResponse: IStats<IHttpResponse>;
+  timeMs: number;
+  isEnded: boolean;
   zoom: number;
+  isLocked: boolean;
 };
 
+type StatKeys = Pick<
+  IState,
+  | 'playerMetadata'
+  | 'playerState'
+  | 'variant'
+  | 'manifestUrl'
+  | 'estimatedBandwidth'
+  | 'bufferInfo'
+  | 'usedJSHeapSize'
+  | 'httpRequest'
+  | 'httpResponse'
+>;
+
 class Cone extends React.Component<IProps, IState> {
-  private _isRunning: boolean = false;
   private _worker: Worker = new TimerWorker();
-  private _timeMs: number = 0;
   private _initialState: IState = {
     playerMetadata: [],
     playerState: [],
@@ -64,7 +78,10 @@ class Cone extends React.Component<IProps, IState> {
     usedJSHeapSize: [],
     httpRequest: [],
     httpResponse: [],
-    zoom: 1
+    timeMs: 0,
+    isEnded: false,
+    zoom: 1,
+    isLocked: true
   };
 
   constructor(props: IProps) {
@@ -81,7 +98,7 @@ class Cone extends React.Component<IProps, IState> {
         this.setTimeMs(timeMs);
       }
       if (cmd === ECmdFromWorker.STOPPED) {
-        this._isRunning = false;
+        this.setState({isEnded: true});
       }
     };
   }
@@ -105,16 +122,18 @@ class Cone extends React.Component<IProps, IState> {
   private addPropToState(prevProps: IProps, key: keyof IProps): void {
     if (this.props[key] !== null && this.props[key] !== prevProps[key]) {
       if (key === 'playerState') {
-        if (!this._isRunning && this.props[key] === EPlayerState.LOADING) {
+        if (
+          this.state[key].length === 0 &&
+          this.props[key] === EPlayerState.LOADING
+        ) {
           this._worker.postMessage({
             cmd: ECmdToWorker.START
           } as IMessageToWorker);
-          this._isRunning = true;
         }
         if (
-          this._isRunning &&
-          (this.props.playerState === EPlayerState.ENDED ||
-            this.props.playerState === EPlayerState.ERRORED)
+          this.state.playerState.length > 0 &&
+          (this.props[key] === EPlayerState.ENDED ||
+            this.props[key] === EPlayerState.ERRORED)
         ) {
           this._worker.postMessage({
             cmd: ECmdToWorker.STOP
@@ -122,22 +141,22 @@ class Cone extends React.Component<IProps, IState> {
         }
       }
 
-      if (this._isRunning) {
+      if (!this.state.isEnded) {
         this.setState({
           [key]: [
             ...this.state[key],
             {
               value: this.props[key],
-              timeMs: this._timeMs
+              timeMs: this.state.timeMs
             }
           ]
-        } as Omit<IState, 'zoom'>);
+        } as StatKeys);
       }
     }
   }
 
   private setTimeMs = (timeMs: number): void => {
-    this._timeMs = timeMs;
+    this.setState({timeMs});
     document.documentElement.style.setProperty(
       '--cone-width',
       `${timeMsToPixel(timeMs)}`
@@ -147,6 +166,18 @@ class Cone extends React.Component<IProps, IState> {
   private onZoomChange = (zoom: number): void => {
     this.setState({zoom});
     document.documentElement.style.setProperty('--cone-zoom', `${zoom}`);
+  };
+
+  private onLockedChange = (isLocked: boolean): void => {
+    this.setState({isLocked});
+  };
+
+  private isScrollable = (): boolean => {
+    if (this.state.isEnded) {
+      return false;
+    }
+
+    return this.state.isLocked;
   };
 
   public reset(): void {
@@ -160,9 +191,15 @@ class Cone extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <Wrapper>
-        <Controls zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
+        <Controls
+          zoom={this.state.zoom}
+          isLocked={this.isScrollable()}
+          isEnded={this.state.isEnded}
+          onChangeZoom={this.onZoomChange}
+          onChangeLocked={this.onLockedChange}
+        />
         <Content>
-          <Chart>
+          <Chart timeMs={this.state.timeMs} isScrollable={this.isScrollable()}>
             <Row>
               <PlayerState playerState={this.state.playerState} />
             </Row>

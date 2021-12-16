@@ -1,4 +1,4 @@
-enum COLOR {
+enum EColor {
   Reset = '\x1b[0m',
   Bright = '\x1b[1m',
   Dim = '\x1b[2m',
@@ -24,4 +24,4 @@ enum COLOR {
   BgWhite = '\x1b[47m'
 }
 
-export default COLOR;
+export default EColor;

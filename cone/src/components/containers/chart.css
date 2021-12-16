@@ -2,7 +2,10 @@
   background-color: rgb(181, 99, 17);
   width: 85%;
   height: calc(var(--cone-height) * var(--cone-zoom));
-  overflow: scroll;
+}
+
+.cone-chart::-webkit-scrollbar {
+  display: none;
 }
 
 .cone-chart > .cone-row:nth-child(2n + 1) {

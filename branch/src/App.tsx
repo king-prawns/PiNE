@@ -24,7 +24,7 @@ type IState = {
   httpResponse: IHttpResponse | null;
 };
 class App extends React.Component<IProps, IState> {
-  private cone: React.Ref<Cone> = React.createRef<Cone>();
+  private _ref: React.Ref<Cone> = React.createRef<Cone>();
 
   constructor(props: IProps) {
     super(props);
@@ -82,7 +82,7 @@ class App extends React.Component<IProps, IState> {
     socket.on('clientDisconnected', () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      this.cone.current.reset();
+      this._ref.current.reset();
     });
   }
 
@@ -91,7 +91,7 @@ class App extends React.Component<IProps, IState> {
       <>
         <section>
           <Cone
-            ref={this.cone}
+            ref={this._ref}
             playerMetadata={this.state.playerMetadata}
             manifestUrl={this.state.manifestUrl}
             playerState={this.state.playerState}

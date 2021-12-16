@@ -6,7 +6,7 @@ import IMessageToWorker from './interfaces/IMessageToWorker';
 let timer: number = 0;
 const COOLDOWN: number = 6000;
 
-const reset = (): void => {
+const stop = (): void => {
   self.postMessage({cmd: ECmdFromWorker.STOPPED} as IMessageFromWorker);
   clearTimeout(timer);
   timer = 0;
@@ -27,13 +27,13 @@ self.onmessage = (message: MessageEvent<IMessageToWorker>): void => {
     case ECmdToWorker.STOP:
       if (timer) {
         self.setTimeout(() => {
-          reset();
+          stop();
         }, COOLDOWN);
       }
       break;
     case ECmdToWorker.RESET:
       if (timer) {
-        reset();
+        stop();
       }
       break;
   }

@@ -19,5 +19,6 @@ class Legend extends React.Component<IProps, IState> {
 export default Legend;
 
 // TODO:
-// scroll chart
-// chrome GPU issue render!
+// scroll chart??? - is scrollable? native prop? scroll only if needed
+// risolvere problema .current TS
+// chrome GPU issue render! - react memo?

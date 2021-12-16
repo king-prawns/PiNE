@@ -1,4 +1,4 @@
-enum PlayerState {
+enum EPlayerState {
   LOADING = 'LOADING',
   BUFFERING = 'BUFFERING',
   PLAYING = 'PLAYING',
@@ -7,4 +7,4 @@ enum PlayerState {
   ERRORED = 'ERRORED'
 }
 
-export default PlayerState;
+export default EPlayerState;
