@@ -1,9 +1,7 @@
 import path from 'path';
 import {Configuration} from 'webpack';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-process.noDeprecation = true;
+(process as any).noDeprecation = true;
 
 const baseConfig: Configuration = {
   resolve: {

@@ -17,8 +17,6 @@ class Chart extends React.Component<IProps, IState> {
   }
 
   componentDidUpdate(prevProps: IProps): void {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     if (this.props.isScrollable && this.props.timeMs !== prevProps.timeMs) {
       this.scrollTo(this.props.timeMs);
     }
