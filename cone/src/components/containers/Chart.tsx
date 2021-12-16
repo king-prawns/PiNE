@@ -9,7 +9,8 @@ type IProps = {
 };
 type IState = Record<string, never>;
 class Chart extends React.Component<IProps, IState> {
-  private _ref: React.Ref<HTMLDivElement> = React.createRef<HTMLDivElement>();
+  private _ref: React.RefObject<HTMLDivElement> =
+    React.createRef<HTMLDivElement>();
 
   constructor(props: IProps) {
     super(props);
@@ -35,17 +36,16 @@ class Chart extends React.Component<IProps, IState> {
   }
 
   private scrollTo(timeMs: number): void {
-    if (this.isScrollNeeded()) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+    if (this.isScrollNeeded() && this._ref.current) {
       this._ref.current.scrollLeft = timeMs;
     }
   }
 
   private isScrollNeeded = (): boolean => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return this._ref.current.scrollWidth > this._ref.current.clientWidth;
+    return Boolean(
+      this._ref.current &&
+        this._ref.current.scrollWidth > this._ref.current.clientWidth
+    );
   };
 
   render(): JSX.Element {
