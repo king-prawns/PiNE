@@ -1,16 +1,16 @@
 .cone-legend {
   width: 15%;
-  border-left: 1px solid #212121;
+  border-left: 1px solid var(--cone-border-color);
 }
 
 .cone-legend > .cone-row {
-  border-bottom: 1px solid #212121;
-}
-
-.cone-legend > .cone-row:nth-child(2n + 1) {
-  background-color: #424242;
+  border-bottom: 1px solid var(--cone-border-color);
 }
 
 .cone-legend > .cone-row:nth-child(2n) {
-  background-color: #616161;
+  background-color: var(--cone-legend-primary-color);
+}
+
+.cone-legend > .cone-row:nth-child(2n + 1) {
+  background-color: var(--cone-legend-secondary-color);
 }

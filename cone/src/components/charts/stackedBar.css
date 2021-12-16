@@ -17,4 +17,13 @@
   white-space: nowrap;
   padding-left: 3px;
   cursor: default;
+  color: var(--cone-chart-text-color);
+}
+
+.cone-stacked-bar-block:nth-child(2n) {
+  background-color: var(--cone-primary-color);
+}
+
+.cone-stacked-bar-block:nth-child(2n + 1) {
+  background-color: var(--cone-secondary-color);
 }

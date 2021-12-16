@@ -7,6 +7,6 @@
 }
 
 .cone-legend-item > span {
-  color: white;
+  color: var(--cone-legend-text-color);
   font-weight: bold;
 }

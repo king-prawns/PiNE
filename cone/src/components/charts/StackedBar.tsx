@@ -18,31 +18,18 @@ class StackedBar extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private getBackgroundColor(index: number, backgroundColor?: string): string {
-    if (backgroundColor) {
-      return backgroundColor;
-    } else {
-      if (index % 2 === 0) {
-        return '#90a4ae';
-      } else {
-        return '#607d8b';
-      }
-    }
-  }
-
   private getBlockStyle(data: Data, index: number): React.CSSProperties {
     const nextData: Data | undefined = this.props.data[index + 1];
-    const backgroundColor: string = this.getBackgroundColor(
-      index,
-      data.backgroundColor
-    );
 
     let cssProperties: React.CSSProperties = {
-      backgroundColor,
       position: 'absolute',
       bottom: 0,
       left: `calc(${timeMsToPixel(data.timeMs)} * var(--cone-zoom))`
     };
+
+    if (data.backgroundColor) {
+      cssProperties.backgroundColor = data.backgroundColor;
+    }
 
     if (nextData) {
       cssProperties = {
