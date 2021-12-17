@@ -2,10 +2,12 @@ import './chart.css';
 
 import React from 'react';
 
+import timeMsToPixel from '../../utils/timeMsToPixel';
+
 type IProps = {
   children: React.ReactNode;
   timeMs: number;
-  isScrollable: boolean;
+  isChartLocked: boolean;
 };
 type IState = Record<string, never>;
 class Chart extends React.Component<IProps, IState> {
@@ -17,20 +19,21 @@ class Chart extends React.Component<IProps, IState> {
   }
 
   componentDidUpdate(prevProps: IProps): void {
-    if (this.props.isScrollable && this.props.timeMs !== prevProps.timeMs) {
+    if (this.props.isChartLocked && this.props.timeMs !== prevProps.timeMs) {
       this.scrollTo(this.props.timeMs);
     }
   }
 
-  private getChartStyle(): React.CSSProperties {
-    const style: React.CSSProperties = {};
-    if (this.props.isScrollable) {
-      style.overflowX = 'hidden';
-    } else {
-      style.overflowX = 'scroll';
-    }
+  private setOverflow(): React.CSSProperties {
+    return {
+      overflowX: this.props.isChartLocked ? 'hidden' : 'scroll'
+    };
+  }
 
-    return style;
+  private setWidth(): React.CSSProperties {
+    return {
+      width: `calc(${timeMsToPixel(this.props.timeMs)} * var(--cone-zoom))`
+    };
   }
 
   private scrollTo(timeMs: number): void {
@@ -48,8 +51,10 @@ class Chart extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <div className="cone-chart" ref={this._ref} style={this.getChartStyle()}>
-        {this.props.children}
+      <div className="cone-chart" ref={this._ref} style={this.setOverflow()}>
+        <div className="cone-chart-content" style={this.setWidth()}>
+          {this.props.children}
+        </div>
       </div>
     );
   }

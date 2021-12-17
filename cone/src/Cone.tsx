@@ -18,7 +18,6 @@ import IBufferInfo from './shared/interfaces/IBufferInfo';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
-import timeMsToPixel from './utils/timeMsToPixel';
 import ECmdFromWorker from './workers/enum/ECmdFromWorker';
 import ECmdToWorker from './workers/enum/ECmdToWorker';
 import IMessageFromWorker from './workers/interfaces/IMessageFromWorker';
@@ -157,10 +156,6 @@ class Cone extends React.Component<IProps, IState> {
 
   private setTimeMs = (timeMs: number): void => {
     this.setState({timeMs});
-    document.documentElement.style.setProperty(
-      '--cone-width',
-      `${timeMsToPixel(timeMs)}`
-    );
   };
 
   private onZoomChange = (zoom: number): void => {
@@ -172,7 +167,7 @@ class Cone extends React.Component<IProps, IState> {
     this.setState({isLocked});
   };
 
-  private isScrollable = (): boolean => {
+  private isChartLocked = (): boolean => {
     if (this.state.isEnded) {
       return false;
     }
@@ -193,13 +188,16 @@ class Cone extends React.Component<IProps, IState> {
       <Wrapper>
         <Controls
           zoom={this.state.zoom}
-          isLocked={this.isScrollable()}
+          isLocked={this.isChartLocked()}
           isEnded={this.state.isEnded}
           onChangeZoom={this.onZoomChange}
           onChangeLocked={this.onLockedChange}
         />
         <Content>
-          <Chart timeMs={this.state.timeMs} isScrollable={this.isScrollable()}>
+          <Chart
+            timeMs={this.state.timeMs}
+            isChartLocked={this.isChartLocked()}
+          >
             <Row>
               <PlayerState playerState={this.state.playerState} />
             </Row>

@@ -2,22 +2,3 @@
   height: 5%;
   width: 100%;
 }
-
-.cone-chart-row {
-  height: 5%;
-  width: 100%;
-}
-
-.cone-chart-row:nth-child(2n) {
-  background-color: var(--cone-chart-primary-color);
-}
-
-.cone-chart-row:nth-child(2n + 1) {
-  background-color: var(--cone-chart-secondary-color);
-}
-
-.cone-chart-row-content {
-  height: 100%;
-  width: calc(var(--cone-width) * var(--cone-zoom));
-  border-right: 2px solid var(--cone-time-color);
-}

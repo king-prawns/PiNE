@@ -41,7 +41,7 @@ class StackedBar extends React.Component<IProps, IState> {
     } else {
       cssProperties = {
         ...cssProperties,
-        width: '100%'
+        width: `calc(100% - ${timeMsToPixel(data.timeMs)})`
       };
     }
 

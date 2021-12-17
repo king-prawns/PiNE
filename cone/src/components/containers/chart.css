@@ -1,9 +1,16 @@
 .cone-chart {
-  background-color: rgb(181, 99, 17);
+  background-color: var(--cone-chart-primary-color);
   width: 85%;
   height: calc(var(--cone-height) * var(--cone-zoom));
 }
 
 .cone-chart::-webkit-scrollbar {
   display: none;
+}
+
+.cone-chart-content {
+  height: 100%;
+  border-right: 2px solid var(--cone-time-color);
+  background-color: var(--cone-chart-secondary-color);
+  will-change: width;
 }
