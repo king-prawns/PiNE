@@ -17,6 +17,3 @@ class Legend extends React.Component<IProps, IState> {
 }
 
 export default Legend;
-
-// TODO:
-// chrome GPU issue render! - react memo?
