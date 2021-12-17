@@ -33,7 +33,7 @@ class Controls extends React.Component<IProps, IState> {
           id="cone-controls-zoom"
           type="range"
           min="1"
-          max="2"
+          max="3"
           step="0.2"
           value={this.props.zoom}
           onChange={this.onChangeZoom}

@@ -41,9 +41,7 @@ class StackedBar extends React.Component<IProps, IState> {
     } else {
       cssProperties = {
         ...cssProperties,
-        width: `calc((var(--cone-width) - ${timeMsToPixel(
-          data.timeMs
-        )}) * var(--cone-zoom))`
+        width: '100%'
       };
     }
 

@@ -1,6 +1,8 @@
 .cone-stacked-bar {
   position: relative;
   height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .cone-stacked-bar-block {
