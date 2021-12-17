@@ -1,5 +1,4 @@
 .cone-stacked-bar {
-  width: calc(var(--cone-width) * var(--cone-zoom));
   position: relative;
   height: 100%;
 }

@@ -208,12 +208,8 @@ class Cone extends React.Component<IProps, IState> {
             </Row>
           </Chart>
           <Legend>
-            <Row>
-              <LegendItem label="Player State" />
-            </Row>
-            <Row>
-              <LegendItem label="Manifest Url" />
-            </Row>
+            <LegendItem label="Player State" />
+            <LegendItem label="Manifest Url" />
           </Legend>
         </Content>
         <h3>Player Metadata</h3>

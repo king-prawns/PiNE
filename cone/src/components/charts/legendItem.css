@@ -1,6 +1,5 @@
 .cone-legend-item {
-  width: 100%;
-  height: 100%;
+  height: 5%;
   display: flex;
   align-items: center;
   padding-left: 10px;
@@ -9,4 +8,12 @@
 .cone-legend-item > span {
   color: var(--cone-legend-text-color);
   font-weight: bold;
+}
+
+.cone-legend-item:nth-child(2n) {
+  background-color: var(--cone-legend-primary-color);
+}
+
+.cone-legend-item:nth-child(2n + 1) {
+  background-color: var(--cone-legend-secondary-color);
 }

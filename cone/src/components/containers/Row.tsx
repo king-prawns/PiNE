@@ -12,7 +12,11 @@ class Row extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
-    return <div className="cone-row">{this.props.children}</div>;
+    return (
+      <div className="cone-chart-row">
+        <div className="cone-chart-row-content">{this.props.children}</div>
+      </div>
+    );
   }
 }
 

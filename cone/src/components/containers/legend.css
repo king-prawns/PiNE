@@ -2,15 +2,3 @@
   width: 15%;
   border-left: 1px solid var(--cone-border-color);
 }
-
-.cone-legend > .cone-row {
-  border-bottom: 1px solid var(--cone-border-color);
-}
-
-.cone-legend > .cone-row:nth-child(2n) {
-  background-color: var(--cone-legend-primary-color);
-}
-
-.cone-legend > .cone-row:nth-child(2n + 1) {
-  background-color: var(--cone-legend-secondary-color);
-}

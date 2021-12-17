@@ -19,9 +19,9 @@ self.onmessage = (message: MessageEvent<IMessageToWorker>): void => {
     case ECmdToWorker.START:
       if (!timer) {
         timer = self.setInterval(() => {
-          timeMs += 100;
+          timeMs += 200;
           self.postMessage({timeMs} as IMessageFromWorker);
-        }, 100);
+        }, 200);
       }
       break;
     case ECmdToWorker.STOP:
