@@ -7,6 +7,7 @@ import timeMsToPixel from '../../utils/timeMsToPixel';
 type Data = {
   value: string;
   backgroundColor?: string;
+  color?: string;
   timeMs: number;
 };
 type IProps = {
@@ -18,7 +19,7 @@ class StackedBar extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private getBlockStyle(data: Data, index: number): React.CSSProperties {
+  private getStyle(data: Data, index: number): React.CSSProperties {
     const nextData: Data | undefined = this.props.data[index + 1];
 
     let cssProperties: React.CSSProperties = {
@@ -48,6 +49,15 @@ class StackedBar extends React.Component<IProps, IState> {
     return cssProperties;
   }
 
+  private getColor(data: Data): React.CSSProperties {
+    const cssProperties: React.CSSProperties = {};
+    if (data.color) {
+      cssProperties.color = data.color;
+    }
+
+    return cssProperties;
+  }
+
   render(): JSX.Element {
     return (
       <div className="cone-stacked-bar">
@@ -56,10 +66,10 @@ class StackedBar extends React.Component<IProps, IState> {
             <div
               className="cone-stacked-bar-block"
               key={`data-${index}`}
-              style={this.getBlockStyle(data, index)}
+              style={this.getStyle(data, index)}
               title={data.value}
             >
-              <span>{data.value}</span>
+              <span style={this.getColor(data)}>{data.value}</span>
             </div>
           );
         })}

@@ -4,4 +4,9 @@
   height: 100%;
   align-items: center;
   justify-content: center;
+  background-color: var(--cone-background-color-primary-dark);
+}
+
+.cone-block > span {
+  color: var(--cone-text-color-secondary);
 }
