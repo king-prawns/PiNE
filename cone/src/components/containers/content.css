@@ -1,3 +1,5 @@
 .cone-content {
   display: flex;
+  border: 1px solid var(--cone-border-color);
+  position: relative;
 }

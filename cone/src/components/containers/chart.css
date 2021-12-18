@@ -1,7 +1,7 @@
 .cone-chart {
-  background-color: var(--cone-chart-primary-color);
   width: 85%;
   height: calc(var(--cone-height) * var(--cone-zoom));
+  border-right: 1px solid var(--cone-border-color);
 }
 
 .cone-chart::-webkit-scrollbar {
@@ -11,6 +11,5 @@
 .cone-chart-content {
   height: 100%;
   border-right: 2px solid var(--cone-time-color);
-  background-color: var(--cone-chart-secondary-color);
   will-change: width;
 }

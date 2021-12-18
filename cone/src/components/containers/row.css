@@ -2,3 +2,47 @@
   height: 5%;
   width: 100%;
 }
+
+.cone-chart-row-background {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  height: 5%;
+  width: 100%;
+}
+
+.cone-chart-row-background:nth-child(2n) {
+  background-color: var(--cone-chart-primary-color);
+}
+
+.cone-chart-row-background:nth-child(2n + 1) {
+  background-color: var(--cone-chart-secondary-color);
+}
+
+.cone-chart-row-content {
+  height: 100%;
+  width: 100%;
+}
+
+.cone-chart-row-legend {
+  position: absolute;
+  right: 0;
+  width: 15%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+}
+
+.cone-chart-row-legend > span {
+  color: var(--cone-legend-text-color);
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.cone-chart-row-legend:nth-child(2n) {
+  background-color: var(--cone-legend-primary-color);
+}
+
+.cone-chart-row-legend:nth-child(2n + 1) {
+  background-color: var(--cone-legend-secondary-color);
+}

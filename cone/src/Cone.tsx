@@ -2,10 +2,8 @@ import './cone.css';
 
 import React from 'react';
 
-import LegendItem from './components/charts/LegendItem';
 import Chart from './components/containers/Chart';
 import Content from './components/containers/Content';
-import Legend from './components/containers/Legend';
 import Row from './components/containers/Row';
 import Wrapper from './components/containers/Wrapper';
 import Controls from './components/controls/Controls';
@@ -198,17 +196,13 @@ class Cone extends React.Component<IProps, IState> {
             timeMs={this.state.timeMs}
             isChartLocked={this.isChartLocked()}
           >
-            <Row>
+            <Row label="Player State">
               <PlayerState playerState={this.state.playerState} />
             </Row>
-            <Row>
+            <Row label="Manifest Url">
               <ManifestUrl manifestUrl={this.state.manifestUrl} />
             </Row>
           </Chart>
-          <Legend>
-            <LegendItem label="Player State" />
-            <LegendItem label="Manifest Url" />
-          </Legend>
         </Content>
         <h3>Player Metadata</h3>
         {this.state.playerMetadata.map(
