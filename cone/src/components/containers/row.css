@@ -11,11 +11,11 @@
   width: 100%;
 }
 
-.cone-chart-row-background:nth-child(2n) {
+.cone-chart-row:nth-of-type(2n) .cone-chart-row-background {
   background-color: var(--cone-chart-primary-color);
 }
 
-.cone-chart-row-background:nth-child(2n + 1) {
+.cone-chart-row:nth-of-type(2n + 1) .cone-chart-row-background {
   background-color: var(--cone-chart-secondary-color);
 }
 
@@ -39,10 +39,10 @@
   padding-left: 10px;
 }
 
-.cone-chart-row-legend:nth-child(2n) {
+.cone-chart-row:nth-of-type(2n) .cone-chart-row-legend {
   background-color: var(--cone-legend-primary-color);
 }
 
-.cone-chart-row-legend:nth-child(2n + 1) {
+.cone-chart-row:nth-of-type(2n + 1) .cone-chart-row-legend {
   background-color: var(--cone-legend-secondary-color);
 }
