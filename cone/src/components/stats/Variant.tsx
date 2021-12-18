@@ -2,10 +2,11 @@ import React from 'react';
 
 import IStat from '../../interfaces/IStat';
 import IStats from '../../interfaces/IStats';
-import StackedBar from '../charts/StackedBar';
+import round from '../../utils/round';
+import Area from '../charts/Area';
 
 type IProps = {
-  manifestUrl: IStats<string>;
+  variant: IStats<number>;
 };
 type IState = Record<string, never>;
 class ManifestUrl extends React.Component<IProps, IState> {
@@ -13,24 +14,25 @@ class ManifestUrl extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private mapManifestUrlToValue(manifestUrl: IStat<string>): {
-    value: string;
+  private mapVariantToValue(variant: IStat<number>): {
+    value: number;
     timeMs: number;
     backgroundColor?: string;
-    color?: string;
   } {
     return {
-      value: manifestUrl.value,
-      timeMs: manifestUrl.timeMs
+      value: round(variant.value),
+      timeMs: variant.timeMs
     };
   }
 
   render(): JSX.Element {
     return (
-      <StackedBar
-        data={this.props.manifestUrl.map((stat: IStat<string>) =>
-          this.mapManifestUrlToValue(stat)
+      <Area
+        data={this.props.variant.map((stat: IStat<number>) =>
+          this.mapVariantToValue(stat)
         )}
+        limit={10}
+        unit={'Mbps'}
       />
     );
   }

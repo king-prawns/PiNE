@@ -10,6 +10,7 @@ import Controls from './components/controls/Controls';
 import ManifestUrl from './components/stats/ManifestUrl';
 import PlayerMetadata from './components/Stats/PlayerMetadata';
 import PlayerState from './components/stats/PlayerState';
+import Variant from './components/Stats/Variant';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
 import EPlayerState from './shared/enum/EPlayerState';
@@ -206,12 +207,11 @@ class Cone extends React.Component<IProps, IState> {
             <Row label="Manifest Url">
               <ManifestUrl manifestUrl={this.state.manifestUrl} />
             </Row>
+            <Row label="Variant" height={18}>
+              <Variant variant={this.state.variant} />
+            </Row>
           </Chart>
         </Content>
-        <h3>Variant</h3>
-        {this.state.variant.map((variant: IStat<number>, index: number) => {
-          return <p key={`variant-${index}`}>{variant.value}</p>;
-        })}
         <h3>Estimated Bandwidth</h3>
         {this.state.estimatedBandwidth.map(
           (estimatedBandwidth: IStat<number>, index: number) => {

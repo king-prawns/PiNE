@@ -33,13 +33,14 @@ class PlayerState extends React.Component<IProps, IState> {
 
   private mapPlayerStateToValue(playerState: IStat<EPlayerState>): {
     value: string;
-    backgroundColor?: string;
     timeMs: number;
+    backgroundColor?: string;
+    color?: string;
   } {
     return {
       value: playerState.value.toString(),
-      backgroundColor: this.getPlayerStateColor(playerState.value),
-      timeMs: playerState.timeMs
+      timeMs: playerState.timeMs,
+      backgroundColor: this.getPlayerStateColor(playerState.value)
     };
   }
 

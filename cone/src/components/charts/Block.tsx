@@ -13,7 +13,7 @@ class Block extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private getBackgroundColor(): React.CSSProperties {
+  private setBackgroundColor(): React.CSSProperties {
     const cssProperties: React.CSSProperties = {};
     if (this.props.backgroundColor) {
       cssProperties.backgroundColor = this.props.backgroundColor;
@@ -22,7 +22,7 @@ class Block extends React.Component<IProps, IState> {
     return cssProperties;
   }
 
-  private getColor(): React.CSSProperties {
+  private setColor(): React.CSSProperties {
     const cssProperties: React.CSSProperties = {};
     if (this.props.color) {
       cssProperties.color = this.props.color;
@@ -33,8 +33,8 @@ class Block extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <div className="cone-block" style={this.getBackgroundColor()}>
-        <span style={this.getColor()}>{this.props.value}</span>
+      <div className="cone-block" style={this.setBackgroundColor()}>
+        <span style={this.setColor()}>{this.props.value}</span>
       </div>
     );
   }
