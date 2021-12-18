@@ -102,8 +102,8 @@ class Cone extends React.Component<IProps, IState> {
   }
 
   componentDidUpdate(prevProps: IProps): void {
+    this.addPlayerStateToState(prevProps);
     this.addPropToState(prevProps, 'playerMetadata');
-    this.addPropToState(prevProps, 'playerState');
     this.addPropToState(prevProps, 'manifestUrl');
     this.addPropToState(prevProps, 'variant');
     this.addPropToState(prevProps, 'estimatedBandwidth');
@@ -117,28 +117,29 @@ class Cone extends React.Component<IProps, IState> {
     this._worker.terminate();
   }
 
-  private addPropToState(prevProps: IProps, key: keyof IProps): void {
-    if (this.props[key] !== null && this.props[key] !== prevProps[key]) {
-      if (key === 'playerState') {
-        if (
-          this.state[key].length === 0 &&
-          this.props[key] === EPlayerState.LOADING
-        ) {
-          this._worker.postMessage({
-            cmd: ECmdToWorker.START
-          } as IMessageToWorker);
-        }
-        if (
-          this.state.playerState.length > 0 &&
-          (this.props[key] === EPlayerState.ENDED ||
-            this.props[key] === EPlayerState.ERRORED)
-        ) {
-          this._worker.postMessage({
-            cmd: ECmdToWorker.STOP
-          } as IMessageToWorker);
-        }
+  private addPlayerStateToState(prevProps: IProps): void {
+    if (this.props.playerState !== prevProps.playerState) {
+      if (this.props.playerState === EPlayerState.LOADING) {
+        this._worker.postMessage({
+          cmd: ECmdToWorker.START
+        } as IMessageToWorker);
+      }
+      if (
+        this.props.playerState === EPlayerState.ENDED ||
+        this.props.playerState === EPlayerState.ERRORED
+      ) {
+        this._worker.postMessage({
+          cmd: ECmdToWorker.STOP
+        } as IMessageToWorker);
       }
 
+      this.addPropToState(prevProps, 'playerState');
+    }
+  }
+
+  private addPropToState(prevProps: IProps, key: keyof IProps): void {
+    if (this.props[key] === null) return;
+    if (this.state[key].length === 0 || this.props[key] !== prevProps[key]) {
       if (!this.state.isEnded) {
         this.setState({
           [key]: [
@@ -176,7 +177,6 @@ class Cone extends React.Component<IProps, IState> {
 
   public reset(): void {
     this.setState({...this._initialState});
-    this.setTimeMs(0);
     this._worker.postMessage({
       cmd: ECmdToWorker.RESET
     } as IMessageToWorker);
