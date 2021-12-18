@@ -4,10 +4,11 @@ import React from 'react';
 
 import Chart from './components/containers/Chart';
 import Content from './components/containers/Content';
+import Header from './components/containers/Header';
 import Row from './components/containers/Row';
-import Wrapper from './components/containers/Wrapper';
 import Controls from './components/controls/Controls';
 import ManifestUrl from './components/stats/ManifestUrl';
+import PlayerMetadata from './components/Stats/PlayerMetadata';
 import PlayerState from './components/stats/PlayerState';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
@@ -37,8 +38,8 @@ type IProps = {
 type IState = {
   playerMetadata: IStats<IPlayerMetadata>;
   playerState: IStats<EPlayerState>;
-  variant: IStats<number>;
   manifestUrl: IStats<string>;
+  variant: IStats<number>;
   estimatedBandwidth: IStats<number>;
   bufferInfo: IStats<IBufferInfo>;
   usedJSHeapSize: IStats<number>;
@@ -183,7 +184,7 @@ class Cone extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <Wrapper>
+      <div className="cone">
         <Controls
           zoom={this.state.zoom}
           isLocked={this.isChartLocked()}
@@ -192,6 +193,9 @@ class Cone extends React.Component<IProps, IState> {
           onChangeLocked={this.onLockedChange}
         />
         <Content>
+          <Header>
+            <PlayerMetadata playerMetadata={this.state.playerMetadata} />
+          </Header>
           <Chart
             timeMs={this.state.timeMs}
             isChartLocked={this.isChartLocked()}
@@ -204,22 +208,6 @@ class Cone extends React.Component<IProps, IState> {
             </Row>
           </Chart>
         </Content>
-        <h3>Player Metadata</h3>
-        {this.state.playerMetadata.map(
-          (playerMetadata: IStat<IPlayerMetadata>, index: number) => {
-            return (
-              <p key={`playerMetadata-${index}`}>
-                {JSON.stringify(playerMetadata.value)}
-              </p>
-            );
-          }
-        )}
-        <h3>Manifest Url</h3>
-        {this.state.manifestUrl.map(
-          (manifestUrl: IStat<string>, index: number) => {
-            return <p key={`manifestUrl-${index}`}>{manifestUrl.value}</p>;
-          }
-        )}
         <h3>Variant</h3>
         {this.state.variant.map((variant: IStat<number>, index: number) => {
           return <p key={`variant-${index}`}>{variant.value}</p>;
@@ -268,7 +256,7 @@ class Cone extends React.Component<IProps, IState> {
             );
           }
         )}
-      </Wrapper>
+      </div>
     );
   }
 }

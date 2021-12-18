@@ -52,8 +52,8 @@ class Sandbox extends React.Component<IProps, IState> {
   componentDidMount(): void {
     this.setState({
       playerMetadata: {
-        name: 'Sanbox Player Name',
-        version: 'Sandbox Player Version'
+        name: 'Sanbox Shaka Player',
+        version: '1.0.0'
       }
     });
 

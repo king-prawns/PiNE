@@ -24,13 +24,13 @@ class Chart extends React.Component<IProps, IState> {
     }
   }
 
-  private setOverflow(): React.CSSProperties {
+  private getOverflow(): React.CSSProperties {
     return {
       overflowX: this.props.isChartLocked ? 'hidden' : 'scroll'
     };
   }
 
-  private setWidth(): React.CSSProperties {
+  private getWidth(): React.CSSProperties {
     return {
       width: `calc(${timeMsToPixel(this.props.timeMs)} * var(--cone-zoom))`
     };
@@ -51,8 +51,8 @@ class Chart extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <div className="cone-chart" ref={this._ref} style={this.setOverflow()}>
-        <div className="cone-chart-content" style={this.setWidth()}>
+      <div className="cone-chart" ref={this._ref} style={this.getOverflow()}>
+        <div className="cone-chart-content" style={this.getWidth()}>
           {this.props.children}
         </div>
       </div>
