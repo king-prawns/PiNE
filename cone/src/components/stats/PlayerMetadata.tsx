@@ -33,8 +33,8 @@ class PlayerMetadata extends React.Component<IProps, IState> {
     return (
       <Block
         value={this.mapPlayerMetadataToValue(this.props.playerMetadata)}
-        backgroundColor={'var(--cone-chart-primary-color)'}
-        color={'var(--cone-legend-text-color)'}
+        backgroundColor={'var(--cone-background-color-primary-dark)'}
+        color={'var(--cone-text-color-secondary)'}
       />
     );
   }

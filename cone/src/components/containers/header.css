@@ -1,4 +1,5 @@
 .cone-header {
   width: 100%;
   height: 25px;
+  border-bottom: 1px solid var(--cone-border-color);
 }

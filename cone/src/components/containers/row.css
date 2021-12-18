@@ -12,11 +12,11 @@
 }
 
 .cone-chart-row:nth-of-type(2n) .cone-chart-row-background {
-  background-color: var(--cone-chart-primary-color);
+  background-color: var(--cone-background-color-primary);
 }
 
 .cone-chart-row:nth-of-type(2n + 1) .cone-chart-row-background {
-  background-color: var(--cone-chart-secondary-color);
+  background-color: var(--cone-background-color-secondary);
 }
 
 .cone-chart-row-content {
@@ -34,15 +34,15 @@
 }
 
 .cone-chart-row-legend > span {
-  color: var(--cone-legend-text-color);
+  color: var(--cone-text-color-secondary);
   font-weight: bold;
   padding-left: 10px;
 }
 
 .cone-chart-row:nth-of-type(2n) .cone-chart-row-legend {
-  background-color: var(--cone-legend-primary-color);
+  background-color: var(--cone-background-color-primary-dark);
 }
 
 .cone-chart-row:nth-of-type(2n + 1) .cone-chart-row-legend {
-  background-color: var(--cone-legend-secondary-color);
+  background-color: var(--cone-background-color-secondary-dark);
 }
