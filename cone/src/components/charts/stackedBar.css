@@ -21,10 +21,10 @@
   color: var(--cone-text-color-primary);
 }
 
-.cone-stacked-bar-block:nth-child(2n) {
+.cone-stacked-bar-block:nth-child(2n + 1) {
   background-color: var(--cone-chart-primary-color);
 }
 
-.cone-stacked-bar-block:nth-child(2n + 1) {
+.cone-stacked-bar-block:nth-child(2n) {
   background-color: var(--cone-chart-secondary-color);
 }

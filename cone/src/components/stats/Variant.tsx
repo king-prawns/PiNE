@@ -2,7 +2,6 @@ import React from 'react';
 
 import IStat from '../../interfaces/IStat';
 import IStats from '../../interfaces/IStats';
-import round from '../../utils/round';
 import Area from '../charts/Area';
 
 type IProps = {
@@ -17,10 +16,9 @@ class ManifestUrl extends React.Component<IProps, IState> {
   private mapVariantToValue(variant: IStat<number>): {
     value: number;
     timeMs: number;
-    backgroundColor?: string;
   } {
     return {
-      value: round(variant.value),
+      value: variant.value,
       timeMs: variant.timeMs
     };
   }

@@ -11,12 +11,12 @@
   width: 100%;
 }
 
-.cone-chart-row:nth-of-type(2n) .cone-chart-row-background {
+.cone-chart-row:nth-of-type(2n + 1) .cone-chart-row-background {
   background-color: var(--cone-background-color-primary);
 }
 
-.cone-chart-row:nth-of-type(2n + 1) .cone-chart-row-background {
-  background-color: var(--cone-background-color-secondary);
+.cone-chart-row:nth-of-type(2n) .cone-chart-row-background {
+  background-color: var(--cone-background-color-seconday);
 }
 
 .cone-chart-row-content {
