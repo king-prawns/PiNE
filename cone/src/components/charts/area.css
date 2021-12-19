@@ -1,6 +1,16 @@
 .cone-area {
   height: 100%;
   width: 100%;
+  position: relative;
+}
+
+.cone-area > svg > line {
+  stroke: var(--cone-text-color-secondary);
+}
+
+.cone-area > svg > text {
+  fill: var(--cone-text-color-secondary);
+  font-size: 0.6em;
 }
 
 .cone-area:nth-of-type(2n + 1) > svg > polygon {

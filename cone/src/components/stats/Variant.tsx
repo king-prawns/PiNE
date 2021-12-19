@@ -29,8 +29,8 @@ class ManifestUrl extends React.Component<IProps, IState> {
         data={this.props.variant.map((stat: IStat<number>) =>
           this.mapVariantToValue(stat)
         )}
-        limit={10}
-        unit={'Mbps'}
+        maxYAxisValue={10}
+        measurementUnit={'Mbps'}
       />
     );
   }
