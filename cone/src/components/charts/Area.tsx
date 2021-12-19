@@ -20,7 +20,7 @@ class Area extends React.Component<IProps, IState> {
   private _ref: React.RefObject<HTMLDivElement> =
     React.createRef<HTMLDivElement>();
   private PARTITIONS_NUMBER: number = 4;
-  private _MULTIPLIER: number = 10;
+  private PIXEL_TO_VALUE_RATIO: number = 10; // 10px is equal to 1unit
   constructor(props: IProps) {
     super(props);
   }
@@ -42,10 +42,19 @@ class Area extends React.Component<IProps, IState> {
     return `0 0 ${width} ${height}`;
   }
 
-  getZoom(): number {
+  private getZoom(): number {
     return +getComputedStyle(document.documentElement).getPropertyValue(
       '--cone-zoom'
     );
+  }
+
+  private valueToPixel(value: number, height: number, zoom: number): number {
+    const MULTIPLIER: number =
+      this.PIXEL_TO_VALUE_RATIO / this.props.maxYAxisValue;
+    const adaptedValue: number =
+      value * this.PIXEL_TO_VALUE_RATIO * MULTIPLIER * zoom;
+
+    return round(height - adaptedValue);
   }
 
   private setPoints(): string {
@@ -54,13 +63,11 @@ class Area extends React.Component<IProps, IState> {
 
     const firstPoint: string = `0,${height}`;
 
-    let lastY: number = 0;
+    let lastY: number = height;
     const points: string = this.props.data
       .map((data: Data) => {
         const x: string = timeMsToPixel(data.timeMs * zoom).replace('px', '');
-
-        const adaptedValue: number = data.value * zoom * this._MULTIPLIER;
-        const y: number = round(height - adaptedValue);
+        const y: number = this.valueToPixel(data.value, height, zoom);
         lastY = y;
 
         return `${x},${y}`;
@@ -87,8 +94,7 @@ class Area extends React.Component<IProps, IState> {
       yValue < this.props.maxYAxisValue;
       yValue += partitionHeight
     ) {
-      const adaptedValue: number = yValue * zoom * this._MULTIPLIER;
-      const y: number = round(height - adaptedValue);
+      const y: number = this.valueToPixel(yValue, height, zoom);
       Partitions.push(
         <>
           <text
