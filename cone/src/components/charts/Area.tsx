@@ -1,4 +1,4 @@
-import './area.css';
+import './Area.css';
 
 import React from 'react';
 

@@ -1,0 +1,23 @@
+.cone-chart {
+  max-width: 100%;
+  border: 1px solid var(--cone-border-color);
+  position: relative;
+  overflow-x: scroll;
+}
+
+.cone-chart::-webkit-scrollbar {
+  display: none;
+}
+
+/* .cone-chart {
+  width: 85%;
+  height: calc(var(--cone-height) * var(--cone-zoom));
+  border-right: 1px solid var(--cone-border-color);
+}
+
+
+.cone-chart-content {
+  height: 100%;
+  border-right: 2px solid var(--cone-time-color);
+  will-change: width;
+} */

@@ -1,4 +1,4 @@
-import './block.css';
+import './Block.css';
 
 import React from 'react';
 

@@ -1,9 +1,15 @@
-.cone-chart-row {
-  height: 5%;
-  width: 100%;
+.cone-row {
+  display: flex;
+  position: relative;
+  flex: 1;
 }
 
-.cone-chart-row-background {
+/* .cone-chart-row {
+  height: 5%;
+  width: 100%;
+} */
+
+/* .cone-chart-row-background {
   position: absolute;
   left: 0;
   z-index: -1;
@@ -45,4 +51,4 @@
 
 .cone-chart-row:nth-of-type(2n + 1) .cone-chart-row-legend {
   background-color: var(--cone-background-color-secondary-dark);
-}
+} */

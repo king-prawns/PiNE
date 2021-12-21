@@ -3,9 +3,13 @@ import React from 'react';
 import IStat from '../../interfaces/IStat';
 import IStats from '../../interfaces/IStats';
 import StackedBar from '../charts/StackedBar';
+import Cell from '../containers/Cell';
+import Legend from '../containers/Legend';
+import Row from '../containers/Row';
 
 type IProps = {
   manifestUrl: IStats<string>;
+  currentTimeMs: number;
 };
 type IState = Record<string, never>;
 class ManifestUrl extends React.Component<IProps, IState> {
@@ -27,11 +31,21 @@ class ManifestUrl extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <StackedBar
-        data={this.props.manifestUrl.map((stat: IStat<string>) =>
-          this.mapManifestUrlToValue(stat)
-        )}
-      />
+      <Row currentTimeMs={this.props.currentTimeMs}>
+        <Legend>
+          <div>
+            <p>Manifest Url</p>
+          </div>
+        </Legend>
+        <Cell>
+          <StackedBar
+            data={this.props.manifestUrl.map((stat: IStat<string>) =>
+              this.mapManifestUrlToValue(stat)
+            )}
+            currentTimeMs={this.props.currentTimeMs}
+          />
+        </Cell>
+      </Row>
     );
   }
 }

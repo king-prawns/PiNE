@@ -1,0 +1,12 @@
+.cone-legend {
+  position: sticky;
+  flex-basis: 100px;
+  left: 0;
+  z-index: 1;
+  background-color: red;
+  overflow: hidden;
+}
+
+p {
+  margin: 0;
+}

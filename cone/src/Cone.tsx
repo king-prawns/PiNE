@@ -1,16 +1,16 @@
-import './cone.css';
+import './Cone.css';
 
 import React from 'react';
 
 import Chart from './components/containers/Chart';
-import Content from './components/containers/Content';
 import Header from './components/containers/Header';
-import Row from './components/containers/Row';
-import Controls from './components/controls/Controls';
-import ManifestUrl from './components/stats/ManifestUrl';
-import PlayerMetadata from './components/Stats/PlayerMetadata';
-import PlayerState from './components/stats/PlayerState';
-import Variant from './components/Stats/Variant';
+import Table from './components/containers/Table';
+import TBody from './components/containers/TBody';
+import Controls from './components/control/Controls';
+import ManifestUrl from './components/stat/ManifestUrl';
+import PlayerMetadata from './components/stat/PlayerMetadata';
+import PlayerState from './components/stat/PlayerState';
+import Variant from './components/stat/Variant';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
 import EPlayerState from './shared/enum/EPlayerState';
@@ -46,7 +46,7 @@ type IState = {
   usedJSHeapSize: IStats<number>;
   httpRequest: IStats<IHttpRequest>;
   httpResponse: IStats<IHttpResponse>;
-  timeMs: number;
+  currentTimeMs: number;
   isEnded: boolean;
   zoom: number;
   isLocked: boolean;
@@ -77,7 +77,7 @@ class Cone extends React.Component<IProps, IState> {
     usedJSHeapSize: [],
     httpRequest: [],
     httpResponse: [],
-    timeMs: 0,
+    currentTimeMs: 0,
     isEnded: false,
     zoom: 1,
     isLocked: true
@@ -147,7 +147,7 @@ class Cone extends React.Component<IProps, IState> {
             ...this.state[key],
             {
               value: this.props[key],
-              timeMs: this.state.timeMs
+              timeMs: this.state.currentTimeMs
             }
           ]
         } as StatKeys);
@@ -155,8 +155,8 @@ class Cone extends React.Component<IProps, IState> {
     }
   }
 
-  private setTimeMs = (timeMs: number): void => {
-    this.setState({timeMs});
+  private setTimeMs = (currentTimeMs: number): void => {
+    this.setState({currentTimeMs});
   };
 
   private onZoomChange = (zoom: number): void => {
@@ -193,25 +193,30 @@ class Cone extends React.Component<IProps, IState> {
           onChangeZoom={this.onZoomChange}
           onChangeLocked={this.onLockedChange}
         />
-        <Content>
-          <Header>
-            <PlayerMetadata playerMetadata={this.state.playerMetadata} />
-          </Header>
-          <Chart
-            timeMs={this.state.timeMs}
-            isChartLocked={this.isChartLocked()}
-          >
-            <Row label="Player State">
-              <PlayerState playerState={this.state.playerState} />
-            </Row>
-            <Row label="Manifest Url">
-              <ManifestUrl manifestUrl={this.state.manifestUrl} />
-            </Row>
-            <Row label="Variant" height={18}>
-              <Variant variant={this.state.variant} />
-            </Row>
-          </Chart>
-        </Content>
+        <Header>
+          <PlayerMetadata playerMetadata={this.state.playerMetadata} />
+        </Header>
+        <Chart
+          currentTimeMs={this.state.currentTimeMs}
+          isChartLocked={this.isChartLocked()}
+        >
+          <Table>
+            <TBody>
+              <PlayerState
+                playerState={this.state.playerState}
+                currentTimeMs={this.state.currentTimeMs}
+              />
+              <ManifestUrl
+                manifestUrl={this.state.manifestUrl}
+                currentTimeMs={this.state.currentTimeMs}
+              />
+              <Variant
+                variant={this.state.variant}
+                currentTimeMs={this.state.currentTimeMs}
+              />
+            </TBody>
+          </Table>
+        </Chart>
         <h3>Estimated Bandwidth</h3>
         {this.state.estimatedBandwidth.map(
           (estimatedBandwidth: IStat<number>, index: number) => {
@@ -262,3 +267,7 @@ class Cone extends React.Component<IProps, IState> {
 }
 
 export default Cone;
+
+// TODO:
+// use context per currentTimeMs e Zoom
+// fix style

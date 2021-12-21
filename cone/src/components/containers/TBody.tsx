@@ -1,4 +1,4 @@
-import './content.css';
+import './TBody.css';
 
 import React from 'react';
 
@@ -6,14 +6,14 @@ type IProps = {
   children: React.ReactNode;
 };
 type IState = Record<string, never>;
-class Content extends React.Component<IProps, IState> {
+class TBody extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
   }
 
   render(): JSX.Element {
-    return <div className="cone-content">{this.props.children}</div>;
+    return <div className="cone-tbody">{this.props.children}</div>;
   }
 }
 
-export default Content;
+export default TBody;

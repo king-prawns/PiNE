@@ -4,9 +4,13 @@ import IStat from '../../interfaces/IStat';
 import IStats from '../../interfaces/IStats';
 import EPlayerState from '../../shared/enum/EPlayerState';
 import StackedBar from '../charts/StackedBar';
+import Cell from '../containers/Cell';
+import Legend from '../containers/Legend';
+import Row from '../containers/Row';
 
 type IProps = {
   playerState: IStats<EPlayerState>;
+  currentTimeMs: number;
 };
 type IState = Record<string, never>;
 class PlayerState extends React.Component<IProps, IState> {
@@ -46,11 +50,22 @@ class PlayerState extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <StackedBar
-        data={this.props.playerState.map((stat: IStat<EPlayerState>) =>
-          this.mapPlayerStateToValue(stat)
-        )}
-      />
+      <Row currentTimeMs={this.props.currentTimeMs}>
+        <Legend>
+          <div>
+            <p>Player State</p>
+            <p>Min XXX</p>
+          </div>
+        </Legend>
+        <Cell>
+          <StackedBar
+            currentTimeMs={this.props.currentTimeMs}
+            data={this.props.playerState.map((stat: IStat<EPlayerState>) =>
+              this.mapPlayerStateToValue(stat)
+            )}
+          />
+        </Cell>
+      </Row>
     );
   }
 }

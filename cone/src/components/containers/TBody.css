@@ -1,0 +1,5 @@
+.cone-tbody {
+  display: flex;
+  flex-direction: column;
+  height: calc(600px * var(--cone-zoom));
+}

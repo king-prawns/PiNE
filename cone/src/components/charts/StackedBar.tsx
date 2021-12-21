@@ -1,4 +1,4 @@
-import './stackedBar.css';
+import './StackedBar.css';
 
 import React from 'react';
 
@@ -12,6 +12,7 @@ type Data = {
 };
 type IProps = {
   data: Array<Data>;
+  currentTimeMs: number;
 };
 type IState = Record<string, never>;
 class StackedBar extends React.Component<IProps, IState> {
@@ -42,7 +43,9 @@ class StackedBar extends React.Component<IProps, IState> {
     } else {
       cssProperties = {
         ...cssProperties,
-        width: `calc(100% - ${timeMsToPixel(data.timeMs)})`
+        width: `calc(${timeMsToPixel(
+          this.props.currentTimeMs - data.timeMs
+        )} * var(--cone-zoom))`
       };
     }
 

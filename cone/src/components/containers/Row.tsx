@@ -1,11 +1,13 @@
-import './row.css';
+import './Row.css';
 
 import React from 'react';
 
+import timeMsToPixel from '../../utils/timeMsToPixel';
+
 type IProps = {
   children: React.ReactNode;
-  label: string;
-  height?: number;
+  currentTimeMs: number;
+  flex?: number;
 };
 type IState = Record<string, never>;
 class Row extends React.Component<IProps, IState> {
@@ -13,10 +15,14 @@ class Row extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private setHeight(): React.CSSProperties {
-    const cssProperties: React.CSSProperties = {};
-    if (this.props.height) {
-      cssProperties.height = `${this.props.height}%`;
+  private setStyle(): React.CSSProperties {
+    const cssProperties: React.CSSProperties = {
+      width: `calc(100px + ${timeMsToPixel(
+        this.props.currentTimeMs
+      )} * var(--cone-zoom))`
+    };
+    if (this.props.flex) {
+      cssProperties.flex = `${this.props.flex}`;
     }
 
     return cssProperties;
@@ -24,18 +30,14 @@ class Row extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <div className="cone-chart-row" style={this.setHeight()}>
-        <div
-          className="cone-chart-row-background"
-          style={this.setHeight()}
-        ></div>
-        <div className="cone-chart-row-legend" style={this.setHeight()}>
-          <span>{this.props.label}</span>
-        </div>
-        <div className="cone-chart-row-content">{this.props.children}</div>
+      <div className="cone-row" style={this.setStyle()}>
+        {this.props.children}
       </div>
     );
   }
 }
 
 export default Row;
+
+// ROW: big refactor
+// set min, max, current
