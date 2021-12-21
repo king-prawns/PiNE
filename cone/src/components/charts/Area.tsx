@@ -84,24 +84,26 @@ class Area extends React.Component<IProps, IState> {
 
   private drawPartitions(): JSX.Element {
     const [width, height] = this.getDimensions();
-    const zoom: number = this.getZoom();
 
     const Partitions: Array<JSX.Element> = [];
-    const partitionHeight: number =
+    const partitionHeight: number = height / this.PARTITIONS_NUMBER;
+    const partitionValue: number =
       this.props.maxYAxisValue / this.PARTITIONS_NUMBER;
+
+    let y: number;
+    let value: number;
     for (
-      let yValue: number = partitionHeight;
-      yValue < this.props.maxYAxisValue;
-      yValue += partitionHeight
+      y = partitionHeight, value = this.props.maxYAxisValue;
+      y < height;
+      y += partitionHeight, value -= partitionValue
     ) {
-      const y: number = this.valueToPixel(yValue, height, zoom);
       Partitions.push(
         <>
           <text
             textAnchor="end"
             x={width - 5}
             y={y - 2}
-          >{`${yValue} ${this.props.measurementUnit}`}</text>
+          >{`${value} ${this.props.measurementUnit}`}</text>
           <line x1={0} x2={width} y1={y} y2={y} />
         </>
       );
