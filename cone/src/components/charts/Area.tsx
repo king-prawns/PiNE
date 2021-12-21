@@ -98,7 +98,8 @@ class Area extends React.Component<IProps, IState> {
       Partitions.push(
         <>
           <text
-            x={5}
+            textAnchor="end"
+            x={width - 5}
             y={y - 2}
           >{`${yValue} ${this.props.measurementUnit}`}</text>
           <line x1={0} x2={width} y1={y} y2={y} />

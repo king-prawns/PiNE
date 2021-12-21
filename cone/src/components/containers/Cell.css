@@ -1,6 +1,6 @@
 .cone-cell {
   position: absolute;
-  left: 100px;
+  left: var(--cone-legend-width);
   height: 100%;
-  width: auto;
+  width: calc(100% - var(--cone-legend-width));
 }

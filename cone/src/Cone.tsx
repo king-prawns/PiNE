@@ -269,5 +269,6 @@ class Cone extends React.Component<IProps, IState> {
 export default Cone;
 
 // TODO:
-// use context per currentTimeMs e Zoom
 // fix style
+// set min, max, current
+// use context per currentTimeMs e Zoom?

@@ -2,53 +2,22 @@
   display: flex;
   position: relative;
   flex: 1;
+  will-change: width;
+  border-right: 2px solid var(--cone-time-color);
 }
 
-/* .cone-chart-row {
-  height: 5%;
-  width: 100%;
-} */
-
-/* .cone-chart-row-background {
-  position: absolute;
-  left: 0;
-  z-index: -1;
-  height: 5%;
-  width: 100%;
-}
-
-.cone-chart-row:nth-of-type(2n + 1) .cone-chart-row-background {
+.cone-row:nth-child(2n + 1) > .cone-cell {
   background-color: var(--cone-background-color-primary);
 }
 
-.cone-chart-row:nth-of-type(2n) .cone-chart-row-background {
+.cone-row:nth-of-type(2n) > .cone-cell {
   background-color: var(--cone-background-color-seconday);
 }
 
-.cone-chart-row-content {
-  height: 100%;
-  width: 100%;
-}
-
-.cone-chart-row-legend {
-  position: absolute;
-  right: 0;
-  width: 15%;
-  height: 5%;
-  display: flex;
-  align-items: center;
-}
-
-.cone-chart-row-legend > span {
-  color: var(--cone-text-color-secondary);
-  font-weight: bold;
-  padding-left: 10px;
-}
-
-.cone-chart-row:nth-of-type(2n) .cone-chart-row-legend {
+.cone-row:nth-of-type(2n + 1) > .cone-legend {
   background-color: var(--cone-background-color-primary-dark);
 }
 
-.cone-chart-row:nth-of-type(2n + 1) .cone-chart-row-legend {
+.cone-row:nth-of-type(2n) > .cone-legend {
   background-color: var(--cone-background-color-secondary-dark);
-} */
+}

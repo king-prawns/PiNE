@@ -34,7 +34,7 @@ class ManifestUrl extends React.Component<IProps, IState> {
       <Row currentTimeMs={this.props.currentTimeMs}>
         <Legend>
           <div>
-            <p>Manifest Url</p>
+            <span>Manifest Url</span>
           </div>
         </Legend>
         <Cell>

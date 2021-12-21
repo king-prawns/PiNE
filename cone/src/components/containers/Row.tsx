@@ -17,7 +17,7 @@ class Row extends React.Component<IProps, IState> {
 
   private setStyle(): React.CSSProperties {
     const cssProperties: React.CSSProperties = {
-      width: `calc(100px + ${timeMsToPixel(
+      width: `calc(var(--cone-legend-width) + ${timeMsToPixel(
         this.props.currentTimeMs
       )} * var(--cone-zoom))`
     };
@@ -38,6 +38,3 @@ class Row extends React.Component<IProps, IState> {
 }
 
 export default Row;
-
-// ROW: big refactor
-// set min, max, current

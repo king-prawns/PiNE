@@ -31,10 +31,13 @@ class ManifestUrl extends React.Component<IProps, IState> {
     return (
       <Row currentTimeMs={this.props.currentTimeMs} flex={2}>
         <Legend>
-          <p>Variant</p>
-          <p>Current XXX</p>
-          <p>Min XXX</p>
-          <p>Max XXX</p>
+          <span>Variant</span>
+          <br />
+          <span>Current XXX</span>
+          <br />
+          <span>Min XXX</span>
+          <br />
+          <span>Max XXX</span>
         </Legend>
         <Cell>
           <Area

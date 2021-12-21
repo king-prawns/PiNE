@@ -1,12 +1,13 @@
 .cone-legend {
   position: sticky;
-  flex-basis: 100px;
+  flex-basis: var(--cone-legend-width);
   left: 0;
   z-index: 1;
-  background-color: red;
   overflow: hidden;
 }
 
-p {
-  margin: 0;
+.cone-legend span {
+  font-weight: bold;
+  color: var(--cone-text-color-secondary);
+  padding-left: 5px;
 }

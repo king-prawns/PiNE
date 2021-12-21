@@ -1,5 +1,5 @@
 .cone-tbody {
   display: flex;
   flex-direction: column;
-  height: calc(600px * var(--cone-zoom));
+  height: calc(var(--cone-chart-height) * var(--cone-zoom));
 }

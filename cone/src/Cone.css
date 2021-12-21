@@ -1,5 +1,6 @@
 :root {
-  --cone-height: 600px;
+  --cone-chart-height: 600px;
+  --cone-legend-width: 100px;
   --cone-zoom: 1;
   --cone-time-color: #d32f2f;
   --cone-chart-primary-color: #607d8b;
