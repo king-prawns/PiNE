@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.cone-area > svg {
+  height: 100%;
+}
+
 .cone-area > svg > line {
   stroke: var(--cone-text-color-secondary);
 }

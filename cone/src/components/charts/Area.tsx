@@ -2,7 +2,6 @@ import './Area.css';
 
 import React from 'react';
 
-import round from '../../utils/round';
 import timeMsToPixel from '../../utils/timeMsToPixel';
 
 type Data = {
@@ -20,7 +19,6 @@ class Area extends React.Component<IProps, IState> {
   private _ref: React.RefObject<HTMLDivElement> =
     React.createRef<HTMLDivElement>();
   private PARTITIONS_NUMBER: number = 4;
-  private PIXEL_TO_VALUE_RATIO: number = 10; // 10px is equal to 1unit
   constructor(props: IProps) {
     super(props);
   }
@@ -48,15 +46,6 @@ class Area extends React.Component<IProps, IState> {
     );
   }
 
-  private valueToPixel(value: number, height: number, zoom: number): number {
-    const MULTIPLIER: number =
-      this.PIXEL_TO_VALUE_RATIO / this.props.maxYAxisValue;
-    const adaptedValue: number =
-      value * this.PIXEL_TO_VALUE_RATIO * MULTIPLIER * zoom;
-
-    return round(height - adaptedValue);
-  }
-
   private setPoints(): string {
     const [width, height] = this.getDimensions();
     const zoom: number = this.getZoom();
@@ -67,7 +56,8 @@ class Area extends React.Component<IProps, IState> {
     const points: string = this.props.data
       .map((data: Data) => {
         const x: string = timeMsToPixel(data.timeMs * zoom).replace('px', '');
-        const y: number = this.valueToPixel(data.value, height, zoom);
+        const y: number =
+          height - (data.value * height) / this.props.maxYAxisValue;
         lastY = y;
 
         return `${x},${y}`;
@@ -93,7 +83,7 @@ class Area extends React.Component<IProps, IState> {
     let y: number;
     let value: number;
     for (
-      y = partitionHeight, value = this.props.maxYAxisValue;
+      y = partitionHeight, value = this.props.maxYAxisValue - partitionValue;
       y < height;
       y += partitionHeight, value -= partitionValue
     ) {
