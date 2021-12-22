@@ -3,7 +3,8 @@ import './Legend.css';
 import React from 'react';
 
 type IProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  title: string;
 };
 type IState = Record<string, never>;
 class Legend extends React.Component<IProps, IState> {
@@ -12,7 +13,12 @@ class Legend extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
-    return <div className="cone-legend">{this.props.children}</div>;
+    return (
+      <div className="cone-legend">
+        <h3>{this.props.title}</h3>
+        <div>{this.props.children}</div>
+      </div>
+    );
   }
 }
 

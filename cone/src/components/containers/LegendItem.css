@@ -1,0 +1,9 @@
+.cone-legend-item {
+  border-bottom: 1px solid var(--cone-border-color-secondary);
+  padding-bottom: 2px;
+  margin-bottom: 7px;
+}
+
+.cone-legend-item > span {
+  color: var(--cone-text-color-secondary);
+}

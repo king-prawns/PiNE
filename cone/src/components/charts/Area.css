@@ -14,13 +14,13 @@
 
 .cone-area > svg > text {
   fill: var(--cone-text-color-secondary);
-  font-size: 0.6em;
+  font-size: 0.7em;
 }
 
 .cone-area:nth-of-type(2n + 1) > svg > polygon {
-  fill: var(--cone-chart-primary-color);
+  fill: var(--cone-chart-color-primary);
 }
 
 .cone-area:nth-of-type(2n) > svg > polygon {
-  fill: var(--cone-chart-secondary-color);
+  fill: var(--cone-chart-color-secondary);
 }

@@ -32,11 +32,7 @@ class ManifestUrl extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <Row currentTimeMs={this.props.currentTimeMs}>
-        <Legend>
-          <div>
-            <span>Manifest Url</span>
-          </div>
-        </Legend>
+        <Legend title="Manifest Url" />
         <Cell>
           <StackedBar
             data={this.props.manifestUrl.map((stat: IStat<string>) =>

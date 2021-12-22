@@ -1,23 +1,24 @@
 :root {
   --cone-chart-height: 600px;
-  --cone-legend-width: 100px;
+  --cone-legend-width: 150px;
   --cone-zoom: 1;
   --cone-background-color: #fafafa;
   --cone-time-color: #d32f2f;
-  --cone-chart-primary-color: #607d8b;
-  --cone-chart-secondary-color: #90a4ae;
+  --cone-chart-color-primary: #607d8b;
+  --cone-chart-color-secondary: #90a4ae;
   --cone-background-color-primary: #bdbdbd;
   --cone-background-color-secondary: #e0e0e0;
   --cone-background-color-primary-dark: #424242;
   --cone-background-color-secondary-dark: #616161;
   --cone-text-color-primary: #000000;
   --cone-text-color-secondary: #ffffff;
-  --cone-border-color: #212121;
+  --cone-border-color-primary: #212121;
+  --cone-border-color-secondary: #ffffff;
 }
 
 .cone span,
-.cone label,
-.cone text {
+.cone h3,
+.cone label {
   font-size: 0.8em;
   font-family: Arial, Helvetica, sans-serif;
 }

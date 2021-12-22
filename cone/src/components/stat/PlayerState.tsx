@@ -51,13 +51,7 @@ class PlayerState extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <Row currentTimeMs={this.props.currentTimeMs}>
-        <Legend>
-          <div>
-            <span>Player State</span>
-            <br />
-            <span>Min XXX</span>
-          </div>
-        </Legend>
+        <Legend title="Player State" />
         <Cell>
           <StackedBar
             data={this.props.playerState.map((stat: IStat<EPlayerState>) =>
