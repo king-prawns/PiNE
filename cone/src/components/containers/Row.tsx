@@ -19,7 +19,7 @@ class Row extends React.Component<IProps, IState> {
     const cssProperties: React.CSSProperties = {
       width: `calc(var(--cone-legend-width) + ${timeMsToPixel(
         this.props.currentTimeMs
-      )} * var(--cone-zoom))`
+      )}px * var(--cone-zoom))`
     };
     if (this.props.flex) {
       cssProperties.flex = `${this.props.flex}`;

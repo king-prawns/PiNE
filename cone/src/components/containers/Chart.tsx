@@ -16,17 +16,16 @@ class Chart extends React.Component<IProps, IState> {
     super(props);
   }
 
-  componentDidUpdate(prevProps: IProps): void {
-    if (
-      this.props.isChartLocked &&
-      this.props.currentTimeMs !== prevProps.currentTimeMs
-    ) {
-      this.scrollTo(this.props.currentTimeMs);
-    }
+  componentDidUpdate(): void {
+    this.scrollTo(this.props.currentTimeMs);
   }
 
   private scrollTo(timeMs: number): void {
-    if (this.isScrollNeeded() && this._ref.current) {
+    if (
+      this.props.isChartLocked &&
+      this.isScrollNeeded() &&
+      this._ref.current
+    ) {
       this._ref.current.scrollLeft = timeMs;
     }
   }

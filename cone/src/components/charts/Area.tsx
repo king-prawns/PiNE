@@ -2,6 +2,7 @@ import './Area.css';
 
 import React from 'react';
 
+import getZoom from '../../utils/getZoom';
 import timeMsToPixel from '../../utils/timeMsToPixel';
 
 type Data = {
@@ -40,22 +41,16 @@ class Area extends React.Component<IProps, IState> {
     return `0 0 ${width} ${height}`;
   }
 
-  private getZoom(): number {
-    return +getComputedStyle(document.documentElement).getPropertyValue(
-      '--cone-zoom'
-    );
-  }
-
   private setPoints(): string {
     const [width, height] = this.getDimensions();
-    const zoom: number = this.getZoom();
+    const zoom: number = getZoom();
 
     const firstPoint: string = `0,${height}`;
 
     let lastY: number = height;
     const points: string = this.props.data
       .map((data: Data) => {
-        const x: string = timeMsToPixel(data.timeMs * zoom).replace('px', '');
+        const x: number = timeMsToPixel(data.timeMs * zoom);
         const y: number =
           height - (data.value * height) / this.props.maxYAxisValue;
         lastY = y;
