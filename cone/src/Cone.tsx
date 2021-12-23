@@ -29,6 +29,7 @@ import {
   VARIANT_MAX_Y_AXIS_VALUE,
   VARIANT_MEASUREMENT_UNIT
 } from './stats/variant';
+import {setZoom} from './utils/zoom';
 import ECmdFromWorker from './workers/enum/ECmdFromWorker';
 import ECmdToWorker from './workers/enum/ECmdToWorker';
 import IMessageFromWorker from './workers/interfaces/IMessageFromWorker';
@@ -172,7 +173,7 @@ class Cone extends React.Component<IProps, IState> {
 
   private onZoomChange = (zoom: number): void => {
     this.setState({zoom});
-    document.documentElement.style.setProperty('--cone-zoom', `${zoom}`);
+    setZoom(zoom);
   };
 
   private onLockedChange = (isLocked: boolean): void => {
