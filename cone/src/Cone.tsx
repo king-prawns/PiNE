@@ -291,3 +291,5 @@ class Cone extends React.Component<IProps, IState> {
 }
 
 export default Cone;
+
+// TODO: estimatedBandwidth

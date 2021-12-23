@@ -1,4 +1,4 @@
-import {Cone} from '@king-prawns/pine-cone';
+// import {Cone} from '@king-prawns/pine-cone';
 import React from 'react';
 import {Socket} from 'socket.io-client';
 
@@ -24,7 +24,7 @@ type IState = {
   httpResponse: IHttpResponse | null;
 };
 class App extends React.Component<IProps, IState> {
-  private _ref: React.RefObject<Cone> = React.createRef<Cone>();
+  // private _ref: React.RefObject<Cone> = React.createRef<Cone>();
 
   constructor(props: IProps) {
     super(props);
@@ -80,7 +80,7 @@ class App extends React.Component<IProps, IState> {
     });
 
     socket.on('clientDisconnected', () => {
-      this._ref.current?.reset();
+      // this._ref.current?.reset();
     });
   }
 
@@ -88,7 +88,7 @@ class App extends React.Component<IProps, IState> {
     return (
       <>
         <section>
-          <Cone
+          {/* <Cone
             ref={this._ref}
             playerMetadata={this.state.playerMetadata}
             manifestUrl={this.state.manifestUrl}
@@ -99,7 +99,7 @@ class App extends React.Component<IProps, IState> {
             usedJSHeapSize={this.state.usedJSHeapSize}
             httpRequest={this.state.httpRequest}
             httpResponse={this.state.httpResponse}
-          />
+          /> */}
         </section>
       </>
     );

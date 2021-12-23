@@ -1,14 +1,14 @@
 import {shallow} from 'enzyme';
 import React from 'react';
 
-import Cone from './Cone';
+import Table from './Table';
 
-describe('Cone', () => {
+describe('Table', () => {
   const props: any = {};
 
   describe('render', () => {
     it('should render without error', () => {
-      expect(() => shallow(<Cone {...props} />)).not.toThrow();
+      expect(() => shallow(<Table {...props} />)).not.toThrow();
     });
   });
 });
