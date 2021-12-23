@@ -4,7 +4,6 @@ import React from 'react';
 
 type IProps = {
   children: React.ReactNode;
-  currentTimeMs: number;
   isChartLocked: boolean;
 };
 type IState = Record<string, never>;
@@ -17,23 +16,23 @@ class Chart extends React.Component<IProps, IState> {
   }
 
   componentDidUpdate(): void {
-    this.scrollTo(this.props.currentTimeMs);
+    this.scrollTo();
   }
 
-  private scrollTo(timeMs: number): void {
+  private scrollTo(): void {
     if (
       this.props.isChartLocked &&
-      this.isScrollNeeded() &&
-      this._ref.current
+      this._ref.current &&
+      this.isScrollNeeded()
     ) {
-      this._ref.current.scrollLeft = timeMs;
+      this._ref.current.scrollLeft = this._ref.current.scrollWidth;
     }
   }
 
   private isScrollNeeded = (): boolean => {
     return Boolean(
-      this._ref.current &&
-        this._ref.current.scrollWidth > this._ref.current.clientWidth
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this._ref.current!.scrollWidth > this._ref.current!.clientWidth
     );
   };
 

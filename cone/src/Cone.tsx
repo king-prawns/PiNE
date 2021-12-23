@@ -196,10 +196,7 @@ class Cone extends React.Component<IProps, IState> {
         <Header>
           <PlayerMetadata playerMetadata={this.state.playerMetadata} />
         </Header>
-        <Chart
-          currentTimeMs={this.state.currentTimeMs}
-          isChartLocked={this.isChartLocked()}
-        >
+        <Chart isChartLocked={this.isChartLocked()}>
           <Table>
             <TBody>
               <PlayerState

@@ -2,8 +2,8 @@ import './Area.css';
 
 import React from 'react';
 
-import getZoom from '../../utils/getZoom';
 import timeMsToPixel from '../../utils/timeMsToPixel';
+import {getZoom} from '../../utils/zoom';
 
 type Data = {
   value: number;

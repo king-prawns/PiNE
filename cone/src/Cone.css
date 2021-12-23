@@ -11,9 +11,9 @@
   --cone-background-color-primary-dark: #424242;
   --cone-background-color-secondary-dark: #616161;
   --cone-text-color-primary: #000000;
-  --cone-text-color-secondary: #ffffff;
+  --cone-text-color-secondary: #fafafa;
   --cone-border-color-primary: #212121;
-  --cone-border-color-secondary: #ffffff;
+  --cone-border-color-secondary: #fafafa;
 }
 
 .cone span,
