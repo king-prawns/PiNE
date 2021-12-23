@@ -2,15 +2,18 @@ import './Cone.css';
 
 import React from 'react';
 
+import Area from './components/charts/Area';
+import Block from './components/charts/Block';
+import StackedBar from './components/charts/StackedBar';
+import Cell from './components/containers/Cell';
 import Chart from './components/containers/Chart';
 import Header from './components/containers/Header';
+import Legend from './components/containers/Legend';
+import Row from './components/containers/Row';
 import Table from './components/containers/Table';
 import TBody from './components/containers/TBody';
 import Controls from './components/control/Controls';
-import ManifestUrl from './components/stat/ManifestUrl';
-import PlayerMetadata from './components/stat/PlayerMetadata';
-import PlayerState from './components/stat/PlayerState';
-import Variant from './components/stat/Variant';
+import VariantLegend from './components/legends/VariantLegend';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
 import EPlayerState from './shared/enum/EPlayerState';
@@ -18,6 +21,14 @@ import IBufferInfo from './shared/interfaces/IBufferInfo';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
+import {mapManifestUrl} from './stats/manifestUrl';
+import {mapPlayerMetadata} from './stats/playerMetadata';
+import {mapPlayerState} from './stats/playerState';
+import {
+  mapVariant,
+  VARIANT_MAX_Y_AXIS_VALUE,
+  VARIANT_MEASUREMENT_UNIT
+} from './stats/variant';
 import ECmdFromWorker from './workers/enum/ECmdFromWorker';
 import ECmdToWorker from './workers/enum/ECmdToWorker';
 import IMessageFromWorker from './workers/interfaces/IMessageFromWorker';
@@ -194,23 +205,39 @@ class Cone extends React.Component<IProps, IState> {
           onChangeLocked={this.onLockedChange}
         />
         <Header>
-          <PlayerMetadata playerMetadata={this.state.playerMetadata} />
+          <Block value={mapPlayerMetadata(this.state.playerMetadata)} />
         </Header>
         <Chart isChartLocked={this.isChartLocked()}>
           <Table>
             <TBody>
-              <PlayerState
-                playerState={this.state.playerState}
-                currentTimeMs={this.state.currentTimeMs}
-              />
-              <ManifestUrl
-                manifestUrl={this.state.manifestUrl}
-                currentTimeMs={this.state.currentTimeMs}
-              />
-              <Variant
-                variant={this.state.variant}
-                currentTimeMs={this.state.currentTimeMs}
-              />
+              <Row currentTimeMs={this.state.currentTimeMs}>
+                <Legend title="Player State" />
+                <Cell>
+                  <StackedBar
+                    data={this.state.playerState.map(mapPlayerState)}
+                    currentTimeMs={this.state.currentTimeMs}
+                  />
+                </Cell>
+              </Row>
+              <Row currentTimeMs={this.state.currentTimeMs}>
+                <Legend title="Manifest Url" />
+                <Cell>
+                  <StackedBar
+                    data={this.state.manifestUrl.map(mapManifestUrl)}
+                    currentTimeMs={this.state.currentTimeMs}
+                  />
+                </Cell>
+              </Row>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+                <VariantLegend variant={this.state.variant} />
+                <Cell>
+                  <Area
+                    data={this.state.variant.map(mapVariant)}
+                    maxYAxisValue={VARIANT_MAX_Y_AXIS_VALUE}
+                    measurementUnit={VARIANT_MEASUREMENT_UNIT}
+                  />
+                </Cell>
+              </Row>
             </TBody>
           </Table>
         </Chart>
@@ -264,6 +291,3 @@ class Cone extends React.Component<IProps, IState> {
 }
 
 export default Cone;
-
-// TODO:
-// use context per currentTimeMs e Zoom?

@@ -7,5 +7,3 @@ export const getZoom = (): number => {
 export const setZoom = (zoom: number): void => {
   document.documentElement.style.setProperty('--cone-zoom', `${zoom}`);
 };
-
-export default getZoom;

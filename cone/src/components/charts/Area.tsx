@@ -2,15 +2,12 @@ import './Area.css';
 
 import React from 'react';
 
+import IArea from '../../interfaces/IArea';
 import timeMsToPixel from '../../utils/timeMsToPixel';
 import {getZoom} from '../../utils/zoom';
 
-type Data = {
-  value: number;
-  timeMs: number;
-};
 type IProps = {
-  data: Array<Data>;
+  data: Array<IArea>;
   maxYAxisValue: number;
   measurementUnit: string;
   fillColor?: string;
@@ -49,7 +46,7 @@ class Area extends React.Component<IProps, IState> {
 
     let lastY: number = height;
     const points: string = this.props.data
-      .map((data: Data) => {
+      .map((data: IArea) => {
         const x: number = timeMsToPixel(data.timeMs * zoom);
         const y: number =
           height - (data.value * height) / this.props.maxYAxisValue;

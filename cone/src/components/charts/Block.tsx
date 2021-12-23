@@ -2,8 +2,10 @@ import './Block.css';
 
 import React from 'react';
 
+import IBlock from '../../interfaces/IBlock';
+
 type IProps = {
-  value: string;
+  value: IBlock;
   backgroundColor?: string;
   color?: string;
 };

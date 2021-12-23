@@ -2,16 +2,11 @@ import './StackedBar.css';
 
 import React from 'react';
 
+import IStackedBar from '../../interfaces/IStackedBar';
 import timeMsToPixel from '../../utils/timeMsToPixel';
 
-type Data = {
-  value: string;
-  timeMs: number;
-  backgroundColor?: string;
-  color?: string;
-};
 type IProps = {
-  data: Array<Data>;
+  data: Array<IStackedBar>;
   currentTimeMs: number;
 };
 type IState = Record<string, never>;
@@ -20,8 +15,8 @@ class StackedBar extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private setStyle(data: Data, index: number): React.CSSProperties {
-    const nextData: Data | undefined = this.props.data[index + 1];
+  private setStyle(data: IStackedBar, index: number): React.CSSProperties {
+    const nextData: IStackedBar | undefined = this.props.data[index + 1];
 
     let cssProperties: React.CSSProperties = {
       position: 'absolute',
@@ -52,7 +47,7 @@ class StackedBar extends React.Component<IProps, IState> {
     return cssProperties;
   }
 
-  private setColor(data: Data): React.CSSProperties {
+  private setColor(data: IStackedBar): React.CSSProperties {
     const cssProperties: React.CSSProperties = {};
     if (data.color) {
       cssProperties.color = data.color;
@@ -64,7 +59,7 @@ class StackedBar extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <div className="cone-stacked-bar">
-        {this.props.data.map((data: Data, index: number) => {
+        {this.props.data.map((data: IStackedBar, index: number) => {
           return (
             <div
               className="cone-stacked-bar-block"
