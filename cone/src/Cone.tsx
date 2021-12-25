@@ -7,13 +7,15 @@ import Block from './components/charts/Block';
 import StackedBar from './components/charts/StackedBar';
 import Cell from './components/containers/Cell';
 import Chart from './components/containers/Chart';
+import Controls from './components/containers/Controls';
 import Header from './components/containers/Header';
 import Legend from './components/containers/Legend';
 import Row from './components/containers/Row';
 import Summary from './components/containers/Summary';
 import Table from './components/containers/Table';
 import TBody from './components/containers/TBody';
-import Controls from './components/control/Controls';
+import IsLocked from './components/control/IsLocked';
+import ZoomLevel from './components/control/ZoomLevel';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
 import EPlayerState from './shared/enum/EPlayerState';
@@ -197,13 +199,14 @@ class Cone extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <div className="cone">
-        <Controls
-          zoom={this.state.zoom}
-          isLocked={this.isChartLocked()}
-          isEnded={this.state.isEnded}
-          onChangeZoom={this.onZoomChange}
-          onChangeLocked={this.onLockedChange}
-        />
+        <Controls>
+          <ZoomLevel zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
+          <IsLocked
+            isLocked={this.isChartLocked()}
+            isEnded={this.state.isEnded}
+            onChangeLocked={this.onLockedChange}
+          />
+        </Controls>
         <Header>
           <Block value={mapPlayerMetadata(this.state.playerMetadata)} />
         </Header>

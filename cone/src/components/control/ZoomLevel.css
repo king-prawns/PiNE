@@ -1,0 +1,9 @@
+.cone-zoom-level {
+  display: flex;
+  margin-right: 10px;
+}
+
+.cone-zoom-level label {
+  display: flex;
+  align-self: center;
+}
