@@ -16,7 +16,7 @@ type IState = Record<string, never>;
 class Area extends React.Component<IProps, IState> {
   private _ref: React.RefObject<HTMLDivElement> =
     React.createRef<HTMLDivElement>();
-  private PARTITIONS_NUMBER: number = 4;
+  private PARTITIONS_NUMBER: number = 5;
   constructor(props: IProps) {
     super(props);
   }

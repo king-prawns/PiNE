@@ -101,15 +101,15 @@ class Sandbox extends React.Component<IProps, IState> {
     this.bufferInfoInterval = window.setInterval(() => {
       this.setState({
         bufferInfo: {
-          audio: Math.floor(Math.random() * 10),
-          video: Math.floor(Math.random() * 10)
+          audio: Math.floor(Math.random() * 14),
+          video: Math.floor(Math.random() * 14)
         }
       });
     }, 2500);
 
     this.usedJSHeapSizeInterval = window.setInterval(() => {
       this.setState({
-        usedJSHeapSize: Math.floor(Math.random() * 100000)
+        usedJSHeapSize: Math.floor(Math.random() * 80000000)
       });
     }, 1500);
 

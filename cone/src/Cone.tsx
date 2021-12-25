@@ -21,19 +21,13 @@ import IBufferInfo from './shared/interfaces/IBufferInfo';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
-import {
-  ESTIMATED_BANDWIDTH_MAX_Y_AXIS_VALUE,
-  ESTIMATED_BANDWIDTH_MEASUREMENT_UNIT,
-  mapEstimatedBandwidth
-} from './stats/estimatedBandwidth';
-import {mapManifestUrl} from './stats/manifestUrl';
-import {mapPlayerMetadata} from './stats/playerMetadata';
-import {mapPlayerState} from './stats/playerState';
-import {
-  mapVariant,
-  VARIANT_MAX_Y_AXIS_VALUE,
-  VARIANT_MEASUREMENT_UNIT
-} from './stats/variant';
+import {mapAudioBufferInfo, mapVideoBufferInfo} from './stats/bufferInfo';
+import mapEstimatedBandwidth from './stats/estimatedBandwidth';
+import mapManifestUrl from './stats/manifestUrl';
+import mapPlayerMetadata from './stats/playerMetadata';
+import mapPlayerState from './stats/playerState';
+import mapUsedJSHeapSize from './stats/usedJSHeapSize';
+import mapVariant from './stats/variant';
 import {setZoom} from './utils/zoom';
 import ECmdFromWorker from './workers/enum/ECmdFromWorker';
 import ECmdToWorker from './workers/enum/ECmdToWorker';
@@ -238,13 +232,13 @@ class Cone extends React.Component<IProps, IState> {
                 <Summary
                   title="Variant"
                   data={this.state.variant}
-                  measurementUnit={VARIANT_MEASUREMENT_UNIT}
+                  measurementUnit="Mbps"
                 />
                 <Cell>
                   <Area
                     data={this.state.variant.map(mapVariant)}
-                    maxYAxisValue={VARIANT_MAX_Y_AXIS_VALUE}
-                    measurementUnit={VARIANT_MEASUREMENT_UNIT}
+                    maxYAxisValue={10}
+                    measurementUnit="Mbps"
                   />
                 </Cell>
               </Row>
@@ -252,40 +246,68 @@ class Cone extends React.Component<IProps, IState> {
                 <Summary
                   title="Estimated Bandwidth"
                   data={this.state.estimatedBandwidth}
-                  measurementUnit={ESTIMATED_BANDWIDTH_MEASUREMENT_UNIT}
+                  measurementUnit="Mbps"
                 />
                 <Cell>
                   <Area
                     data={this.state.estimatedBandwidth.map(
                       mapEstimatedBandwidth
                     )}
-                    maxYAxisValue={ESTIMATED_BANDWIDTH_MAX_Y_AXIS_VALUE}
-                    measurementUnit={ESTIMATED_BANDWIDTH_MEASUREMENT_UNIT}
+                    maxYAxisValue={20}
+                    measurementUnit="Mbps"
                     fillColor="#78909c"
+                  />
+                </Cell>
+              </Row>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+                <Summary
+                  title="Video Buffer"
+                  data={this.state.bufferInfo.map(mapVideoBufferInfo)}
+                  measurementUnit="s"
+                />
+                <Cell>
+                  <Area
+                    data={this.state.bufferInfo.map(mapVideoBufferInfo)}
+                    maxYAxisValue={15}
+                    measurementUnit="s"
+                  />
+                </Cell>
+              </Row>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+                <Summary
+                  title="Audio Buffer"
+                  data={this.state.bufferInfo.map(mapAudioBufferInfo)}
+                  measurementUnit="s"
+                />
+                <Cell>
+                  <Area
+                    data={this.state.bufferInfo.map(mapAudioBufferInfo)}
+                    maxYAxisValue={15}
+                    measurementUnit="s"
+                  />
+                </Cell>
+              </Row>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+                <Legend title="HTTP Requests" />
+                <Cell>TODO</Cell>
+              </Row>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+                <Summary
+                  title="Memory Heap"
+                  data={this.state.usedJSHeapSize.map(mapUsedJSHeapSize)}
+                  measurementUnit="MB"
+                />
+                <Cell>
+                  <Area
+                    data={this.state.usedJSHeapSize.map(mapUsedJSHeapSize)}
+                    maxYAxisValue={90}
+                    measurementUnit="MB"
                   />
                 </Cell>
               </Row>
             </TBody>
           </Table>
         </Chart>
-        <h3>Buffer Info</h3>
-        {this.state.bufferInfo.map(
-          (bufferInfo: IStat<IBufferInfo>, index: number) => {
-            return (
-              <p key={`bufferInfo-${index}`}>
-                {JSON.stringify(bufferInfo.value)}
-              </p>
-            );
-          }
-        )}
-        <h3>Used JS Heap Size</h3>
-        {this.state.usedJSHeapSize.map(
-          (usedJSHeapSize: IStat<number>, index: number) => {
-            return (
-              <p key={`usedJSHeapSize-${index}`}>{usedJSHeapSize.value}</p>
-            );
-          }
-        )}
         <h3>Http Request</h3>
         {this.state.httpRequest.map(
           (httpRequest: IStat<IHttpRequest>, index: number) => {

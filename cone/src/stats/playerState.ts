@@ -19,12 +19,12 @@ const getPlayerStateColor = (playerState: EPlayerState): string => {
   }
 };
 
-export const mapPlayerState = (
-  playerState: IStat<EPlayerState>
-): IStackedBar => {
+const mapPlayerState = (playerState: IStat<EPlayerState>): IStackedBar => {
   return {
     value: playerState.value.toString(),
     timeMs: playerState.timeMs,
     backgroundColor: getPlayerStateColor(playerState.value)
   };
 };
+
+export default mapPlayerState;

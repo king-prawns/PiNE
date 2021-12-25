@@ -3,9 +3,7 @@ import IStat from '../interfaces/IStat';
 import IStats from '../interfaces/IStats';
 import IPlayerMetadata from '../shared/interfaces/IPlayerMetadata';
 
-export const mapPlayerMetadata = (
-  playerMetadata: IStats<IPlayerMetadata>
-): IBlock => {
+const mapPlayerMetadata = (playerMetadata: IStats<IPlayerMetadata>): IBlock => {
   const lastPlayerMetadata: IStat<IPlayerMetadata> =
     playerMetadata[playerMetadata.length - 1];
 
@@ -17,3 +15,5 @@ export const mapPlayerMetadata = (
 
   return `PLAYER: ${name} | VERSION: ${version}`;
 };
+
+export default mapPlayerMetadata;
