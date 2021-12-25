@@ -11,7 +11,7 @@
 }
 
 .cone-row:nth-of-type(2n) > .cone-cell {
-  background-color: var(--cone-background-color-seconday);
+  background-color: var(--cone-background-color-secondary);
 }
 
 .cone-row:nth-of-type(2n + 1) > .cone-legend {

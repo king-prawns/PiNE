@@ -1,20 +1,21 @@
 import React from 'react';
 
 import IStats from '../../interfaces/IStats';
-import {VARIANT_MEASUREMENT_UNIT} from '../../stats/variant';
 import round from '../../utils/round';
 import Legend from '../containers/Legend';
 import LegendItem from '../containers/LegendItem';
 
 type IProps = {
-  variant: IStats<number>;
+  title: string;
+  data: IStats<number>;
+  measurementUnit: string;
 };
 type IState = {
   currentValue: number;
   maxValue: number;
   minValue: number;
 };
-class VariantLegend extends React.Component<IProps, IState> {
+class Summary extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -25,18 +26,18 @@ class VariantLegend extends React.Component<IProps, IState> {
   }
 
   componentDidUpdate(prevProps: IProps): void {
-    if (this.props.variant.length !== prevProps.variant.length) {
+    if (this.props.data.length !== prevProps.data.length) {
       this.setMinMaxCurrent();
     }
   }
 
   private setMinMaxCurrent(): void {
-    if (this.props.variant.length === 0) {
+    if (this.props.data.length === 0) {
       return;
     }
 
     const currentValue: number = round(
-      this.props.variant[this.props.variant.length - 1].value
+      this.props.data[this.props.data.length - 1].value
     );
 
     this.setState({
@@ -54,19 +55,19 @@ class VariantLegend extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <Legend title="Variant">
+      <Legend title={this.props.title}>
         <LegendItem>
-          Current: {this.state.currentValue} {VARIANT_MEASUREMENT_UNIT}
+          Current: {this.state.currentValue} {this.props.measurementUnit}
         </LegendItem>
         <LegendItem>
-          Max: {this.state.maxValue} {VARIANT_MEASUREMENT_UNIT}
+          Max: {this.state.maxValue} {this.props.measurementUnit}
         </LegendItem>
         <LegendItem>
-          Min: {this.state.minValue} {VARIANT_MEASUREMENT_UNIT}
+          Min: {this.state.minValue} {this.props.measurementUnit}
         </LegendItem>
       </Legend>
     );
   }
 }
 
-export default VariantLegend;
+export default Summary;

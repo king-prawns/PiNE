@@ -94,9 +94,9 @@ class Sandbox extends React.Component<IProps, IState> {
 
     this.estimatedBandwidthInterval = window.setInterval(() => {
       this.setState({
-        estimatedBandwidth: Math.floor(Math.random() * 100)
+        estimatedBandwidth: Math.floor(Math.random() * 25)
       });
-    }, 8000);
+    }, 5000);
 
     this.bufferInfoInterval = window.setInterval(() => {
       this.setState({

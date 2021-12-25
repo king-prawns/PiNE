@@ -61,7 +61,7 @@ class Area extends React.Component<IProps, IState> {
   }
 
   private setFillColor(): string {
-    return this.props.fillColor || '';
+    return this.props.fillColor || '#607d8b';
   }
 
   private drawPartitions(): JSX.Element {

@@ -10,10 +10,10 @@ import Chart from './components/containers/Chart';
 import Header from './components/containers/Header';
 import Legend from './components/containers/Legend';
 import Row from './components/containers/Row';
+import Summary from './components/containers/Summary';
 import Table from './components/containers/Table';
 import TBody from './components/containers/TBody';
 import Controls from './components/control/Controls';
-import VariantLegend from './components/legends/VariantLegend';
 import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
 import EPlayerState from './shared/enum/EPlayerState';
@@ -21,6 +21,11 @@ import IBufferInfo from './shared/interfaces/IBufferInfo';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
+import {
+  ESTIMATED_BANDWIDTH_MAX_Y_AXIS_VALUE,
+  ESTIMATED_BANDWIDTH_MEASUREMENT_UNIT,
+  mapEstimatedBandwidth
+} from './stats/estimatedBandwidth';
 import {mapManifestUrl} from './stats/manifestUrl';
 import {mapPlayerMetadata} from './stats/playerMetadata';
 import {mapPlayerState} from './stats/playerState';
@@ -230,7 +235,11 @@ class Cone extends React.Component<IProps, IState> {
                 </Cell>
               </Row>
               <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
-                <VariantLegend variant={this.state.variant} />
+                <Summary
+                  title="Variant"
+                  data={this.state.variant}
+                  measurementUnit={VARIANT_MEASUREMENT_UNIT}
+                />
                 <Cell>
                   <Area
                     data={this.state.variant.map(mapVariant)}
@@ -239,19 +248,26 @@ class Cone extends React.Component<IProps, IState> {
                   />
                 </Cell>
               </Row>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+                <Summary
+                  title="Estimated Bandwidth"
+                  data={this.state.estimatedBandwidth}
+                  measurementUnit={ESTIMATED_BANDWIDTH_MEASUREMENT_UNIT}
+                />
+                <Cell>
+                  <Area
+                    data={this.state.estimatedBandwidth.map(
+                      mapEstimatedBandwidth
+                    )}
+                    maxYAxisValue={ESTIMATED_BANDWIDTH_MAX_Y_AXIS_VALUE}
+                    measurementUnit={ESTIMATED_BANDWIDTH_MEASUREMENT_UNIT}
+                    fillColor="#78909c"
+                  />
+                </Cell>
+              </Row>
             </TBody>
           </Table>
         </Chart>
-        <h3>Estimated Bandwidth</h3>
-        {this.state.estimatedBandwidth.map(
-          (estimatedBandwidth: IStat<number>, index: number) => {
-            return (
-              <p key={`estimatedBandwidth-${index}`}>
-                {estimatedBandwidth.value}
-              </p>
-            );
-          }
-        )}
         <h3>Buffer Info</h3>
         {this.state.bufferInfo.map(
           (bufferInfo: IStat<IBufferInfo>, index: number) => {
@@ -292,5 +308,3 @@ class Cone extends React.Component<IProps, IState> {
 }
 
 export default Cone;
-
-// TODO: estimatedBandwidth
