@@ -205,7 +205,7 @@ class Cone extends React.Component<IProps, IState> {
           />
         </Controls>
         <Header>
-          <Block value={mapPlayerMetadata(this.state.playerMetadata)} />
+          <Block data={mapPlayerMetadata(this.state.playerMetadata)} />
         </Header>
         <Chart isChartLocked={this.isChartLocked()}>
           <Table>

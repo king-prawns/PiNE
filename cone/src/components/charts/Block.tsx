@@ -5,7 +5,7 @@ import React from 'react';
 import IBlock from '../../interfaces/IBlock';
 
 type IProps = {
-  value: IBlock;
+  data: IBlock;
   backgroundColor?: string;
   color?: string;
 };
@@ -36,7 +36,7 @@ class Block extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <div className="cone-block" style={this.setBackgroundColor()}>
-        <span style={this.setColor()}>{this.props.value}</span>
+        <span style={this.setColor()}>{this.props.data}</span>
       </div>
     );
   }
