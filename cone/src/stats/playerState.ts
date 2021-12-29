@@ -23,7 +23,8 @@ const mapPlayerState = (playerState: IStat<EPlayerState>): IStackedBar => {
   return {
     value: playerState.value.toString(),
     timeMs: playerState.timeMs,
-    backgroundColor: getPlayerStateColor(playerState.value)
+    backgroundColor: getPlayerStateColor(playerState.value),
+    color: '#000000'
   };
 };
 

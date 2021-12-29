@@ -30,7 +30,8 @@ import mapPlayerMetadata from './stats/playerMetadata';
 import mapPlayerState from './stats/playerState';
 import mapUsedJSHeapSize from './stats/usedJSHeapSize';
 import mapVariant from './stats/variant';
-import {setZoom} from './utils/zoom';
+import getCSSVar from './utils/getCSSVar';
+import setCSSVar from './utils/setCSSVar';
 import ECmdFromWorker from './workers/enum/ECmdFromWorker';
 import ECmdToWorker from './workers/enum/ECmdToWorker';
 import IMessageFromWorker from './workers/interfaces/IMessageFromWorker';
@@ -107,7 +108,7 @@ class Cone extends React.Component<IProps, IState> {
     ): void => {
       const {timeMs, cmd} = message.data;
       if (timeMs) {
-        this.setTimeMs(timeMs);
+        this.setState({currentTimeMs: timeMs});
       }
       if (cmd === ECmdFromWorker.STOPPED) {
         this.setState({isEnded: true});
@@ -168,13 +169,9 @@ class Cone extends React.Component<IProps, IState> {
     }
   }
 
-  private setTimeMs = (currentTimeMs: number): void => {
-    this.setState({currentTimeMs});
-  };
-
   private onZoomChange = (zoom: number): void => {
     this.setState({zoom});
-    setZoom(zoom);
+    setCSSVar('--cone-zoom', `${zoom}`);
   };
 
   private onLockedChange = (isLocked: boolean): void => {
@@ -258,7 +255,7 @@ class Cone extends React.Component<IProps, IState> {
                     )}
                     maxYAxisValue={20}
                     measurementUnit="Mbps"
-                    fillColor="#78909c"
+                    fillColor={getCSSVar('--cone-chart-color-secondary')}
                   />
                 </Cell>
               </Row>
@@ -287,6 +284,7 @@ class Cone extends React.Component<IProps, IState> {
                     data={this.state.bufferInfo.map(mapAudioBufferInfo)}
                     maxYAxisValue={15}
                     measurementUnit="s"
+                    fillColor={getCSSVar('--cone-chart-color-secondary')}
                   />
                 </Cell>
               </Row>
@@ -333,3 +331,8 @@ class Cone extends React.Component<IProps, IState> {
 }
 
 export default Cone;
+
+// TODO:
+// HTTP requests
+// - match?
+// -column chart?

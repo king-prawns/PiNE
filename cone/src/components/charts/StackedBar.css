@@ -17,7 +17,7 @@
   white-space: nowrap;
   padding-left: 3px;
   cursor: default;
-  color: var(--cone-text-color-primary);
+  color: var(--cone-text-color-secondary);
 }
 
 .cone-stacked-bar-block:nth-child(2n + 1) {

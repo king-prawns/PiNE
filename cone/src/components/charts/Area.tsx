@@ -3,8 +3,8 @@ import './Area.css';
 import React from 'react';
 
 import IArea from '../../interfaces/IArea';
+import getCSSVar from '../../utils/getCSSVar';
 import timeMsToPixel from '../../utils/timeMsToPixel';
-import {getZoom} from '../../utils/zoom';
 
 type IProps = {
   data: Array<IArea>;
@@ -40,7 +40,7 @@ class Area extends React.Component<IProps, IState> {
 
   private setPoints(): string {
     const [width, height] = this.getDimensions();
-    const zoom: number = getZoom();
+    const zoom: number = +getCSSVar('--cone-zoom');
 
     const firstPoint: string = `0,${height}`;
 
@@ -61,7 +61,7 @@ class Area extends React.Component<IProps, IState> {
   }
 
   private setFillColor(): string {
-    return this.props.fillColor || '#607d8b';
+    return this.props.fillColor || getCSSVar('--cone-chart-color-primary');
   }
 
   private drawPartitions(): JSX.Element {
