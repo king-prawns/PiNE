@@ -63,7 +63,7 @@ class StackedBar extends React.Component<IProps, IState> {
           return (
             <div
               className="cone-stacked-bar-block"
-              key={`data-${index}`}
+              key={`stacked-bar-${index}`}
               style={this.setStyle(data, index)}
               title={data.value}
             >

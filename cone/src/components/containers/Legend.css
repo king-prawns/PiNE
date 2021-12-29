@@ -4,16 +4,17 @@
   left: 0;
   z-index: 1;
   box-sizing: border-box;
-  padding: 5px;
+  padding: 4px;
   display: flex;
   flex-direction: column;
+  font-size: 0.9em;
 }
 
 .cone-legend > h3 {
   font-weight: bold;
   color: var(--cone-text-color-secondary);
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
 }
 
 .cone-legend > div {
