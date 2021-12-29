@@ -289,7 +289,7 @@ class Cone extends React.Component<IProps, IState> {
                   />
                 </Cell>
               </Row>
-              <Row currentTimeMs={this.state.currentTimeMs} flex={3}>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
                 <Legend title="HTTP Requests" />
                 <Cell>
                   <Column
