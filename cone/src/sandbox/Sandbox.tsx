@@ -83,7 +83,7 @@ class Sandbox extends React.Component<IProps, IState> {
       this.setState({
         playerState: EPlayerState.ENDED
       });
-      window.clearInterval(this.playerStateInterval);
+      this.clearIntervals();
     }, PLAYBACK_DURATION);
 
     this.variantInterval = window.setInterval(() => {
@@ -114,45 +114,33 @@ class Sandbox extends React.Component<IProps, IState> {
     }, 1500);
 
     this.httpRequestInterval = window.setInterval(() => {
+      const httpRequestList: Array<IHttpRequest> = [...Array(200)].map(
+        (_item: undefined, index: number) => `http://example.com/${index}`
+      );
+      const httpRequest: IHttpRequest =
+        this.getRandomItem<IHttpRequest>(httpRequestList);
       this.setState({
-        httpRequest: this.getRandomItem<IHttpRequest>([
-          'http://example.com/1',
-          'http://example.com/2',
-          'http://example.com/3',
-          'http://example.com/4'
-        ])
+        httpRequest
       });
-    }, 1000);
 
-    this.httpResponseInterval = window.setInterval(() => {
-      this.setState({
-        httpResponse: this.getRandomItem<IHttpResponse>([
-          {
-            url: 'http://example.com/1',
-            byteLength: 11111,
-            timeMs: 100
-          },
-          {
-            url: 'http://example.com/2',
-            byteLength: 22222,
-            timeMs: 200
-          },
-          {
-            url: 'http://example.com/3',
-            byteLength: 33333,
-            timeMs: 300
-          },
-          {
-            url: 'http://example.com/4',
-            byteLength: 44444,
-            timeMs: 400
+      const timeMs: number = Math.random() * 3000;
+      window.setTimeout(() => {
+        this.setState({
+          httpResponse: {
+            url: httpRequest,
+            byteLength: Math.floor(Math.random() * 1000000),
+            timeMs
           }
-        ])
-      });
-    }, 1500);
+        });
+      }, timeMs);
+    }, 1000);
   }
 
   componentWillUnmount(): void {
+    this.clearIntervals();
+  }
+
+  private clearIntervals(): void {
     window.clearInterval(this.playerMetadataInterval);
     window.clearInterval(this.manifestInterval);
     window.clearInterval(this.playerStateInterval);
