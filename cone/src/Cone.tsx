@@ -4,6 +4,7 @@ import React from 'react';
 
 import Area from './components/charts/Area';
 import Block from './components/charts/Block';
+import Column from './components/charts/Column';
 import StackedBar from './components/charts/StackedBar';
 import Cell from './components/containers/Cell';
 import Chart from './components/containers/Chart';
@@ -16,7 +17,6 @@ import Table from './components/containers/Table';
 import TBody from './components/containers/TBody';
 import IsLocked from './components/control/IsLocked';
 import ZoomLevel from './components/control/ZoomLevel';
-import IStat from './interfaces/IStat';
 import IStats from './interfaces/IStats';
 import EPlayerState from './shared/enum/EPlayerState';
 import IBufferInfo from './shared/interfaces/IBufferInfo';
@@ -25,6 +25,7 @@ import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
 import {mapAudioBufferInfo, mapVideoBufferInfo} from './stats/bufferInfo';
 import mapEstimatedBandwidth from './stats/estimatedBandwidth';
+import mapHttpMessage from './stats/httpMessage';
 import mapManifestUrl from './stats/manifestUrl';
 import mapPlayerMetadata from './stats/playerMetadata';
 import mapPlayerState from './stats/playerState';
@@ -228,7 +229,7 @@ class Cone extends React.Component<IProps, IState> {
                   />
                 </Cell>
               </Row>
-              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={3}>
                 <Summary
                   title="Variant"
                   data={this.state.variant}
@@ -242,7 +243,7 @@ class Cone extends React.Component<IProps, IState> {
                   />
                 </Cell>
               </Row>
-              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={3}>
                 <Summary
                   title="Estimated Bandwidth"
                   data={this.state.estimatedBandwidth}
@@ -259,7 +260,7 @@ class Cone extends React.Component<IProps, IState> {
                   />
                 </Cell>
               </Row>
-              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={3}>
                 <Summary
                   title="Video Buffer"
                   data={this.state.bufferInfo.map(mapVideoBufferInfo)}
@@ -273,7 +274,7 @@ class Cone extends React.Component<IProps, IState> {
                   />
                 </Cell>
               </Row>
-              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={3}>
                 <Summary
                   title="Audio Buffer"
                   data={this.state.bufferInfo.map(mapAudioBufferInfo)}
@@ -288,11 +289,18 @@ class Cone extends React.Component<IProps, IState> {
                   />
                 </Cell>
               </Row>
-              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={3}>
                 <Legend title="HTTP Requests" />
-                <Cell>TODO</Cell>
+                <Cell>
+                  <Column
+                    data={[
+                      ...this.state.httpRequest,
+                      ...this.state.httpResponse
+                    ].map(mapHttpMessage)}
+                  />
+                </Cell>
               </Row>
-              <Row currentTimeMs={this.state.currentTimeMs} flex={2}>
+              <Row currentTimeMs={this.state.currentTimeMs} flex={3}>
                 <Summary
                   title="Memory Heap"
                   data={this.state.usedJSHeapSize.map(mapUsedJSHeapSize)}
@@ -309,30 +317,9 @@ class Cone extends React.Component<IProps, IState> {
             </TBody>
           </Table>
         </Chart>
-        <h3>Http Request</h3>
-        {this.state.httpRequest.map(
-          (httpRequest: IStat<IHttpRequest>, index: number) => {
-            return <p key={`httpRequest-${index}`}>{httpRequest.value}</p>;
-          }
-        )}
-        <h3>Http Response</h3>
-        {this.state.httpResponse.map(
-          (httpResponse: IStat<IHttpResponse>, index: number) => {
-            return (
-              <p key={`httpResponse-${index}`}>
-                {JSON.stringify(httpResponse.value)}
-              </p>
-            );
-          }
-        )}
       </div>
     );
   }
 }
 
 export default Cone;
-
-// TODO:
-// HTTP requests
-// - match?
-// -column chart?
