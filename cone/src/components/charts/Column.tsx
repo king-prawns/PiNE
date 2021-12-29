@@ -13,18 +13,33 @@ class Column extends React.Component<IProps, IState> {
     super(props);
   }
 
+  private drawColumns(): Array<JSX.Element> {
+    const result: Array<JSX.Element> = [];
+    const columns: Record<string, {startMs: number; endMs?: number}> = {};
+    this.props.data.forEach((data: IColumn, _index: number) => {
+      if (columns[data.value]) {
+        columns[data.value].endMs = data.timeMs;
+      } else {
+        columns[data.value] = {
+          startMs: data.timeMs
+        };
+      }
+    });
+
+    for (const column in columns) {
+      const {startMs, endMs} = columns[column];
+      result.push(
+        <div>
+          {column} | {startMs} | {endMs}
+        </div>
+      );
+    }
+
+    return result;
+  }
+
   render(): JSX.Element {
-    return (
-      <div className="cone-column">
-        {this.props.data.map((data: IColumn, index: number) => {
-          return (
-            <div key={`column-${index}`} title={data.value}>
-              <span>{data.value}</span> |<span>{data.timeMs}</span>
-            </div>
-          );
-        })}
-      </div>
-    );
+    return <div className="cone-column">{...this.drawColumns()}</div>;
   }
 }
 
