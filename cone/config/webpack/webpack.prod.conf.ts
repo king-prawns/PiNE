@@ -16,9 +16,6 @@ const prodConfig: Configuration = merge(base, {
     libraryTarget: 'commonjs',
     filename: 'pine-cone.js'
   },
-  externals: {
-    react: 'React'
-  },
   optimization: {
     minimizer: [
       new TerserPlugin({
