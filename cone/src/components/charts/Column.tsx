@@ -7,16 +7,34 @@ import timeMsToPixel from '../../utils/timeMsToPixel';
 
 type IProps = {
   data: Array<IColumn>;
+  maxYAxisValue: number;
+  measurementUnit: string;
   backgroundColor?: string;
   foregroundColor?: string;
 };
 type IState = Record<string, never>;
 class Column extends React.Component<IProps, IState> {
+  private _ref: React.RefObject<HTMLDivElement> =
+    React.createRef<HTMLDivElement>();
+  private PARTITIONS_NUMBER: number = 4;
   constructor(props: IProps) {
     super(props);
   }
 
+  private getDimensions(): [number, number] {
+    let width: number = 0;
+    let height: number = 0;
+    if (this._ref.current) {
+      width = this._ref.current.clientWidth;
+      height = this._ref.current.clientHeight;
+    }
+
+    return [width, height];
+  }
+
   private setStyle(startMs: number, endMs?: number): React.CSSProperties {
+    const [, height] = this.getDimensions();
+
     const cssProperties: React.CSSProperties = {
       left: `calc(${timeMsToPixel(startMs)}px * var(--cone-zoom))`,
       height: '100%',
@@ -25,11 +43,10 @@ class Column extends React.Component<IProps, IState> {
     };
 
     if (endMs) {
+      const h: number = ((endMs - startMs) * height) / this.props.maxYAxisValue;
       cssProperties.backgroundColor =
         this.props.foregroundColor ?? 'var(--cone-chart-color-secondary)';
-      cssProperties.height = `calc(${timeMsToPixel(
-        endMs - startMs
-      )}px * var(--cone-zoom))`;
+      cssProperties.height = `${h}px`;
     }
 
     return cssProperties;
@@ -64,12 +81,11 @@ class Column extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <div className="cone-column">{...this.drawColumns(this.props.data)}</div>
+      <div className="cone-column" ref={this._ref}>
+        {...this.drawColumns(this.props.data)}
+      </div>
     );
   }
 }
 
 export default Column;
-
-// TODO:
-// moderate altezza rispetto alla altezza della row?

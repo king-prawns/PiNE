@@ -240,6 +240,7 @@ class Cone extends React.Component<IProps, IState> {
                     data={this.state.variant.map(mapVariant)}
                     maxYAxisValue={10}
                     measurementUnit="Mbps"
+                    fillColor={getCSSVar('--cone-chart-color-secondary')}
                   />
                 </Cell>
               </Row>
@@ -256,7 +257,6 @@ class Cone extends React.Component<IProps, IState> {
                     )}
                     maxYAxisValue={20}
                     measurementUnit="Mbps"
-                    fillColor={getCSSVar('--cone-chart-color-secondary')}
                   />
                 </Cell>
               </Row>
@@ -271,6 +271,7 @@ class Cone extends React.Component<IProps, IState> {
                     data={this.state.bufferInfo.map(mapVideoBufferInfo)}
                     maxYAxisValue={15}
                     measurementUnit="s"
+                    fillColor={getCSSVar('--cone-chart-color-secondary')}
                   />
                 </Cell>
               </Row>
@@ -285,7 +286,6 @@ class Cone extends React.Component<IProps, IState> {
                     data={this.state.bufferInfo.map(mapAudioBufferInfo)}
                     maxYAxisValue={15}
                     measurementUnit="s"
-                    fillColor={getCSSVar('--cone-chart-color-secondary')}
                   />
                 </Cell>
               </Row>
@@ -297,6 +297,8 @@ class Cone extends React.Component<IProps, IState> {
                       this.state.httpRequest,
                       this.state.httpResponse
                     )}
+                    maxYAxisValue={3000}
+                    measurementUnit="ms"
                   />
                 </Cell>
               </Row>
@@ -311,6 +313,7 @@ class Cone extends React.Component<IProps, IState> {
                     data={this.state.usedJSHeapSize.map(mapUsedJSHeapSize)}
                     maxYAxisValue={90}
                     measurementUnit="MB"
+                    fillColor={getCSSVar('--cone-chart-color-secondary')}
                   />
                 </Cell>
               </Row>
