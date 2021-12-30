@@ -42,4 +42,4 @@ jobs:
           file: './Dockerfile.branch'
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/pine-branch:latest
           secrets: |
-            NPM_AUTH_TOKEN=${{ secrets.NPM_AUTH_TOKEN }}
+            "NPM_AUTH_TOKEN=${{ secrets.NPM_AUTH_TOKEN }}"
