@@ -1,10 +1,10 @@
 import IArea from '../interfaces/IArea';
 import IStat from '../interfaces/IStat';
 
-const mapUsedJSHeapSize = (usedJSHeapSize: IStat<number>): IArea => {
+const mapUsedJSHeapSize = (usedJSHeapSizeMb: IStat<number>): IArea => {
   return {
-    value: usedJSHeapSize.value / 1000000, // bytes to MB
-    timeMs: usedJSHeapSize.timeMs
+    value: usedJSHeapSizeMb.value,
+    timeMs: usedJSHeapSizeMb.timeMs
   };
 };
 

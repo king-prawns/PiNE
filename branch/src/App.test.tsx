@@ -10,6 +10,10 @@ jest.mock('./socket/getSocket', () => ({
   }))
 }));
 
+jest.mock('@king-prawns/pine-cone', () => ({
+  Cone: jest.fn()
+}));
+
 describe('App', () => {
   const props: any = {};
 
