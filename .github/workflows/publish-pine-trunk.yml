@@ -6,7 +6,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
 jobs:
   build-and-push-pine-trunk:
@@ -41,3 +40,5 @@ jobs:
           push: true
           file: './Dockerfile.trunk'
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/pine-trunk:latest
+          secrets: |
+            NPM_AUTH_TOKEN=${{ secrets.NPM_AUTH_TOKEN }}
