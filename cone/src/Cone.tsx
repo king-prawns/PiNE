@@ -25,7 +25,7 @@ import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
 import {mapAudioBufferInfo, mapVideoBufferInfo} from './stats/bufferInfo';
 import mapEstimatedBandwidth from './stats/estimatedBandwidth';
-import mapHttpMessage from './stats/httpMessage';
+import mapHttpMessages from './stats/httpMessages';
 import mapManifestUrl from './stats/manifestUrl';
 import mapPlayerMetadata from './stats/playerMetadata';
 import mapPlayerState from './stats/playerState';
@@ -293,10 +293,10 @@ class Cone extends React.Component<IProps, IState> {
                 <Legend title="HTTP Requests" />
                 <Cell>
                   <Column
-                    data={[
-                      ...this.state.httpRequest,
-                      ...this.state.httpResponse
-                    ].map(mapHttpMessage)}
+                    data={mapHttpMessages(
+                      this.state.httpRequest,
+                      this.state.httpResponse
+                    )}
                   />
                 </Cell>
               </Row>

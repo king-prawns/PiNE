@@ -1,2 +1,8 @@
 .cone-column {
 }
+
+.cone-column-block {
+  position: absolute;
+  bottom: 0;
+  width: calc(3px * var(--cone-zoom));
+}

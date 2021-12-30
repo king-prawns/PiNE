@@ -19,8 +19,6 @@ class StackedBar extends React.Component<IProps, IState> {
     const nextData: IStackedBar | undefined = this.props.data[index + 1];
 
     let cssProperties: React.CSSProperties = {
-      position: 'absolute',
-      bottom: 0,
       left: `calc(${timeMsToPixel(data.timeMs)}px * var(--cone-zoom))`
     };
 
