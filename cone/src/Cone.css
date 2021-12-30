@@ -16,9 +16,6 @@
   --cone-border-color-secondary: #f5f5f5;
 }
 
-.cone span,
-.cone h3,
-.cone label {
-  font-size: 0.8em;
+.cone {
   font-family: Arial, Helvetica, sans-serif;
 }

@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--cone-background-color-primary-dark);
+  font-size: 0.85em;
 }
 
 .cone-block > span {

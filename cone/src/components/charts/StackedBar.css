@@ -19,6 +19,7 @@
   padding-left: 3px;
   cursor: default;
   color: var(--cone-text-color-secondary);
+  font-size: 0.85em;
 }
 
 .cone-stacked-bar-block:nth-child(2n + 1) {

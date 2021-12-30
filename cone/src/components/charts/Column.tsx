@@ -16,7 +16,7 @@ type IState = Record<string, never>;
 class Column extends React.Component<IProps, IState> {
   private _ref: React.RefObject<HTMLDivElement> =
     React.createRef<HTMLDivElement>();
-  private PARTITIONS_NUMBER: number = 4;
+  private PARTITIONS_NUMBER: number = 3;
   constructor(props: IProps) {
     super(props);
   }
@@ -79,10 +79,38 @@ class Column extends React.Component<IProps, IState> {
     return columnsJSX;
   }
 
+  private drawPartitions(): JSX.Element {
+    const [, height] = this.getDimensions();
+    const Partitions: Array<JSX.Element> = [];
+    const partitionHeight: number = height / this.PARTITIONS_NUMBER;
+    const partitionValue: number =
+      this.props.maxYAxisValue / this.PARTITIONS_NUMBER;
+
+    let y: number;
+    let value: number;
+    for (
+      y = partitionHeight, value = this.props.maxYAxisValue - partitionValue;
+      y < height;
+      y += partitionHeight, value -= partitionValue
+    ) {
+      Partitions.push(
+        <div
+          className="cone-column-line"
+          style={{top: y, width: 'calc(100% - 1px)'}}
+        >
+          <span className="cone-column-line-unit">{`${value} ${this.props.measurementUnit}`}</span>
+        </div>
+      );
+    }
+
+    return <>{...Partitions}</>;
+  }
+
   render(): JSX.Element {
     return (
       <div className="cone-column" ref={this._ref}>
         {...this.drawColumns(this.props.data)}
+        {this.drawPartitions()}
       </div>
     );
   }
