@@ -255,7 +255,7 @@ class Cone extends React.Component<IProps, IState> {
                     data={this.state.estimatedBandwidth.map(
                       mapEstimatedBandwidth
                     )}
-                    maxYAxisValue={20}
+                    maxYAxisValue={30}
                     measurementUnit="Mbps"
                   />
                 </Cell>
@@ -269,7 +269,7 @@ class Cone extends React.Component<IProps, IState> {
                 <Cell>
                   <Area
                     data={this.state.bufferInfo.map(mapVideoBufferInfo)}
-                    maxYAxisValue={15}
+                    maxYAxisValue={45}
                     measurementUnit="s"
                     fillColor={getCSSVar('--cone-chart-color-secondary')}
                   />
@@ -284,7 +284,7 @@ class Cone extends React.Component<IProps, IState> {
                 <Cell>
                   <Area
                     data={this.state.bufferInfo.map(mapAudioBufferInfo)}
-                    maxYAxisValue={15}
+                    maxYAxisValue={45}
                     measurementUnit="s"
                   />
                 </Cell>
