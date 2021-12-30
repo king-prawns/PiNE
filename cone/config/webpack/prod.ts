@@ -40,7 +40,7 @@ fs.remove(path.resolve(__dirname, '../dist'), (err: Error) => {
 
       console.log(chalk.red('Build error 😭'));
 
-      return;
+      throw werr;
     }
 
     process.stdout.write(
