@@ -1,5 +1,8 @@
 {
   "extends": "../../../config/typescript/tsconfig.base.json",
-  "include": ["../../src/**/*", "../../node_modules/@king-prawns/pine-cone/"],
+  "include": [
+    "../../src/**/*",
+    "../../node_modules/@king-prawns/pine-cone/dist/index.d.ts"
+  ],
   "exclude": ["../../src/**/*.test.ts", "../../src/**/*.test.tsx"]
 }
