@@ -2,7 +2,7 @@ FROM arm32v7/node:14 AS builder
 WORKDIR /app
 COPY . ./
 WORKDIR /app/branch
-RUN --mount=type=secret,id=NPM_AUTH_TOKEN npm install
+RUN npm install
 RUN npm run cp:shared
 RUN npm run build
 
