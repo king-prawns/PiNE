@@ -4,6 +4,9 @@ on:
   push:
     branches: ['main']
 
+env:
+  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
 jobs:
   build-and-publish-pine-roots:
     runs-on: ubuntu-latest
