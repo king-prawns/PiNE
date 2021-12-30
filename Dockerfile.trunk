@@ -2,6 +2,8 @@ FROM arm32v7/node:14 AS builder
 WORKDIR /app
 COPY . ./
 WORKDIR /app/trunk
+ARG NPM_AUTH_TOKEN
+ENV NPM_AUTH_TOKEN ${NPM_AUTH_TOKEN}
 RUN npm install
 RUN npm run cp:shared
 RUN npm run build
