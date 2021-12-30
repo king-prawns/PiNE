@@ -1,33 +1,33 @@
 import cors from 'cors';
-import express from 'express';
-import http from 'http';
-import {Server} from 'socket.io';
+import express, {Express} from 'express';
+import http, {Server as HttpServer} from 'http';
+import {Namespace, Server, Socket} from 'socket.io';
 
 import chunkRoute from './proxy/chunkRoute';
 import manifestRoute from './proxy/manifestRoute';
-import NAMESPACE from './shared/const/Namespace';
-import PORT from './shared/const/Port';
+import ENamespace from './shared/enum/ENamespace';
+import EPort from './shared/enum/EPort';
 import branchConnection from './socket/branch/connection';
 import clientConnection from './socket/client/connection';
 
-const app = express();
+const app: Express = express();
 app.use(cors());
 
 app.get('/manifest/:file', manifestRoute);
 app.get('/chunk/:file', chunkRoute);
 
-const server = http.createServer(app);
-const io = new Server(server, {
+const server: HttpServer = http.createServer(app);
+const io: Server = new Server(server, {
   cors: {
     origin: '*',
     methods: ['GET', 'POST']
   }
 });
 
-const client = io.of(`/${NAMESPACE.CLIENT}`);
-const branch = io.of(`/${NAMESPACE.BRANCH}`);
+const client: Namespace = io.of(`/${ENamespace.CLIENT}`);
+const branch: Namespace = io.of(`/${ENamespace.BRANCH}`);
 
-client.on('connection', socket => clientConnection(socket, branch));
+client.on('connection', (socket: Socket) => clientConnection(socket, branch));
 branch.on('connection', branchConnection);
 
-server.listen(PORT.TRUNK);
+server.listen(EPort.TRUNK);

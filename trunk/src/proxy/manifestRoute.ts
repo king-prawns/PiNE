@@ -9,7 +9,7 @@ const manifestRoute = async (
   res: express.Response
 ): Promise<Response | void> => {
   const manifestUrl: string = req.query.url as string;
-  const proxyUrl = `${req.protocol}://${req.hostname}`;
+  const proxyUrl: string = `${req.protocol}://${req.hostname}`;
 
   let response: AxiosResponse;
   try {
@@ -24,7 +24,7 @@ const manifestRoute = async (
     return;
   }
 
-  const adjustedManifest = changeManifestToUseProxy(
+  const adjustedManifest: string = changeManifestToUseProxy(
     response.data,
     manifestUrl,
     proxyUrl

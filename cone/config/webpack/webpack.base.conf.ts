@@ -1,9 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-process.noDeprecation = true;
+(process as any).noDeprecation = true;
 
 const baseConfig: webpack.Configuration = {
   resolve: {
@@ -15,6 +13,13 @@ const baseConfig: webpack.Configuration = {
         test: /\.html$/,
         loader: 'html-loader',
         options: {minimize: true}
+      },
+      {
+        test: /\.worker\.ts$/,
+        loader: 'worker-loader',
+        options: {
+          inline: 'fallback'
+        }
       },
       {
         test: /\.tsx?$/,
@@ -30,6 +35,21 @@ const baseConfig: webpack.Configuration = {
         options: {
           limit: 10000
         }
+      },
+      {
+        test: /(\.css)$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 2
+            }
+          }
+        ]
       }
     ]
   }

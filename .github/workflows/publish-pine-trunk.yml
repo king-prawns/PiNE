@@ -6,6 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
 jobs:
   build-and-push-pine-trunk:

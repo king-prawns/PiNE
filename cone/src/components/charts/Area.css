@@ -1,0 +1,18 @@
+.cone-area {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.cone-area > svg {
+  height: 100%;
+}
+
+.cone-area > svg > line {
+  stroke: var(--cone-text-color-secondary);
+}
+
+.cone-area > svg > text {
+  fill: var(--cone-text-color-secondary);
+  font-size: 0.7em;
+}

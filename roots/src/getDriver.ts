@@ -1,38 +1,43 @@
 import {Socket} from 'socket.io-client';
 
-import Driver from './interfaces/Driver';
-import ClientToTrunkEvents from './shared/interfaces/ClientToTrunkEvents';
-import TrunkToClientEvents from './shared/interfaces/TrunkToClientEvents';
+import IDriver from './interfaces/IDriver';
+import EPlayerState from './shared/enum/EPlayerState';
+import IBufferInfo from './shared/interfaces/IBufferInfo';
+import IClientToTrunkEvents from './shared/interfaces/IClientToTrunkEvents';
+import IHttpRequest from './shared/interfaces/IHttpRequest';
+import IHttpResponse from './shared/interfaces/IHttpResponse';
+import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
+import ITrunkToClientEvents from './shared/interfaces/ITrunkToClientEvents';
 
 const getDriver = (
-  socket: Socket<TrunkToClientEvents, ClientToTrunkEvents>
-): Driver => {
+  socket: Socket<ITrunkToClientEvents, IClientToTrunkEvents>
+): IDriver => {
   return {
-    onHttpRequest: (url): void => {
-      socket.emit('onHttpRequest', url);
+    onHttpRequest: (req: IHttpRequest): void => {
+      socket.emit('onHttpRequest', req);
     },
-    onHttpResponse: (res): void => {
+    onHttpResponse: (res: IHttpResponse): void => {
       socket.emit('onHttpResponse', res);
     },
-    onPlayerStateUpdate: (playerState): void => {
+    onPlayerStateUpdate: (playerState: EPlayerState): void => {
       socket.emit('onPlayerStateUpdate', playerState);
     },
-    onManifestUpdate: (manifestUrl): void => {
+    onManifestUpdate: (manifestUrl: string): void => {
       socket.emit('onManifestUpdate', manifestUrl);
     },
-    onVariantUpdate: (bandwidthMbs): void => {
+    onVariantUpdate: (bandwidthMbs: number): void => {
       socket.emit('onVariantUpdate', bandwidthMbs);
     },
-    onEstimatedBandwidthUpdate: (bandwidthMbs): void => {
+    onEstimatedBandwidthUpdate: (bandwidthMbs: number): void => {
       socket.emit('onEstimatedBandwidthUpdate', bandwidthMbs);
     },
-    onBufferInfoUpdate: (bufferInfo): void => {
+    onBufferInfoUpdate: (bufferInfo: IBufferInfo): void => {
       socket.emit('onBufferInfoUpdate', bufferInfo);
     },
-    onUsedJSHeapSizeUpdate: (usedJSHeapSizeMb): void => {
+    onUsedJSHeapSizeUpdate: (usedJSHeapSizeMb: number): void => {
       socket.emit('onUsedJSHeapSizeUpdate', usedJSHeapSizeMb);
     },
-    onPlayerMetadataUpdate: (playerMetadata): void => {
+    onPlayerMetadataUpdate: (playerMetadata: IPlayerMetadata): void => {
       socket.emit('onPlayerMetadataUpdate', playerMetadata);
     }
   };

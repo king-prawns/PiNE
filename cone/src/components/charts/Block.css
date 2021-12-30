@@ -1,0 +1,13 @@
+.cone-block {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cone-background-color-primary-dark);
+  font-size: 0.85em;
+}
+
+.cone-block > span {
+  color: var(--cone-text-color-secondary);
+}

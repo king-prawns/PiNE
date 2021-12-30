@@ -1,12 +1,12 @@
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
+import {Configuration} from 'webpack';
 import {merge} from 'webpack-merge';
 
 import base from './webpack.base.conf';
 
-const prodConfig = merge(base, {
+const prodConfig: Configuration = merge(base, {
   entry: './src/index.ts',
   mode: 'production',
   devtool: 'source-map',
@@ -33,31 +33,7 @@ const prodConfig = merge(base, {
         }
       })
     ]
-  },
-  module: {
-    rules: [
-      {
-        test: /(\.css)$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              importLoaders: 2
-            }
-          }
-        ]
-      }
-    ]
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'pine-cone.css'
-    })
-  ]
+  }
 });
 
 export default prodConfig;

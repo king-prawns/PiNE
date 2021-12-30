@@ -24,7 +24,6 @@
 - [ ] (code) throttle requests
 - [ ] (code) add throttle filter
 - [ ] (code) control throttle filter from pine-branch
-- [ ] (code) add http request chart / timeline in web app
 - [ ] (code) add block requests filter
 - [ ] (code) add latency filter
 - [ ] (code) add packet loss filter

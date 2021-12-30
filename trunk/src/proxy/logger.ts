@@ -1,6 +1,6 @@
 import Logger from '../shared/logger';
-import COLOR from '../shared/logger/Color';
+import EColor from '../shared/logger/enum/EColor';
 
-const logger = new Logger('Proxy', COLOR.Dim);
+const logger: Logger = new Logger('Proxy', EColor.Dim);
 
 export default logger;

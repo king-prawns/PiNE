@@ -1,0 +1,29 @@
+.cone-column {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.cone-column-line {
+  position: absolute;
+  left: 0;
+  height: 1px;
+  background-color: var(--cone-text-color-secondary);
+  margin-right: -3px;
+}
+
+.cone-column-line-unit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  color: var(--cone-text-color-secondary);
+  font-size: 0.7em;
+  white-space: nowrap;
+}
+
+.cone-column-block {
+  position: absolute;
+  bottom: 0;
+  width: calc(3px * var(--cone-zoom));
+}

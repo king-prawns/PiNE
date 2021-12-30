@@ -1,28 +1,28 @@
 import {Socket} from 'socket.io';
 
-import NAMESPACE from '../../shared/const/Namespace';
-import BranchToTrunkEvents from '../../shared/interfaces/BranchToTrunkEvents';
-import InterServerEvents from '../../shared/interfaces/InterServerEvents';
-import SocketData from '../../shared/interfaces/SocketData';
-import TrunkToBranchEvents from '../../shared/interfaces/TrunkToBranchEvents';
+import ENamespace from '../../shared/enum/ENamespace';
+import IBranchToTrunkEvents from '../../shared/interfaces/IBranchToTrunkEvents';
+import IInterServerEvents from '../../shared/interfaces/IInterServerEvents';
+import ISocketData from '../../shared/interfaces/ISocketData';
+import ITrunkToBranchEvents from '../../shared/interfaces/ITrunkToBranchEvents';
 import logger from './logger';
 
 const connection = (
   socket: Socket<
-    BranchToTrunkEvents,
-    TrunkToBranchEvents,
-    InterServerEvents,
-    SocketData
+    IBranchToTrunkEvents,
+    ITrunkToBranchEvents,
+    IInterServerEvents,
+    ISocketData
   >
 ): void => {
-  socket.data.id = NAMESPACE.BRANCH;
+  socket.data.id = ENamespace.BRANCH;
   logger.log('connected');
 
   socket.on('disconnect', () => {
     logger.log('disconnected');
   });
 
-  socket.on('error', err => {
+  socket.on('error', (err: Error) => {
     logger.log('error', err);
   });
 };

@@ -1,0 +1,9 @@
+.cone-controls {
+  border: 1px solid var(--cone-border-color-primary);
+  border-bottom: 0;
+  background-color: var(--cone-background-color);
+  display: flex;
+  box-sizing: border-box;
+  padding: 3px;
+  font-size: 0.9em;
+}

@@ -1,6 +1,6 @@
 {
   "name": "@king-prawns/pine-cone",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "PiNE cone",
   "main": "dist/pine-cone.js",
   "types": "dist/index.d.ts",
@@ -24,7 +24,6 @@
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.3",
-    "@types/mini-css-extract-plugin": "2.4.0",
     "@types/optimize-css-assets-webpack-plugin": "5.0.4",
     "@types/react": "17.0.34",
     "@types/react-dom": "17.0.11",
@@ -42,7 +41,6 @@
     "html-loader": "3.0.1",
     "html-webpack-plugin": "5.5.0",
     "jest": "27.3.1",
-    "mini-css-extract-plugin": "2.4.5",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "prettier": "2.4.1",
     "sinon": "12.0.1",
@@ -56,7 +54,8 @@
     "webpack": "5.64.2",
     "webpack-cli": "4.9.1",
     "webpack-dev-server": "4.5.0",
-    "webpack-merge": "5.8.0"
+    "webpack-merge": "5.8.0",
+    "worker-loader": "3.0.8"
   },
   "dependencies": {
     "react": "17.0.2",

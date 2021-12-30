@@ -1,0 +1,12 @@
+.cone-chart {
+  max-width: 100%;
+  border: 1px solid var(--cone-border-color-primary);
+  border-top: 0;
+  position: relative;
+  overflow-x: scroll;
+  background-color: var(--cone-background-color);
+}
+
+.cone-chart::-webkit-scrollbar {
+  display: none;
+}

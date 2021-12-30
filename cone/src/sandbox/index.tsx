@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Cone from '../Cone';
+import Sandbox from './Sandbox';
 
-ReactDOM.render(<Cone />, document.getElementById('root'));
+ReactDOM.render(<Sandbox />, document.getElementById('root'));

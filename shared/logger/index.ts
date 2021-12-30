@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 
-import COLOR from './Color';
+import EColor from './enum/EColor';
 
 class Logger {
   private _debug = true;
 
-  constructor(private context: string, private color: COLOR) {}
+  constructor(private context: string, private color: EColor) {}
 
   private processMessage(message: any): string {
     if (typeof message === 'object') {
@@ -17,16 +17,16 @@ class Logger {
 
   private createMessage(
     messages: Array<any>,
-    color: COLOR = this.color
+    color: EColor = this.color
   ): Array<any> {
     return [
       ...this.createContext(color),
       ...messages.map(this.processMessage),
-      COLOR.Reset
+      EColor.Reset
     ];
   }
 
-  private createContext(color: COLOR): Array<string> {
+  private createContext(color: EColor): Array<string> {
     return [`${color}%s`, `[${this.context}]`];
   }
 
@@ -42,13 +42,13 @@ class Logger {
 
   public warn(...messages: Array<any>): void {
     if (this._debug) {
-      console.log(...this.createMessage(messages, COLOR.FgYellow));
+      console.log(...this.createMessage(messages, EColor.FgYellow));
     }
   }
 
   public error(...messages: Array<any>): void {
     if (this._debug) {
-      console.log(...this.createMessage(messages, COLOR.FgRed));
+      console.log(...this.createMessage(messages, EColor.FgRed));
     }
   }
 
