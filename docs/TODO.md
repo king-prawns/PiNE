@@ -21,10 +21,8 @@
 - [x] (code) create client driver
 - [x] (code) print player stats in pine-branch
 - [x] (code) create `pine-cone` package
-- [x] (code) throttle requests
+- [x] (code) add block requests filter
 - [ ] (code) add throttle filter
-- [ ] (code) control throttle filter from pine-branch
-- [ ] (code) add block requests filter
 - [ ] (code) add latency filter
 - [ ] (code) add packet loss filter
 - [ ] (code) add jitter filter
