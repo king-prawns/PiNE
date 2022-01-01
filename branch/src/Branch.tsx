@@ -6,7 +6,10 @@ import {Socket} from 'socket.io-client';
 
 import ConnectionStatusItem from './components/ConnectionStatusItem';
 import ConnectionStatus from './components/containers/ConnectionStatus';
+import FilterItem from './components/containers/FilterItem';
+import Filters from './components/containers/Filters';
 import Header from './components/containers/Header';
+import Reject from './components/filters/Reject';
 import EPlayerState from './shared/enum/EPlayerState';
 import IBranchToTrunkEvents from './shared/interfaces/IBranchToTrunkEvents';
 import IBufferInfo from './shared/interfaces/IBufferInfo';
@@ -128,6 +131,11 @@ class App extends React.Component<IProps, IState> {
           </ConnectionStatus>
           <h1>Branch</h1>
         </Header>
+        <Filters>
+          <FilterItem label="Reject Request">
+            <Reject pattern="test" />
+          </FilterItem>
+        </Filters>
         <Cone
           ref={this._ref}
           playerMetadata={this.state.playerMetadata}
@@ -146,7 +154,3 @@ class App extends React.Component<IProps, IState> {
 }
 
 export default App;
-
-// TODO:
-// add filter block request
-// configuration on node?

@@ -1,0 +1,11 @@
+.branch-reject {
+  display: flex;
+}
+
+.branch-reject > section {
+  flex: 1;
+}
+
+.branch-reject label {
+  margin-right: 5px;
+}

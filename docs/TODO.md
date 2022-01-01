@@ -22,6 +22,7 @@
 - [x] (code) print player stats in pine-branch
 - [x] (code) create `pine-cone` package
 - [x] (code) add block requests filter
+- [ ] (code) add UI to control filters
 - [ ] (code) add throttle filter
 - [ ] (code) add latency filter
 - [ ] (code) add packet loss filter
