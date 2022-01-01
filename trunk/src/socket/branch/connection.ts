@@ -16,10 +16,14 @@ const connection = (
   >
 ): void => {
   socket.data.id = ENamespace.BRANCH;
-  logger.log('connected');
+  const host: string = socket.handshake.headers.host ?? '';
+
+  logger.log('connected to', host);
+  socket.emit('trunkConnected', host);
 
   socket.on('disconnect', () => {
     logger.log('disconnected');
+    socket.emit('trunkDisconnected');
   });
 
   socket.on('error', (err: Error) => {

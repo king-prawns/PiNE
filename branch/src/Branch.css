@@ -1,0 +1,9 @@
+:root {
+  --branch-connected-color: #e80e2b;
+  --branch-disconnected-color: #43a047;
+  --cone-border-color-primary: #212121;
+}
+
+.branch {
+  font-family: Arial, Helvetica, sans-serif;
+}

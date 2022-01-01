@@ -12,6 +12,7 @@ import IPlayerMetadata from '../../shared/interfaces/IPlayerMetadata';
 import ISocketData from '../../shared/interfaces/ISocketData';
 import ITrunkToBranchEvents from '../../shared/interfaces/ITrunkToBranchEvents';
 import ITrunkToClientEvents from '../../shared/interfaces/ITrunkToClientEvents';
+import removeProtocol from '../../utils/removeProtocol';
 import logger from './logger';
 
 const connection = (
@@ -29,7 +30,10 @@ const connection = (
   >
 ): void => {
   socket.data.id = ENamespace.CLIENT;
-  logger.log('connected');
+  const origin: string = removeProtocol(socket.handshake.headers.origin ?? '');
+
+  logger.log('connected to', origin);
+  branchNs.emit('clientConnected', origin);
 
   socket.on('onHttpRequest', (req: IHttpRequest) => {
     logger.log('onHttpRequest', req);

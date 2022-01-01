@@ -1,7 +1,12 @@
+import './Branch.css';
+
 import {Cone} from '@king-prawns/pine-cone';
 import React from 'react';
 import {Socket} from 'socket.io-client';
 
+import ConnectionStatusItem from './components/ConnectionStatusItem';
+import ConnectionStatus from './components/containers/ConnectionStatus';
+import Header from './components/containers/Header';
 import EPlayerState from './shared/enum/EPlayerState';
 import IBranchToTrunkEvents from './shared/interfaces/IBranchToTrunkEvents';
 import IBufferInfo from './shared/interfaces/IBufferInfo';
@@ -22,6 +27,10 @@ type IState = {
   usedJSHeapSize: number | null;
   httpRequest: IHttpRequest | null;
   httpResponse: IHttpResponse | null;
+  isClientConnected: boolean;
+  clientOrigin: string;
+  isTrunkConnected: boolean;
+  trunkOrigin: string;
 };
 class App extends React.Component<IProps, IState> {
   private _ref: React.RefObject<Cone> = React.createRef<Cone>();
@@ -37,7 +46,11 @@ class App extends React.Component<IProps, IState> {
       bufferInfo: null,
       usedJSHeapSize: null,
       httpRequest: null,
-      httpResponse: null
+      httpResponse: null,
+      isClientConnected: false,
+      clientOrigin: '',
+      isTrunkConnected: false,
+      trunkOrigin: ''
     };
 
     const socket: Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =
@@ -79,29 +92,55 @@ class App extends React.Component<IProps, IState> {
       this.setState({httpResponse: {...res}});
     });
 
+    socket.on('clientConnected', (origin: string) => {
+      this.setState({isClientConnected: true, clientOrigin: origin});
+    });
+
     socket.on('clientDisconnected', () => {
+      this.setState({isClientConnected: false});
       this._ref.current?.reset();
+    });
+
+    socket.on('trunkConnected', (origin: string) => {
+      this.setState({isTrunkConnected: true, trunkOrigin: origin});
+    });
+
+    socket.on('trunkDisconnected', () => {
+      this.setState({isTrunkConnected: false});
     });
   }
 
   render(): JSX.Element {
     return (
-      <>
-        <section>
-          <Cone
-            ref={this._ref}
-            playerMetadata={this.state.playerMetadata}
-            manifestUrl={this.state.manifestUrl}
-            playerState={this.state.playerState}
-            variant={this.state.variant}
-            estimatedBandwidth={this.state.estimatedBandwidth}
-            bufferInfo={this.state.bufferInfo}
-            usedJSHeapSize={this.state.usedJSHeapSize}
-            httpRequest={this.state.httpRequest}
-            httpResponse={this.state.httpResponse}
-          />
-        </section>
-      </>
+      <div className="branch">
+        <Header>
+          <ConnectionStatus>
+            <ConnectionStatusItem
+              label="Client"
+              isConnected={this.state.isClientConnected}
+              origin={this.state.clientOrigin}
+            />
+            <ConnectionStatusItem
+              label="Trunk"
+              isConnected={this.state.isTrunkConnected}
+              origin={this.state.trunkOrigin}
+            />
+          </ConnectionStatus>
+          <h1>Cone Branch</h1>
+        </Header>
+        <Cone
+          ref={this._ref}
+          playerMetadata={this.state.playerMetadata}
+          manifestUrl={this.state.manifestUrl}
+          playerState={this.state.playerState}
+          variant={this.state.variant}
+          estimatedBandwidth={this.state.estimatedBandwidth}
+          bufferInfo={this.state.bufferInfo}
+          usedJSHeapSize={this.state.usedJSHeapSize}
+          httpRequest={this.state.httpRequest}
+          httpResponse={this.state.httpResponse}
+        />
+      </div>
     );
   }
 }

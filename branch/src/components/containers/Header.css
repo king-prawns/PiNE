@@ -1,0 +1,11 @@
+.branch-header {
+  height: 100px;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.branch-header > h1 {
+  margin: 0;
+}
