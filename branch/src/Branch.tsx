@@ -126,7 +126,7 @@ class App extends React.Component<IProps, IState> {
               origin={this.state.trunkOrigin}
             />
           </ConnectionStatus>
-          <h1>Cone Branch</h1>
+          <h1>Branch</h1>
         </Header>
         <Cone
           ref={this._ref}
@@ -146,3 +146,7 @@ class App extends React.Component<IProps, IState> {
 }
 
 export default App;
+
+// TODO:
+// add filter block request
+// configuration on node?

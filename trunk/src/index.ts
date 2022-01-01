@@ -28,6 +28,6 @@ const client: Namespace = io.of(`/${ENamespace.CLIENT}`);
 const branch: Namespace = io.of(`/${ENamespace.BRANCH}`);
 
 client.on('connection', (socket: Socket) => clientConnection(socket, branch));
-branch.on('connection', branchConnection);
+branch.on('connection', (socket: Socket) => branchConnection(socket, client));
 
 server.listen(EPort.TRUNK);
