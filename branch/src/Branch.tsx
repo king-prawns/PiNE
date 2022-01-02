@@ -1,6 +1,7 @@
 import './Branch.css';
 
 import {Cone} from '@king-prawns/pine-cone';
+import deepmerge from 'deepmerge';
 import React from 'react';
 import {Socket} from 'socket.io-client';
 
@@ -9,10 +10,10 @@ import ConnectionStatus from './components/containers/ConnectionStatus';
 import Header from './components/containers/Header';
 import Filters from './components/filters/Filters';
 import IConnections from './interfaces/IConnections';
-import IFilters from './interfaces/IFilters';
 import EPlayerState from './shared/enum/EPlayerState';
 import IBranchToTrunkEvents from './shared/interfaces/IBranchToTrunkEvents';
 import IBufferInfo from './shared/interfaces/IBufferInfo';
+import IFilters from './shared/interfaces/IFilters';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
@@ -35,6 +36,8 @@ type IState = {
 };
 class App extends React.Component<IProps, IState> {
   private _ref: React.RefObject<Cone> = React.createRef<Cone>();
+  private _socket: Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =
+    getSocket();
 
   constructor(props: IProps) {
     super(props);
@@ -52,81 +55,79 @@ class App extends React.Component<IProps, IState> {
       filters: {}
     };
 
-    const socket: Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =
-      getSocket();
+    this._socket.on(
+      'playerMetadataUpdate',
+      (playerMetadata: IPlayerMetadata) => {
+        this.setState({playerMetadata: {...playerMetadata}});
+      }
+    );
 
-    socket.on('playerMetadataUpdate', (playerMetadata: IPlayerMetadata) => {
-      this.setState({playerMetadata: {...playerMetadata}});
-    });
-
-    socket.on('manifestUpdate', (manifestUrl: string) => {
+    this._socket.on('manifestUpdate', (manifestUrl: string) => {
       this.setState({manifestUrl});
     });
 
-    socket.on('playerStateUpdate', (playerState: EPlayerState) => {
+    this._socket.on('playerStateUpdate', (playerState: EPlayerState) => {
       this.setState({playerState});
     });
 
-    socket.on('variantUpdate', (bandwidthMbs: number) => {
+    this._socket.on('variantUpdate', (bandwidthMbs: number) => {
       this.setState({variant: bandwidthMbs});
     });
 
-    socket.on('estimatedBandwidthUpdate', (bandwidthMbs: number) => {
+    this._socket.on('estimatedBandwidthUpdate', (bandwidthMbs: number) => {
       this.setState({estimatedBandwidth: bandwidthMbs});
     });
 
-    socket.on('bufferInfoUpdate', (bufferInfo: IBufferInfo) => {
+    this._socket.on('bufferInfoUpdate', (bufferInfo: IBufferInfo) => {
       this.setState({bufferInfo: {...bufferInfo}});
     });
 
-    socket.on('usedJSHeapSizeUpdate', (usedJSHeapSizeMb: number) => {
+    this._socket.on('usedJSHeapSizeUpdate', (usedJSHeapSizeMb: number) => {
       this.setState({usedJSHeapSize: usedJSHeapSizeMb});
     });
 
-    socket.on('httpRequest', (req: IHttpRequest) => {
+    this._socket.on('httpRequest', (req: IHttpRequest) => {
       this.setState({httpRequest: req});
     });
 
-    socket.on('httpResponse', (res: IHttpResponse) => {
+    this._socket.on('httpResponse', (res: IHttpResponse) => {
       this.setState({httpResponse: {...res}});
     });
 
-    socket.on('clientConnected', (origin: string) => {
-      this.setState({
-        connections: {
-          client: origin
-        }
+    this._socket.on('clientConnected', (origin: string) => {
+      const connections: IConnections = deepmerge(this.state.connections, {
+        client: origin
       });
+      this.setState({connections});
     });
 
-    socket.on('clientDisconnected', () => {
-      this.setState({
-        connections: {
-          client: undefined
-        }
+    this._socket.on('clientDisconnected', () => {
+      const connections: IConnections = deepmerge(this.state.connections, {
+        client: undefined
       });
+      this.setState({connections});
       this._ref.current?.reset();
     });
 
-    socket.on('trunkConnected', (host: string) => {
-      this.setState({
-        connections: {
-          trunk: host
-        }
+    this._socket.on('trunkConnected', (host: string) => {
+      const connections: IConnections = deepmerge(this.state.connections, {
+        trunk: host
       });
+      this.setState({connections});
     });
 
-    socket.on('trunkDisconnected', () => {
-      this.setState({
-        connections: {
-          trunk: undefined
-        }
+    this._socket.on('trunkDisconnected', () => {
+      const connections: IConnections = deepmerge(this.state.connections, {
+        trunk: undefined
       });
+      this.setState({connections});
     });
   }
 
-  private onFiltersChange = (filters: Partial<IFilters>): void => {
-    this.setState({filters: {...filters}});
+  private onFiltersChange = (partialFilters: Partial<IFilters>): void => {
+    const filters: IFilters = deepmerge(this.state.filters, partialFilters);
+    this.setState({filters});
+    this._socket.emit('filtersUpdate', filters);
   };
 
   render(): JSX.Element {

@@ -2,7 +2,7 @@ import './Filters.css';
 
 import React from 'react';
 
-import IFilters from '../../interfaces/IFilters';
+import IFilters from '../../shared/interfaces/IFilters';
 import FilterItem from '../containers/FilterItem';
 import Reject from './Reject';
 
