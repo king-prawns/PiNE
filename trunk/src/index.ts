@@ -3,8 +3,9 @@ import express, {Express} from 'express';
 import http, {Server as HttpServer} from 'http';
 import {Namespace, Server, Socket} from 'socket.io';
 
-import chunkRoute from './proxy/chunkRoute';
-import manifestRoute from './proxy/manifestRoute';
+import rejectFilter from './proxy/filters/reject';
+import chunkRoute from './proxy/routes/chunk';
+import manifestRoute from './proxy/routes/manifest';
 import ENamespace from './shared/enum/ENamespace';
 import EPort from './shared/enum/EPort';
 import branchConnection from './socket/branch/connection';
@@ -13,8 +14,8 @@ import clientConnection from './socket/client/connection';
 const app: Express = express();
 app.use(cors());
 
-app.get('/manifest/:file', manifestRoute);
-app.get('/chunk/:file', chunkRoute);
+app.get('/manifest/:file', rejectFilter, manifestRoute);
+app.get('/chunk/:file', rejectFilter, chunkRoute);
 
 const server: HttpServer = http.createServer(app);
 const io: Server = new Server(server, {
