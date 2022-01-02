@@ -220,11 +220,11 @@ class Cone extends React.Component<IProps, IState> {
     return (
       <div className="cone">
         <Controls>
-          <ZoomLevel zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
+          <ZoomLevel zoom={this.state.zoom} onZoomChange={this.onZoomChange} />
           <IsLocked
             isLocked={this.isChartLocked()}
             isEnded={this.state.isEnded}
-            onChangeLocked={this.onLockedChange}
+            onLockedChange={this.onLockedChange}
           />
         </Controls>
         <Header>

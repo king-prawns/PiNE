@@ -10,5 +10,8 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   },
+  moduleNameMapper: {
+    '\\.(css)$': `${__dirname}/mockCSS.ts`
+  },
   setupFiles: [`${__dirname}/setup.ts`]
 };

@@ -6,10 +6,10 @@ import {Socket} from 'socket.io-client';
 
 import ConnectionStatusItem from './components/ConnectionStatusItem';
 import ConnectionStatus from './components/containers/ConnectionStatus';
-import FilterItem from './components/containers/FilterItem';
-import Filters from './components/containers/Filters';
 import Header from './components/containers/Header';
-import Reject from './components/filters/Reject';
+import Filters from './components/filters/Filters';
+import IConnections from './interfaces/IConnections';
+import IFilters from './interfaces/IFilters';
 import EPlayerState from './shared/enum/EPlayerState';
 import IBranchToTrunkEvents from './shared/interfaces/IBranchToTrunkEvents';
 import IBufferInfo from './shared/interfaces/IBufferInfo';
@@ -30,10 +30,8 @@ type IState = {
   usedJSHeapSize: number | null;
   httpRequest: IHttpRequest | null;
   httpResponse: IHttpResponse | null;
-  isClientConnected: boolean;
-  clientOrigin: string;
-  isTrunkConnected: boolean;
-  trunkOrigin: string;
+  connections: IConnections;
+  filters: IFilters;
 };
 class App extends React.Component<IProps, IState> {
   private _ref: React.RefObject<Cone> = React.createRef<Cone>();
@@ -50,10 +48,8 @@ class App extends React.Component<IProps, IState> {
       usedJSHeapSize: null,
       httpRequest: null,
       httpResponse: null,
-      isClientConnected: false,
-      clientOrigin: '',
-      isTrunkConnected: false,
-      trunkOrigin: ''
+      connections: {},
+      filters: {}
     };
 
     const socket: Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =
@@ -96,22 +92,42 @@ class App extends React.Component<IProps, IState> {
     });
 
     socket.on('clientConnected', (origin: string) => {
-      this.setState({isClientConnected: true, clientOrigin: origin});
+      this.setState({
+        connections: {
+          client: origin
+        }
+      });
     });
 
     socket.on('clientDisconnected', () => {
-      this.setState({isClientConnected: false});
+      this.setState({
+        connections: {
+          client: undefined
+        }
+      });
       this._ref.current?.reset();
     });
 
-    socket.on('trunkConnected', (origin: string) => {
-      this.setState({isTrunkConnected: true, trunkOrigin: origin});
+    socket.on('trunkConnected', (host: string) => {
+      this.setState({
+        connections: {
+          trunk: host
+        }
+      });
     });
 
     socket.on('trunkDisconnected', () => {
-      this.setState({isTrunkConnected: false});
+      this.setState({
+        connections: {
+          trunk: undefined
+        }
+      });
     });
   }
+
+  private onFiltersChange = (filters: Partial<IFilters>): void => {
+    this.setState({filters: {...filters}});
+  };
 
   render(): JSX.Element {
     return (
@@ -120,22 +136,19 @@ class App extends React.Component<IProps, IState> {
           <ConnectionStatus>
             <ConnectionStatusItem
               label="Client"
-              isConnected={this.state.isClientConnected}
-              origin={this.state.clientOrigin}
+              host={this.state.connections.client}
             />
             <ConnectionStatusItem
               label="Trunk"
-              isConnected={this.state.isTrunkConnected}
-              origin={this.state.trunkOrigin}
+              host={this.state.connections.trunk}
             />
           </ConnectionStatus>
           <h1>Branch</h1>
         </Header>
-        <Filters>
-          <FilterItem label="Reject Request">
-            <Reject pattern="test" />
-          </FilterItem>
-        </Filters>
+        <Filters
+          filters={this.state.filters}
+          onFiltersChange={this.onFiltersChange}
+        />
         <Cone
           ref={this._ref}
           playerMetadata={this.state.playerMetadata}

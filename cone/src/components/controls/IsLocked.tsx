@@ -5,7 +5,7 @@ import React from 'react';
 type IProps = {
   isLocked: boolean;
   isEnded: boolean;
-  onChangeLocked: (isLocked: boolean) => void;
+  onLockedChange: (isLocked: boolean) => void;
 };
 type IState = Record<string, never>;
 class IsLocked extends React.Component<IProps, IState> {
@@ -13,9 +13,9 @@ class IsLocked extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private onChangeLocked = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  private onLockedChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const isLocked: boolean = e.target.checked;
-    this.props.onChangeLocked(isLocked);
+    this.props.onLockedChange(isLocked);
   };
 
   render(): JSX.Element {
@@ -27,7 +27,7 @@ class IsLocked extends React.Component<IProps, IState> {
           type="checkbox"
           disabled={this.props.isEnded}
           checked={this.props.isLocked}
-          onChange={this.onChangeLocked}
+          onChange={this.onLockedChange}
         />
       </div>
     );

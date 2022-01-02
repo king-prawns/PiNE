@@ -3,7 +3,10 @@ import './Reject.css';
 import React from 'react';
 
 type IProps = {
-  pattern: string;
+  pattern?: string;
+  code?: number;
+  onPatternChange: (pattern: string) => void;
+  onCodeChange: (rejectCode: number) => void;
 };
 type IState = Record<string, never>;
 class Reject extends React.Component<IProps, IState> {
@@ -11,16 +14,41 @@ class Reject extends React.Component<IProps, IState> {
     super(props);
   }
 
+  public static defaultProps: Partial<IProps> = {
+    pattern: '',
+    code: 404
+  };
+
+  private onPatternChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const pattern: string = e.target.value;
+    this.props.onPatternChange(pattern);
+  };
+
+  private onCodeChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    const rejectCode: number = +e.target.value;
+    this.props.onCodeChange(rejectCode);
+  };
+
   render(): JSX.Element {
     return (
       <div className="branch-reject">
         <section>
-          <label htmlFor="cone-reject-pattern">Pattern</label>
-          <input id="cone-reject-pattern" type="text" placeholder="http://" />
+          <label htmlFor="branch-reject-pattern">Pattern</label>
+          <input
+            id="branch-reject-pattern"
+            type="text"
+            value={this.props.pattern}
+            onInput={this.onPatternChange}
+            placeholder="http://"
+          />
         </section>
         <section>
-          <label htmlFor="cone-reject-code">Reject with</label>
-          <select id="cone-reject-code">
+          <label htmlFor="branch-reject-code">Reject with</label>
+          <select
+            id="branch-reject-code"
+            value={this.props.code}
+            onChange={this.onCodeChange}
+          >
             <option value="503">503 Service Unavailable</option>
             <option value="500">500 Internal Server Error</option>
             <option value="404">404 Not Found</option>
