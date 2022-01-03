@@ -4,8 +4,6 @@
 
 .branch-filter-selector > form {
   margin-top: 20px;
-  display: flex;
-  flex-direction: column;
 }
 
 .branch-filter-selector > form > button {

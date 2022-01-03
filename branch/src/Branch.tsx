@@ -124,11 +124,24 @@ class App extends React.Component<IProps, IState> {
     });
   }
 
-  private onFiltersChange = (filter: IFilter): void => {
-    this.setState({
-      filters: [...this.state.filters, filter]
+  private onFilterAdd = (filter: IFilter): void => {
+    this.setState(
+      {
+        filters: [...this.state.filters, filter]
+      },
+      () => {
+        this._socket.emit('filtersUpdate', this.state.filters);
+      }
+    );
+  };
+
+  private onFilterRemove = (index: number): void => {
+    const filters: Array<IFilter> = this.state.filters.filter(
+      (_filter: IFilter, i: number) => i !== index
+    );
+    this.setState({filters}, () => {
+      this._socket.emit('filtersUpdate', this.state.filters);
     });
-    this._socket.emit('filtersUpdate', this.state.filters);
   };
 
   render(): JSX.Element {
@@ -149,7 +162,8 @@ class App extends React.Component<IProps, IState> {
         </Header>
         <Filters
           filters={this.state.filters}
-          onFiltersChange={this.onFiltersChange}
+          onFilterAdd={this.onFilterAdd}
+          onFilterRemove={this.onFilterRemove}
         />
         <Cone
           ref={this._ref}
@@ -171,7 +185,6 @@ class App extends React.Component<IProps, IState> {
 export default App;
 
 // TODO:
-// - css new filter
-// - remove filter
 // - add time to filter. from/to video seconds
-// - add status to filter. active based on video time
+// - timer callback from cone. From branch do compare and send to trunk only active filters
+// - add status to filter.

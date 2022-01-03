@@ -10,7 +10,8 @@ import FilterSelector from './FilterSelector';
 
 type IProps = {
   filters: Array<IFilter>;
-  onFiltersChange: (filter: IFilter) => void;
+  onFilterAdd: (filter: IFilter) => void;
+  onFilterRemove: (index: number) => void;
 };
 type IState = Record<string, never>;
 class Filters extends React.Component<IProps, IState> {
@@ -19,7 +20,11 @@ class Filters extends React.Component<IProps, IState> {
   }
 
   private onFilterAdd = (filter: IFilter): void => {
-    this.props.onFiltersChange(filter);
+    this.props.onFilterAdd(filter);
+  };
+
+  private onFilterRemove = (index: number): void => {
+    this.props.onFilterRemove(index);
   };
 
   render(): JSX.Element {
@@ -35,6 +40,9 @@ class Filters extends React.Component<IProps, IState> {
           {this.props.filters.map((filter: IFilter, index: number) => (
             <FilterItem key={index} label={mapEFilterToString(filter.type)}>
               <Filter filter={filter} disabled={true} />
+              <button onClick={(): void => this.onFilterRemove(index)}>
+                Remove -
+              </button>
             </FilterItem>
           ))}
         </section>

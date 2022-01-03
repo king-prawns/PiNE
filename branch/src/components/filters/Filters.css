@@ -11,6 +11,12 @@
   margin: 0;
 }
 
+.branch-filters > section button {
+  margin-top: 20px;
+  width: 75px;
+  cursor: pointer;
+}
+
 .branch-filters-list {
   margin-top: 20px;
 }
