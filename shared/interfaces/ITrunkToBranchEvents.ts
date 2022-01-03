@@ -5,7 +5,6 @@ import IHttpResponse from './IHttpResponse';
 import IPlayerMetadata from './IPlayerMetadata';
 
 interface TrunkToBranchEvents {
-  clientDisconnected: () => void;
   httpRequest: (req: IHttpRequest) => void;
   httpResponse: (res: IHttpResponse) => void;
   playerStateUpdate: (playerState: EPlayerState) => void;
@@ -15,6 +14,10 @@ interface TrunkToBranchEvents {
   bufferInfoUpdate: (bufferInfo: IBufferInfo) => void;
   usedJSHeapSizeUpdate: (usedJSHeapSizeMb: number) => void;
   playerMetadataUpdate: (playerMetadata: IPlayerMetadata) => void;
+  clientConnected: (origin: string) => void;
+  clientDisconnected: () => void;
+  trunkConnected: (host: string) => void;
+  trunkDisconnected: () => void;
 }
 
 export default TrunkToBranchEvents;

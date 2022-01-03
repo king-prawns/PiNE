@@ -149,24 +149,46 @@ class Cone extends React.Component<IProps, IState> {
         } as IMessageToWorker);
       }
 
-      this.addPropToState(prevProps, 'playerState');
+      if (
+        this.props.playerState === null ||
+        this.state.isEnded ||
+        (this.state.playerState.length === 0 &&
+          this.props.playerState !== EPlayerState.LOADING)
+      ) {
+        return;
+      }
+
+      this.setState({
+        playerState: [
+          ...this.state.playerState,
+          {
+            value: this.props.playerState,
+            timeMs: this.state.currentTimeMs
+          }
+        ]
+      });
     }
   }
 
   private addPropToState(prevProps: IProps, key: keyof IProps): void {
-    if (this.props[key] === null) return;
+    if (
+      this.props[key] === null ||
+      this.state.isEnded ||
+      this.state.playerState.length === 0
+    ) {
+      return;
+    }
+
     if (this.state[key].length === 0 || this.props[key] !== prevProps[key]) {
-      if (!this.state.isEnded) {
-        this.setState({
-          [key]: [
-            ...this.state[key],
-            {
-              value: this.props[key],
-              timeMs: this.state.currentTimeMs
-            }
-          ]
-        } as StatKeys);
-      }
+      this.setState({
+        [key]: [
+          ...this.state[key],
+          {
+            value: this.props[key],
+            timeMs: this.state.currentTimeMs
+          }
+        ]
+      } as StatKeys);
     }
   }
 
@@ -198,11 +220,11 @@ class Cone extends React.Component<IProps, IState> {
     return (
       <div className="cone">
         <Controls>
-          <ZoomLevel zoom={this.state.zoom} onChangeZoom={this.onZoomChange} />
+          <ZoomLevel zoom={this.state.zoom} onZoomChange={this.onZoomChange} />
           <IsLocked
             isLocked={this.isChartLocked()}
             isEnded={this.state.isEnded}
-            onChangeLocked={this.onLockedChange}
+            onLockedChange={this.onLockedChange}
           />
         </Controls>
         <Header>

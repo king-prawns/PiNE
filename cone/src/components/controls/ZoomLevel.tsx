@@ -4,7 +4,7 @@ import React from 'react';
 
 type IProps = {
   zoom: number;
-  onChangeZoom: (zoom: number) => void;
+  onZoomChange: (zoom: number) => void;
 };
 type IState = Record<string, never>;
 class ZoomLevel extends React.Component<IProps, IState> {
@@ -12,9 +12,9 @@ class ZoomLevel extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private onChangeZoom = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  private onZoomChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const zoom: number = parseFloat(e.target.value);
-    this.props.onChangeZoom(zoom);
+    this.props.onZoomChange(zoom);
   };
 
   render(): JSX.Element {
@@ -28,7 +28,7 @@ class ZoomLevel extends React.Component<IProps, IState> {
           max="3"
           step="0.2"
           value={this.props.zoom}
-          onChange={this.onChangeZoom}
+          onChange={this.onZoomChange}
         />
       </div>
     );

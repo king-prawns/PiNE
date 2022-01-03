@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
+import Branch from './Branch';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Branch />, document.getElementById('root'));

@@ -1,10 +1,10 @@
 import axios, {AxiosResponse} from 'axios';
 import express from 'express';
 
-import changeManifestToUseProxy from './changeManifestToUseProxy';
-import logger from './logger';
+import changeManifestToUseProxy from '../changeManifestToUseProxy';
+import logger from '../logger';
 
-const manifestRoute = async (
+const manifest = async (
   req: express.Request,
   res: express.Response
 ): Promise<Response | void> => {
@@ -33,4 +33,4 @@ const manifestRoute = async (
   res.send(adjustedManifest);
 };
 
-export default manifestRoute;
+export default manifest;

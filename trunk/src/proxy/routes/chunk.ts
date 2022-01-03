@@ -1,9 +1,9 @@
 import axios, {AxiosResponse} from 'axios';
 import express from 'express';
 
-import logger from './logger';
+import logger from '../logger';
 
-const chunkRoute = async (
+const chunk = async (
   req: express.Request,
   res: express.Response
 ): Promise<Response | void> => {
@@ -23,4 +23,4 @@ const chunkRoute = async (
   }
 };
 
-export default chunkRoute;
+export default chunk;

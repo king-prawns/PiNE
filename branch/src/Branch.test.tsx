@@ -1,7 +1,7 @@
 import {shallow} from 'enzyme';
 import React from 'react';
 
-import App from './App';
+import Branch from './Branch';
 
 jest.mock('./socket/getSocket', () => ({
   __esModule: true,
@@ -19,7 +19,7 @@ describe('App', () => {
 
   describe('render', () => {
     it('should render without error', () => {
-      expect(() => shallow(<App {...props} />)).not.toThrow();
+      expect(() => shallow(<Branch {...props} />)).not.toThrow();
     });
   });
 });
