@@ -185,6 +185,5 @@ class App extends React.Component<IProps, IState> {
 export default App;
 
 // TODO:
-// - add time to filter. from/to video seconds
 // - timer callback from cone. From branch do compare and send to trunk only active filters
 // - add status to filter.

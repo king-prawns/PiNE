@@ -3,6 +3,7 @@ import React from 'react';
 import EFilter from '../../shared/enum/EFilter';
 import IDuration from '../../shared/interfaces/IDuration';
 import IFilter from '../../shared/interfaces/IFilter';
+import Duration from './Duration';
 import Reject from './Reject';
 
 type IProps = {
@@ -23,8 +24,16 @@ class Filter extends React.Component<IProps, IState> {
   private onFilterChange = (filter: Omit<IFilter, keyof IDuration>): void => {
     this.props.onFilterChange({
       ...filter,
-      fromMs: 0,
-      toMs: 0
+      fromMs: this.props.filter.fromMs,
+      toMs: this.props.filter.toMs
+    });
+  };
+
+  private onDurationChange = (duration: IDuration): void => {
+    this.props.onFilterChange({
+      ...this.props.filter,
+      fromMs: duration.fromMs,
+      toMs: duration.toMs
     });
   };
 
@@ -43,7 +52,17 @@ class Filter extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
-    return this.drawFilter(this.props.filter, this.props.disabled);
+    return (
+      <>
+        <Duration
+          fromMs={this.props.filter.fromMs}
+          toMs={this.props.filter.toMs}
+          disabled={this.props.disabled}
+          onChange={this.onDurationChange}
+        />
+        {this.drawFilter(this.props.filter, this.props.disabled)}
+      </>
+    );
   }
 }
 
