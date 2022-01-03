@@ -1,5 +1,5 @@
 interface IReject {
-  pattern?: string;
+  regex?: string;
   code?: number;
 }
 

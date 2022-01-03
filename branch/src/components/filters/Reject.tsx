@@ -3,9 +3,9 @@ import './Reject.css';
 import React from 'react';
 
 type IProps = {
-  pattern?: string;
+  regex?: string;
   code?: number;
-  onPatternChange: (pattern: string) => void;
+  onRegexChange: (regex: string) => void;
   onCodeChange: (rejectCode: number) => void;
 };
 type IState = Record<string, never>;
@@ -15,13 +15,13 @@ class Reject extends React.Component<IProps, IState> {
   }
 
   public static defaultProps: Partial<IProps> = {
-    pattern: '',
+    regex: '',
     code: 404
   };
 
-  private onPatternChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const pattern: string = e.target.value;
-    this.props.onPatternChange(pattern);
+  private onRegexChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const regex: string = e.target.value;
+    this.props.onRegexChange(regex);
   };
 
   private onCodeChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -33,13 +33,13 @@ class Reject extends React.Component<IProps, IState> {
     return (
       <div className="branch-reject">
         <section>
-          <label htmlFor="branch-reject-pattern">Pattern</label>
+          <label htmlFor="branch-reject-regex">Regex</label>
           <input
-            id="branch-reject-pattern"
+            id="branch-reject-regex"
             type="text"
-            value={this.props.pattern}
-            onInput={this.onPatternChange}
-            placeholder="http://"
+            value={this.props.regex}
+            onInput={this.onRegexChange}
+            placeholder="[a-zA-Z0-9]+"
           />
         </section>
         <section>

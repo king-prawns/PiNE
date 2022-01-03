@@ -10,11 +10,12 @@ const reject = (
 ): void => {
   const {reject} = Config.filters;
 
-  if (reject && reject.pattern && reject.code) {
+  if (reject && reject.regex && reject.code) {
     const url: string = req.query.url as string;
-    if (url.match(reject.pattern)) {
+    const regex: RegExp = new RegExp(reject.regex);
+    if (url.match(regex)) {
       logger.log(
-        `applying REJECT filter with pattern: "${reject.pattern}" and code: ${reject.code}`
+        `applying REJECT filter with regex: "${regex}" and HTTP status code: ${reject.code}`
       );
       res.sendStatus(reject.code);
 

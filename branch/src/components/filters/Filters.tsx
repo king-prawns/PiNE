@@ -16,10 +16,10 @@ class Filters extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private onPatternChange = (pattern: string): void => {
+  private onRegexChange = (regex: string): void => {
     this.props.onFiltersChange({
       reject: {
-        pattern
+        regex
       }
     });
   };
@@ -37,9 +37,9 @@ class Filters extends React.Component<IProps, IState> {
       <div className="branch-filters">
         <FilterItem label="Reject Request">
           <Reject
-            pattern={this.props.filters.reject?.pattern}
+            regex={this.props.filters.reject?.regex}
             code={this.props.filters.reject?.code}
-            onPatternChange={this.onPatternChange}
+            onRegexChange={this.onRegexChange}
             onCodeChange={this.onCodeChange}
           />
         </FilterItem>
