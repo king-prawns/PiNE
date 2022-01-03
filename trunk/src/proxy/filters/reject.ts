@@ -14,22 +14,30 @@ const reject = (
     (filter: IReject) => filter.type === EFilter.REJECT
   );
 
-  rejects.forEach((reject: IReject) => {
-    if (reject && reject.regex && reject.code) {
-      const url: string = req.query.url as string;
-      const regex: RegExp = new RegExp(reject.regex);
+  let isRejected: boolean = false;
+  for (let i: number = 0; i < rejects.length; i++) {
+    const reject: IReject = rejects[i];
+    const url: string = req.query.url as string;
+    try {
+      const regex: RegExp = new RegExp(reject.regex, 'i');
       if (url.match(regex)) {
         logger.log(
-          `applying REJECT filter with regex: "${regex}" and HTTP status code: ${reject.code}`
+          `applying REJECT filter with regex: "${reject.regex}" and HTTP status code: ${reject.code}`
         );
+        isRejected = true;
         res.sendStatus(reject.code);
-
-        return;
+        break;
       }
+    } catch (e) {
+      logger.error(
+        `REJECT filter not applied, "${reject.regex}" is not a valid regex`
+      );
     }
-  });
+  }
 
-  next();
+  if (!isRejected) {
+    next();
+  }
 };
 
 export default reject;
