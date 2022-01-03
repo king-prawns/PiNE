@@ -3,5 +3,14 @@
 }
 
 .branch-filters > section {
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--branch-border-color-primary);
+}
+
+.branch-filters > section > h3 {
+  margin: 0;
+}
+
+.branch-filters-list {
+  margin-top: 20px;
 }

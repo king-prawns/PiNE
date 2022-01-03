@@ -169,3 +169,9 @@ class App extends React.Component<IProps, IState> {
 }
 
 export default App;
+
+// TODO:
+// - css new filter
+// - remove filter
+// - add time to filter. from/to video seconds
+// - add status to filter. active based on video time

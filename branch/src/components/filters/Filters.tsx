@@ -30,8 +30,8 @@ class Filters extends React.Component<IProps, IState> {
             <FilterSelector onFilterAdd={this.onFilterAdd} />
           </FilterItem>
         </section>
-        <section>
-          <h3>Active Filters: {this.props.filters.length}</h3>
+        <section className="branch-filters-list">
+          <h3>Filter List: {this.props.filters.length}</h3>
           {this.props.filters.map((filter: IFilter, index: number) => (
             <FilterItem key={index} label={mapEFilterToString(filter.type)}>
               <Filter filter={filter} disabled={true} />
