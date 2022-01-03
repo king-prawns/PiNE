@@ -5,8 +5,8 @@ import deepmerge from 'deepmerge';
 import React from 'react';
 import {Socket} from 'socket.io-client';
 
-import ConnectionStatusItem from './components/ConnectionStatusItem';
-import ConnectionStatus from './components/containers/ConnectionStatus';
+import Connection from './components/connection/Connection';
+import ConnectionStatus from './components/connection/ConnectionStatus';
 import Header from './components/containers/Header';
 import Filters from './components/filters/Filters';
 import IConnections from './interfaces/IConnections';
@@ -157,16 +157,16 @@ class App extends React.Component<IProps, IState> {
     return (
       <div className="branch">
         <Header>
-          <ConnectionStatus>
-            <ConnectionStatusItem
+          <Connection>
+            <ConnectionStatus
               label="Client"
               host={this.state.connections.client}
             />
-            <ConnectionStatusItem
+            <ConnectionStatus
               label="Trunk"
               host={this.state.connections.trunk}
             />
-          </ConnectionStatus>
+          </Connection>
           <h1>Branch</h1>
         </Header>
         <Filters

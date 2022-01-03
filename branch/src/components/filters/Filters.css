@@ -4,7 +4,7 @@
 
 .branch-filters > section {
   padding-bottom: 10px;
-  border-bottom: 1px solid var(--branch-border-color-primary);
+  border-bottom: 1px solid var(--branch-border-color);
 }
 
 .branch-filters > section > h3 {

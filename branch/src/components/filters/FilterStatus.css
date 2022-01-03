@@ -6,16 +6,16 @@
 }
 
 .branch-filter-status.active .branch-filter-status-icon {
-  background-color: var(--branch-disconnected-color);
+  background-color: var(--branch-active-color);
 }
 
 .branch-filter-status.inactive .branch-filter-status-icon {
-  background-color: var(--branch-connected-color);
+  background-color: var(--branch-inactive-color);
 }
 
 .branch-filter-status-icon {
   width: 14px;
   height: 14px;
   border-radius: 8px;
-  border: 1px solid var(--branch-border-color-primary);
+  border: 1px solid var(--branch-border-color);
 }

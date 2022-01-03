@@ -1,4 +1,4 @@
-import './ConnectionStatusItem.css';
+import './ConnectionStatus.css';
 
 import React from 'react';
 
@@ -15,7 +15,7 @@ class ConnectionStatus extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <div
-        className={`branch-connection-status-item ${
+        className={`branch-connection-status ${
           this.props.host ? 'connected' : 'disconnected'
         }`}
       >
@@ -23,7 +23,7 @@ class ConnectionStatus extends React.Component<IProps, IState> {
           {this.props.label}{' '}
           {this.props.host ? `connected: ${this.props.host}` : 'disconnected'}
         </span>
-        <div className="branch-connection-status-item-icon"></div>
+        <div className="branch-connection-status-icon"></div>
       </div>
     );
   }

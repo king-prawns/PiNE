@@ -4,8 +4,8 @@ import React from 'react';
 
 import IFilter from '../../shared/interfaces/IFilter';
 import mapEFilterToString from '../../utils/mapEFilterToString';
-import FilterItem from '../containers/FilterItem';
 import Filter from './Filter';
+import FilterItem from './FilterItem';
 import FilterSelector from './FilterSelector';
 
 type IProps = {

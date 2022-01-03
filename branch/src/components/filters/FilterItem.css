@@ -14,7 +14,7 @@
 .branch-filter-item h4:after {
   content: '';
   flex: 1 1;
-  border-bottom: 1px solid var(--branch-border-color-primary);
+  border-bottom: 1px solid var(--branch-border-color);
   margin: auto;
 }
 
