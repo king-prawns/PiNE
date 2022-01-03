@@ -2,13 +2,15 @@ import './Filters.css';
 
 import React from 'react';
 
-import IFilters from '../../shared/interfaces/IFilters';
+import IFilter from '../../shared/interfaces/IFilter';
+import mapEFilterToString from '../../utils/mapEFilterToString';
 import FilterItem from '../containers/FilterItem';
-import Reject from './Reject';
+import Filter from './Filter';
+import FilterSelector from './FilterSelector';
 
 type IProps = {
-  filters: IFilters;
-  onFiltersChange: (filters: Partial<IFilters>) => void;
+  filters: Array<IFilter>;
+  onFiltersChange: (filter: IFilter) => void;
 };
 type IState = Record<string, never>;
 class Filters extends React.Component<IProps, IState> {
@@ -16,33 +18,26 @@ class Filters extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private onRegexChange = (regex: string): void => {
-    this.props.onFiltersChange({
-      reject: {
-        regex
-      }
-    });
-  };
-
-  private onCodeChange = (code: number): void => {
-    this.props.onFiltersChange({
-      reject: {
-        code
-      }
-    });
+  private onFilterAdd = (filter: IFilter): void => {
+    this.props.onFiltersChange(filter);
   };
 
   render(): JSX.Element {
     return (
       <div className="branch-filters">
-        <FilterItem label="Reject Request">
-          <Reject
-            regex={this.props.filters.reject?.regex}
-            code={this.props.filters.reject?.code}
-            onRegexChange={this.onRegexChange}
-            onCodeChange={this.onCodeChange}
-          />
-        </FilterItem>
+        <section>
+          <FilterItem>
+            <FilterSelector onFilterAdd={this.onFilterAdd} />
+          </FilterItem>
+        </section>
+        <section>
+          <h3>Active Filters: {this.props.filters.length}</h3>
+          {this.props.filters.map((filter: IFilter, index: number) => (
+            <FilterItem key={index} label={mapEFilterToString(filter.type)}>
+              <Filter filter={filter} disabled={true} />
+            </FilterItem>
+          ))}
+        </section>
       </div>
     );
   }

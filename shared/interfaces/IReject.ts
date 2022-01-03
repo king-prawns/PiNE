@@ -1,6 +1,9 @@
+import EFilter from '../enum/EFilter';
+
 interface IReject {
-  regex?: string;
-  code?: number;
+  type: EFilter.REJECT;
+  regex: string;
+  code: number;
 }
 
 export default IReject;

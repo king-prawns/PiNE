@@ -1,3 +1,7 @@
 .branch-filters {
   margin-bottom: 30px;
 }
+
+.branch-filters > section {
+  border-bottom: 1px solid var(--branch-border-color-primary);
+}

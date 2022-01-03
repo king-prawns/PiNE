@@ -4,7 +4,7 @@ import Config from '../../proxy/config';
 import ENamespace from '../../shared/enum/ENamespace';
 import IBranchToTrunkEvents from '../../shared/interfaces/IBranchToTrunkEvents';
 import IClientToTrunkEvents from '../../shared/interfaces/IClientToTrunkEvents';
-import IFilters from '../../shared/interfaces/IFilters';
+import IFilter from '../../shared/interfaces/IFilter';
 import IInterServerEvents from '../../shared/interfaces/IInterServerEvents';
 import ISocketData from '../../shared/interfaces/ISocketData';
 import ITrunkToBranchEvents from '../../shared/interfaces/ITrunkToBranchEvents';
@@ -45,14 +45,14 @@ const connection = (
     socket.emit('clientConnected', origin);
   }
 
-  socket.on('filtersUpdate', (filters: IFilters) => {
+  socket.on('filtersUpdate', (filters: Array<IFilter>) => {
     Config.filters = filters;
   });
 
   socket.on('disconnect', () => {
     logger.log('disconnected');
     socket.emit('trunkDisconnected');
-    Config.filters = {};
+    Config.filters = [];
   });
 
   socket.on('error', (err: Error) => {

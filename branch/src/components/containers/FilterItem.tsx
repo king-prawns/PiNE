@@ -11,6 +11,10 @@ class FilterItem extends React.Component<IProps, IState> {
     super(props);
   }
 
+  public static defaultProps: Partial<IProps> = {
+    label: 'New filter'
+  };
+
   render(): JSX.Element {
     return (
       <div className="branch-filter-item">

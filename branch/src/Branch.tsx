@@ -13,7 +13,7 @@ import IConnections from './interfaces/IConnections';
 import EPlayerState from './shared/enum/EPlayerState';
 import IBranchToTrunkEvents from './shared/interfaces/IBranchToTrunkEvents';
 import IBufferInfo from './shared/interfaces/IBufferInfo';
-import IFilters from './shared/interfaces/IFilters';
+import IFilter from './shared/interfaces/IFilter';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
@@ -32,7 +32,7 @@ type IState = {
   httpRequest: IHttpRequest | null;
   httpResponse: IHttpResponse | null;
   connections: IConnections;
-  filters: IFilters;
+  filters: Array<IFilter>;
 };
 class App extends React.Component<IProps, IState> {
   private _ref: React.RefObject<Cone> = React.createRef<Cone>();
@@ -52,7 +52,7 @@ class App extends React.Component<IProps, IState> {
       httpRequest: null,
       httpResponse: null,
       connections: {},
-      filters: {}
+      filters: []
     };
 
     this._socket.on(
@@ -124,10 +124,11 @@ class App extends React.Component<IProps, IState> {
     });
   }
 
-  private onFiltersChange = (partialFilters: Partial<IFilters>): void => {
-    const filters: IFilters = deepmerge(this.state.filters, partialFilters);
-    this.setState({filters});
-    this._socket.emit('filtersUpdate', filters);
+  private onFiltersChange = (filter: IFilter): void => {
+    this.setState({
+      filters: [...this.state.filters, filter]
+    });
+    this._socket.emit('filtersUpdate', this.state.filters);
   };
 
   render(): JSX.Element {
