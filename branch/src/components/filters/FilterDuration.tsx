@@ -1,4 +1,4 @@
-import './Duration.css';
+import './FilterDuration.css';
 
 import React from 'react';
 
@@ -11,7 +11,7 @@ type IProps = {
   onChange?: (duration: IDuration) => void;
 };
 type IState = Record<string, never>;
-class Duration extends React.Component<IProps, IState> {
+class FilterDuration extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
   }
@@ -34,11 +34,11 @@ class Duration extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <div className="branch-duration">
+      <div className="branch-filter-duration">
         <section>
-          <label htmlFor="branch-duration-from">From</label>
+          <label htmlFor="branch-filter-duration-from">From</label>
           <input
-            id="branch-duration-from"
+            id="branch-filter-duration-from"
             type="number"
             value={this.props.fromMs}
             onInput={this.onFromMsChange}
@@ -50,9 +50,9 @@ class Duration extends React.Component<IProps, IState> {
           <span>ms</span>
         </section>
         <section>
-          <label htmlFor="branch-duration-to">To</label>
+          <label htmlFor="branch-filter-duration-to">To</label>
           <input
-            id="branch-duration-to"
+            id="branch-filter-duration-to"
             type="number"
             value={this.props.toMs}
             onInput={this.onToMsChange}
@@ -68,4 +68,4 @@ class Duration extends React.Component<IProps, IState> {
   }
 }
 
-export default Duration;
+export default FilterDuration;

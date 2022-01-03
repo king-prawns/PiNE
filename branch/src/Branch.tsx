@@ -33,6 +33,7 @@ type IState = {
   httpResponse: IHttpResponse | null;
   connections: IConnections;
   filters: Array<IFilter>;
+  currentTimeMs: number;
 };
 class App extends React.Component<IProps, IState> {
   private _ref: React.RefObject<Cone> = React.createRef<Cone>();
@@ -52,7 +53,8 @@ class App extends React.Component<IProps, IState> {
       httpRequest: null,
       httpResponse: null,
       connections: {},
-      filters: []
+      filters: [],
+      currentTimeMs: 0
     };
 
     this._socket.on(
@@ -125,23 +127,30 @@ class App extends React.Component<IProps, IState> {
   }
 
   private onFilterAdd = (filter: IFilter): void => {
-    this.setState(
-      {
-        filters: [...this.state.filters, filter]
-      },
-      () => {
-        this._socket.emit('filtersUpdate', this.state.filters);
-      }
-    );
+    this.setState({
+      filters: [...this.state.filters, filter]
+    });
   };
 
   private onFilterRemove = (index: number): void => {
     const filters: Array<IFilter> = this.state.filters.filter(
       (_filter: IFilter, i: number) => i !== index
     );
-    this.setState({filters}, () => {
-      this._socket.emit('filtersUpdate', this.state.filters);
-    });
+    this.setState({filters});
+  };
+
+  private onTimeUpdate = (currentTimeMs: number): void => {
+    this.setState({currentTimeMs});
+    const activeFilters: Array<IFilter> = this.state.filters.filter(
+      (filter: IFilter) => {
+        if (currentTimeMs === 0) {
+          return false;
+        }
+
+        return filter.fromMs <= currentTimeMs && currentTimeMs <= filter.toMs;
+      }
+    );
+    this._socket.emit('filtersUpdate', activeFilters);
   };
 
   render(): JSX.Element {
@@ -162,6 +171,7 @@ class App extends React.Component<IProps, IState> {
         </Header>
         <Filters
           filters={this.state.filters}
+          currentTimeMs={this.state.currentTimeMs}
           onFilterAdd={this.onFilterAdd}
           onFilterRemove={this.onFilterRemove}
         />
@@ -176,6 +186,7 @@ class App extends React.Component<IProps, IState> {
           usedJSHeapSize={this.state.usedJSHeapSize}
           httpRequest={this.state.httpRequest}
           httpResponse={this.state.httpResponse}
+          onTimeUpdate={this.onTimeUpdate}
         />
       </div>
     );
@@ -183,7 +194,3 @@ class App extends React.Component<IProps, IState> {
 }
 
 export default App;
-
-// TODO:
-// - timer callback from cone. From branch do compare and send to trunk only active filters
-// - add status to filter.

@@ -3,11 +3,13 @@ import React from 'react';
 import EFilter from '../../shared/enum/EFilter';
 import IDuration from '../../shared/interfaces/IDuration';
 import IFilter from '../../shared/interfaces/IFilter';
-import Duration from './Duration';
+import FilterDuration from './FilterDuration';
+import FilterStatus from './FilterStatus';
 import Reject from './Reject';
 
 type IProps = {
   filter: IFilter;
+  currentTimeMs: number;
   disabled: boolean;
   onFilterChange: (filter: IFilter) => void;
 };
@@ -18,7 +20,8 @@ class Filter extends React.Component<IProps, IState> {
   }
 
   public static defaultProps: Partial<IProps> = {
-    disabled: false
+    disabled: false,
+    currentTimeMs: 0
   };
 
   private onFilterChange = (filter: Omit<IFilter, keyof IDuration>): void => {
@@ -54,13 +57,20 @@ class Filter extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <>
-        <Duration
+        <FilterDuration
           fromMs={this.props.filter.fromMs}
           toMs={this.props.filter.toMs}
           disabled={this.props.disabled}
           onChange={this.onDurationChange}
         />
         {this.drawFilter(this.props.filter, this.props.disabled)}
+        {this.props.disabled && (
+          <FilterStatus
+            fromMs={this.props.filter.fromMs}
+            toMs={this.props.filter.toMs}
+            currentTimeMs={this.props.currentTimeMs}
+          />
+        )}
       </>
     );
   }

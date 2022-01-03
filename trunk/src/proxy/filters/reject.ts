@@ -1,7 +1,6 @@
 import express from 'express';
 
 import EFilter from '../../shared/enum/EFilter';
-import IFilter from '../../shared/interfaces/IFilter';
 import IReject from '../../shared/interfaces/IReject';
 import Config from '../config';
 import logger from '../logger';
@@ -12,7 +11,7 @@ const reject = (
   next: express.NextFunction
 ): void => {
   const rejects: Array<IReject> = Config.filters.filter(
-    (filter: IFilter) => filter.type === EFilter.REJECT
+    (filter: IReject) => filter.type === EFilter.REJECT
   );
 
   rejects.forEach((reject: IReject) => {
