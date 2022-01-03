@@ -49,6 +49,7 @@ type IProps = {
   usedJSHeapSize: number | null;
   httpRequest: IHttpRequest | null;
   httpResponse: IHttpResponse | null;
+  onTimeUpdate?: (timeMs: number) => void;
 };
 
 type IState = {
@@ -110,6 +111,7 @@ class Cone extends React.Component<IProps, IState> {
       const {timeMs, cmd} = message.data;
       if (timeMs) {
         this.setState({currentTimeMs: timeMs});
+        this.props.onTimeUpdate?.(timeMs);
       }
       if (cmd === ECmdFromWorker.STOPPED) {
         this.setState({isEnded: true});
@@ -170,7 +172,10 @@ class Cone extends React.Component<IProps, IState> {
     }
   }
 
-  private addPropToState(prevProps: IProps, key: keyof IProps): void {
+  private addPropToState(
+    prevProps: Omit<IProps, 'onTimeUpdate'>,
+    key: keyof Omit<IProps, 'onTimeUpdate'>
+  ): void {
     if (
       this.props[key] === null ||
       this.state.isEnded ||
