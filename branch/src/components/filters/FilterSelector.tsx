@@ -3,6 +3,7 @@ import './FilterSelector.css';
 import React from 'react';
 
 import EFilter from '../../shared/enum/EFilter';
+import IDuration from '../../shared/interfaces/IDuration';
 import IFilter from '../../shared/interfaces/IFilter';
 import mapEFilterToString from '../../utils/mapEFilterToString';
 import Filter from './Filter';
@@ -40,16 +41,27 @@ class FilterSelector extends React.Component<IProps, IState> {
   };
 
   private setCurrentFilter(filterType: EFilter): void {
+    let filter: Omit<IFilter, keyof IDuration> | null = null;
+    const duration: IDuration = {
+      fromMs: 0,
+      toMs: 5000
+    };
+
     switch (filterType) {
       case EFilter.REJECT:
-        this.setState({
-          currentFilter: {
-            type: EFilter.REJECT,
-            regex: '',
-            code: 404
-          }
-        });
+        filter = {
+          type: EFilter.REJECT,
+          regex: '',
+          code: 404
+        };
     }
+
+    this.setState({
+      currentFilter: {
+        ...filter,
+        ...duration
+      }
+    });
   }
 
   private onCurrentFilterChange(filter: IFilter): void {

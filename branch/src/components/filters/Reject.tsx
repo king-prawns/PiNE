@@ -3,13 +3,14 @@ import './Reject.css';
 import React from 'react';
 
 import EFilter from '../../shared/enum/EFilter';
+import IDuration from '../../shared/interfaces/IDuration';
 import IReject from '../../shared/interfaces/IReject';
 
 type IProps = {
   regex: string;
   code: number;
   disabled: boolean;
-  onChange?: (rejectFilter: IReject) => void;
+  onChange?: (rejectFilter: Omit<IReject, keyof IDuration>) => void;
 };
 type IState = Record<string, never>;
 class Reject extends React.Component<IProps, IState> {

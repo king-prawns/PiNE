@@ -1,6 +1,7 @@
 import React from 'react';
 
 import EFilter from '../../shared/enum/EFilter';
+import IDuration from '../../shared/interfaces/IDuration';
 import IFilter from '../../shared/interfaces/IFilter';
 import Reject from './Reject';
 
@@ -19,6 +20,14 @@ class Filter extends React.Component<IProps, IState> {
     disabled: false
   };
 
+  private onFilterChange = (filter: Omit<IFilter, keyof IDuration>): void => {
+    this.props.onFilterChange({
+      ...filter,
+      fromMs: 0,
+      toMs: 0
+    });
+  };
+
   private drawFilter(filter: IFilter, disabled: boolean): JSX.Element {
     switch (filter.type) {
       case EFilter.REJECT:
@@ -27,7 +36,7 @@ class Filter extends React.Component<IProps, IState> {
             regex={filter.regex}
             code={filter.code}
             disabled={disabled}
-            onChange={this.props.onFilterChange}
+            onChange={this.onFilterChange}
           />
         );
     }
