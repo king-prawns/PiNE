@@ -1,15 +1,15 @@
 import React from 'react';
 
+import IDuration from '../../interfaces/IDuration';
+import IFilter from '../../interfaces/IFilter';
+import IStatus from '../../interfaces/IStatus';
 import EFilter from '../../shared/enum/EFilter';
-import IDuration from '../../shared/interfaces/IDuration';
-import IFilter from '../../shared/interfaces/IFilter';
 import FilterDuration from './FilterDuration';
 import FilterStatus from './FilterStatus';
 import Reject from './Reject';
 
 type IProps = {
   filter: IFilter;
-  currentTimeMs: number;
   disabled: boolean;
   onFilterChange: (filter: IFilter) => void;
 };
@@ -20,15 +20,17 @@ class Filter extends React.Component<IProps, IState> {
   }
 
   public static defaultProps: Partial<IProps> = {
-    disabled: false,
-    currentTimeMs: 0
+    disabled: false
   };
 
-  private onFilterChange = (filter: Omit<IFilter, keyof IDuration>): void => {
+  private onFilterChange = (
+    filter: Omit<IFilter, keyof IDuration | keyof IStatus>
+  ): void => {
     this.props.onFilterChange({
       ...filter,
       fromMs: this.props.filter.fromMs,
-      toMs: this.props.filter.toMs
+      toMs: this.props.filter.toMs,
+      isActive: this.props.filter.isActive
     });
   };
 
@@ -65,11 +67,7 @@ class Filter extends React.Component<IProps, IState> {
         />
         {this.drawFilter(this.props.filter, this.props.disabled)}
         {this.props.disabled && (
-          <FilterStatus
-            fromMs={this.props.filter.fromMs}
-            toMs={this.props.filter.toMs}
-            currentTimeMs={this.props.currentTimeMs}
-          />
+          <FilterStatus isActive={this.props.filter.isActive} />
         )}
       </>
     );

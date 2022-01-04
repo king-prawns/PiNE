@@ -10,7 +10,7 @@ const reject = (
   res: express.Response,
   next: express.NextFunction
 ): void => {
-  const rejects: Array<IReject> = Config.filters.filter(
+  const rejects: Array<IReject> = Config.activeFilters.filter(
     (filter: IReject) => filter.type === EFilter.REJECT
   );
 
@@ -20,7 +20,7 @@ const reject = (
     const url: string = req.query.url as string;
     try {
       const regex: RegExp = new RegExp(reject.regex, 'i');
-      if (url.match(regex)) {
+      if (regex.test(url)) {
         logger.log(
           `applying REJECT filter with regex: "${reject.regex}" and HTTP status code: ${reject.code}`
         );

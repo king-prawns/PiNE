@@ -1,7 +1,7 @@
-import IFilter from './IFilter';
+import IActiveFilter from './IActiveFilter';
 
 interface IBranchToTrunkEvents {
-  filtersUpdate: (filters: Array<IFilter>) => void;
+  activeFiltersUpdate: (activeFilters: Array<IActiveFilter>) => void;
 }
 
 export default IBranchToTrunkEvents;

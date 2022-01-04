@@ -1,14 +1,14 @@
-import IFilter from '../shared/interfaces/IFilter';
+import IActiveFilter from '../shared/interfaces/IActiveFilter';
 
 class Config {
-  private static _filters: Array<IFilter> = [];
+  private static _activeFilters: Array<IActiveFilter> = [];
 
-  public static get filters(): Array<IFilter> {
-    return this._filters;
+  public static get activeFilters(): Array<IActiveFilter> {
+    return this._activeFilters;
   }
 
-  public static set filters(filters: Array<IFilter>) {
-    this._filters = JSON.parse(JSON.stringify(filters));
+  public static set activeFilters(activeFilters: Array<IActiveFilter>) {
+    this._activeFilters = JSON.parse(JSON.stringify(activeFilters));
   }
 }
 

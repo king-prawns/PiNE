@@ -2,9 +2,9 @@ import {Namespace, Socket} from 'socket.io';
 
 import Config from '../../proxy/config';
 import ENamespace from '../../shared/enum/ENamespace';
+import IActiveFilter from '../../shared/interfaces/IActiveFilter';
 import IBranchToTrunkEvents from '../../shared/interfaces/IBranchToTrunkEvents';
 import IClientToTrunkEvents from '../../shared/interfaces/IClientToTrunkEvents';
-import IFilter from '../../shared/interfaces/IFilter';
 import IInterServerEvents from '../../shared/interfaces/IInterServerEvents';
 import ISocketData from '../../shared/interfaces/ISocketData';
 import ITrunkToBranchEvents from '../../shared/interfaces/ITrunkToBranchEvents';
@@ -45,14 +45,14 @@ const connection = (
     socket.emit('clientConnected', origin);
   }
 
-  socket.on('filtersUpdate', (filters: Array<IFilter>) => {
-    Config.filters = filters;
+  socket.on('activeFiltersUpdate', (activeFilters: Array<IActiveFilter>) => {
+    Config.activeFilters = activeFilters;
   });
 
   socket.on('disconnect', () => {
     logger.log('disconnected');
     socket.emit('trunkDisconnected');
-    Config.filters = [];
+    Config.activeFilters = [];
   });
 
   socket.on('error', (err: Error) => {

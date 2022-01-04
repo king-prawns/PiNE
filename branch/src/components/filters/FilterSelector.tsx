@@ -2,9 +2,10 @@ import './FilterSelector.css';
 
 import React from 'react';
 
+import IDuration from '../../interfaces/IDuration';
+import IFilter from '../../interfaces/IFilter';
+import IStatus from '../../interfaces/IStatus';
 import EFilter from '../../shared/enum/EFilter';
-import IDuration from '../../shared/interfaces/IDuration';
-import IFilter from '../../shared/interfaces/IFilter';
 import mapEFilterToString from '../../utils/mapEFilterToString';
 import Filter from './Filter';
 
@@ -41,10 +42,14 @@ class FilterSelector extends React.Component<IProps, IState> {
   };
 
   private setCurrentFilter(filterType: EFilter): void {
-    let filter: Omit<IFilter, keyof IDuration> | null = null;
+    let filter: Omit<IFilter, keyof IDuration | keyof IStatus> | null = null;
     const duration: IDuration = {
       fromMs: 0,
       toMs: 5000
+    };
+
+    const status: IStatus = {
+      isActive: false
     };
 
     switch (filterType) {
@@ -59,7 +64,8 @@ class FilterSelector extends React.Component<IProps, IState> {
     this.setState({
       currentFilter: {
         ...filter,
-        ...duration
+        ...duration,
+        ...status
       }
     });
   }
