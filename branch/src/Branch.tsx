@@ -138,34 +138,43 @@ class App extends React.Component<IProps, IState> {
     this.setState({filters});
   };
 
+  private setActiveFilter = (
+    filter: IFilter,
+    currentTimeMs: number
+  ): IFilter => {
+    let isActive: boolean = false;
+    if (currentTimeMs !== 0) {
+      isActive = filter.fromMs <= currentTimeMs && currentTimeMs <= filter.toMs;
+    }
+
+    return {
+      ...filter,
+      isActive
+    };
+  };
+
+  private emitActiveFiltersUpdate = (): void => {
+    const activeFilters: Array<IActiveFilter> = [];
+    this.state.filters.forEach((filter: IFilter) => {
+      if (filter.isActive) {
+        const {fromMs, toMs, isActive, ...rest} = filter;
+
+        activeFilters.push({
+          ...rest
+        });
+      }
+    });
+    this._socket.emit('activeFiltersUpdate', activeFilters);
+  };
+
   private onTimeUpdate = (currentTimeMs: number): void => {
     this.setState(
       {
-        filters: this.state.filters.map((filter: IFilter) => {
-          let isActive: boolean = false;
-          if (currentTimeMs !== 0) {
-            isActive =
-              filter.fromMs <= currentTimeMs && currentTimeMs <= filter.toMs;
-          }
-
-          return {
-            ...filter,
-            isActive
-          };
-        })
+        filters: this.state.filters.map((filter: IFilter) =>
+          this.setActiveFilter(filter, currentTimeMs)
+        )
       },
-      () => {
-        const activeFilters: Array<IActiveFilter> = this.state.filters
-          .filter((filter: IFilter) => filter.isActive)
-          .map((filter: IFilter) => {
-            const {fromMs, toMs, isActive, ...rest} = filter;
-
-            return {
-              ...rest
-            };
-          });
-        this._socket.emit('activeFiltersUpdate', activeFilters);
-      }
+      () => this.emitActiveFiltersUpdate()
     );
   };
 
