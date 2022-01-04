@@ -6,6 +6,8 @@ import IDuration from '../../interfaces/IDuration';
 import IFilter from '../../interfaces/IFilter';
 import IStatus from '../../interfaces/IStatus';
 import EFilter from '../../shared/enum/EFilter';
+import IOffline from '../../shared/interfaces/IOffline';
+import IReject from '../../shared/interfaces/IReject';
 import mapEFilterToString from '../../utils/mapEFilterToString';
 import Filter from './Filter';
 
@@ -58,7 +60,13 @@ class FilterSelector extends React.Component<IProps, IState> {
           type: EFilter.REJECT,
           regex: '',
           code: 404
-        };
+        } as IReject;
+        break;
+      case EFilter.OFFLINE:
+        filter = {
+          type: EFilter.OFFLINE
+        } as IOffline;
+        break;
     }
 
     this.setState({
@@ -66,7 +74,7 @@ class FilterSelector extends React.Component<IProps, IState> {
         ...filter,
         ...duration,
         ...status
-      }
+      } as IFilter
     });
   }
 

@@ -6,6 +6,7 @@ import IStatus from '../../interfaces/IStatus';
 import EFilter from '../../shared/enum/EFilter';
 import FilterDuration from './FilterDuration';
 import FilterStatus from './FilterStatus';
+import Offline from './Offline';
 import Reject from './Reject';
 
 type IProps = {
@@ -31,7 +32,7 @@ class Filter extends React.Component<IProps, IState> {
       fromMs: this.props.filter.fromMs,
       toMs: this.props.filter.toMs,
       isActive: this.props.filter.isActive
-    });
+    } as IFilter);
   };
 
   private onDurationChange = (duration: IDuration): void => {
@@ -53,6 +54,8 @@ class Filter extends React.Component<IProps, IState> {
             onChange={this.onFilterChange}
           />
         );
+      case EFilter.OFFLINE:
+        return <Offline />;
     }
   }
 
