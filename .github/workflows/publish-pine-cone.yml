@@ -1,8 +1,9 @@
 name: Build and publish pine-cone
 
-on:
-  push:
-    branches: ['main']
+# on:
+#   push:
+#     branches: ['main']
+on: push
 
 env:
   NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
