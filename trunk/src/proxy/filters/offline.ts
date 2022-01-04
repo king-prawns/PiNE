@@ -17,7 +17,7 @@ const offline = (
   );
 
   if (offline.length > 0) {
-    // TODO: do something
+    // do nothing, just hang
     logger.log(`applying OFFLINE filter`);
   } else {
     next();
