@@ -1,6 +1,7 @@
 import express from 'express';
 
 import EFilter from '../../shared/enum/EFilter';
+import IActiveFilter from '../../shared/interfaces/IActiveFilter';
 import IReject from '../../shared/interfaces/IReject';
 import Config from '../config';
 import logger from '../logger';
@@ -11,7 +12,7 @@ const reject = (
   next: express.NextFunction
 ): void => {
   const rejects: Array<IReject> = Config.activeFilters.filter(
-    (filter: IReject) => filter.type === EFilter.REJECT
+    (filter: IActiveFilter): filter is IReject => filter.type === EFilter.REJECT
   );
 
   let isRejected: boolean = false;

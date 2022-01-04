@@ -23,11 +23,11 @@
 - [x] (code) create `pine-cone` package
 - [x] (code) add block requests filter
 - [x] (code) add UI to control filters
+- [x] (code) add offline filter
 - [ ] (code) add throttle filter
 - [ ] (code) add latency filter
 - [ ] (code) add packet loss filter
 - [ ] (code) add jitter filter
-- [ ] (code) add offline filter
 - [ ] (code) new client integration
 - [ ] (code) add simulation (schedule filter over time)
 - [ ] (code) manifest/chunk localhost

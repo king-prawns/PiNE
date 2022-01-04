@@ -2,10 +2,11 @@ import React from 'react';
 
 import IDuration from '../../interfaces/IDuration';
 import IFilter from '../../interfaces/IFilter';
-import IStatus from '../../interfaces/IStatus';
 import EFilter from '../../shared/enum/EFilter';
+import IActiveFilter from '../../shared/interfaces/IActiveFilter';
 import FilterDuration from './FilterDuration';
 import FilterStatus from './FilterStatus';
+import Offline from './Offline';
 import Reject from './Reject';
 
 type IProps = {
@@ -23,9 +24,7 @@ class Filter extends React.Component<IProps, IState> {
     disabled: false
   };
 
-  private onFilterChange = (
-    filter: Omit<IFilter, keyof IDuration | keyof IStatus>
-  ): void => {
+  private onFilterChange = (filter: IActiveFilter): void => {
     this.props.onFilterChange({
       ...filter,
       fromMs: this.props.filter.fromMs,
@@ -44,6 +43,8 @@ class Filter extends React.Component<IProps, IState> {
 
   private drawFilter(filter: IFilter, disabled: boolean): JSX.Element {
     switch (filter.type) {
+      case EFilter.OFFLINE:
+        return <Offline />;
       case EFilter.REJECT:
         return (
           <Reject
