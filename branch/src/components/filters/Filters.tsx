@@ -2,13 +2,16 @@ import './Filters.css';
 
 import React from 'react';
 
-import IFilters from '../../shared/interfaces/IFilters';
-import FilterItem from '../containers/FilterItem';
-import Reject from './Reject';
+import IFilter from '../../interfaces/IFilter';
+import mapEFilterToString from '../../utils/mapEFilterToString';
+import Filter from './Filter';
+import FilterItem from './FilterItem';
+import FilterSelector from './FilterSelector';
 
 type IProps = {
-  filters: IFilters;
-  onFiltersChange: (filters: Partial<IFilters>) => void;
+  filters: Array<IFilter>;
+  onFilterAdd: (filter: IFilter) => void;
+  onFilterRemove: (index: number) => void;
 };
 type IState = Record<string, never>;
 class Filters extends React.Component<IProps, IState> {
@@ -16,33 +19,33 @@ class Filters extends React.Component<IProps, IState> {
     super(props);
   }
 
-  private onRegexChange = (regex: string): void => {
-    this.props.onFiltersChange({
-      reject: {
-        regex
-      }
-    });
+  private onFilterAdd = (filter: IFilter): void => {
+    this.props.onFilterAdd(filter);
   };
 
-  private onCodeChange = (code: number): void => {
-    this.props.onFiltersChange({
-      reject: {
-        code
-      }
-    });
+  private onFilterRemove = (index: number): void => {
+    this.props.onFilterRemove(index);
   };
 
   render(): JSX.Element {
     return (
       <div className="branch-filters">
-        <FilterItem label="Reject Request">
-          <Reject
-            regex={this.props.filters.reject?.regex}
-            code={this.props.filters.reject?.code}
-            onRegexChange={this.onRegexChange}
-            onCodeChange={this.onCodeChange}
-          />
-        </FilterItem>
+        <section>
+          <FilterItem>
+            <FilterSelector onFilterAdd={this.onFilterAdd} />
+          </FilterItem>
+        </section>
+        <section className="branch-filters-list">
+          <h3>Filter List: {this.props.filters.length}</h3>
+          {this.props.filters.map((filter: IFilter, index: number) => (
+            <FilterItem key={index} label={mapEFilterToString(filter.type)}>
+              <Filter filter={filter} disabled={true} />
+              <button onClick={(): void => this.onFilterRemove(index)}>
+                Remove -
+              </button>
+            </FilterItem>
+          ))}
+        </section>
       </div>
     );
   }

@@ -1,0 +1,17 @@
+.branch-filter-duration {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.branch-filter-duration > section {
+  flex: 1;
+}
+
+.branch-filter-duration > section > label {
+  margin-right: 5px;
+}
+
+.branch-filter-duration > section > input {
+  width: 70px;
+  margin-right: 5px;
+}

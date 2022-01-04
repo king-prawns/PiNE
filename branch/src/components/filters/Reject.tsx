@@ -2,11 +2,14 @@ import './Reject.css';
 
 import React from 'react';
 
+import EFilter from '../../shared/enum/EFilter';
+import IReject from '../../shared/interfaces/IReject';
+
 type IProps = {
-  regex?: string;
-  code?: number;
-  onRegexChange: (regex: string) => void;
-  onCodeChange: (rejectCode: number) => void;
+  regex: string;
+  code: number;
+  disabled: boolean;
+  onChange?: (rejectFilter: IReject) => void;
 };
 type IState = Record<string, never>;
 class Reject extends React.Component<IProps, IState> {
@@ -14,19 +17,22 @@ class Reject extends React.Component<IProps, IState> {
     super(props);
   }
 
-  public static defaultProps: Partial<IProps> = {
-    regex: '',
-    code: 404
-  };
-
   private onRegexChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const regex: string = e.target.value;
-    this.props.onRegexChange(regex);
+    this.props.onChange?.({
+      type: EFilter.REJECT,
+      regex,
+      code: this.props.code
+    });
   };
 
   private onCodeChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const rejectCode: number = +e.target.value;
-    this.props.onCodeChange(rejectCode);
+    this.props.onChange?.({
+      type: EFilter.REJECT,
+      regex: this.props.regex,
+      code: rejectCode
+    });
   };
 
   render(): JSX.Element {
@@ -40,6 +46,8 @@ class Reject extends React.Component<IProps, IState> {
             value={this.props.regex}
             onInput={this.onRegexChange}
             placeholder="[a-zA-Z0-9]+"
+            disabled={this.props.disabled}
+            required
           />
         </section>
         <section>
@@ -48,6 +56,7 @@ class Reject extends React.Component<IProps, IState> {
             id="branch-reject-code"
             value={this.props.code}
             onChange={this.onCodeChange}
+            disabled={this.props.disabled}
           >
             <option value="503">503 Service Unavailable</option>
             <option value="500">500 Internal Server Error</option>

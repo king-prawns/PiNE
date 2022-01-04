@@ -1,0 +1,22 @@
+.branch-connection-status {
+  display: flex;
+}
+
+.branch-connection-status > span {
+  margin-right: 5px;
+}
+
+.branch-connection-status.connected .branch-connection-status-icon {
+  background-color: var(--branch-active-color);
+}
+
+.branch-connection-status.disconnected .branch-connection-status-icon {
+  background-color: var(--branch-inactive-color);
+}
+
+.branch-connection-status-icon {
+  width: 14px;
+  height: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--branch-border-color);
+}

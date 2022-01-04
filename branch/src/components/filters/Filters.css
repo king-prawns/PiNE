@@ -1,3 +1,22 @@
 .branch-filters {
   margin-bottom: 30px;
 }
+
+.branch-filters > section {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--branch-border-color);
+}
+
+.branch-filters > section > h3 {
+  margin: 0;
+}
+
+.branch-filters > section button {
+  margin-top: 20px;
+  width: 75px;
+  cursor: pointer;
+}
+
+.branch-filters-list {
+  margin-top: 20px;
+}

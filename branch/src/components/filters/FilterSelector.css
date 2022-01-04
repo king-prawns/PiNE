@@ -1,0 +1,13 @@
+.branch-filter-selector > label {
+  margin-right: 5px;
+}
+
+.branch-filter-selector > form {
+  margin-top: 20px;
+}
+
+.branch-filter-selector > form > button {
+  margin-top: 20px;
+  width: 75px;
+  cursor: pointer;
+}

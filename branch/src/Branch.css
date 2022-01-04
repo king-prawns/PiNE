@@ -1,7 +1,7 @@
 :root {
-  --branch-connected-color: #e80e2b;
-  --branch-disconnected-color: #43a047;
-  --cone-border-color-primary: #212121;
+  --branch-active-color: #43a047;
+  --branch-inactive-color: #e80e2b;
+  --branch-border-color: #212121;
 }
 
 .branch {

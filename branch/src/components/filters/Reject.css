@@ -6,6 +6,6 @@
   flex: 1;
 }
 
-.branch-reject label {
+.branch-reject > section > label {
   margin-right: 5px;
 }

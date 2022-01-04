@@ -5,15 +5,16 @@ import deepmerge from 'deepmerge';
 import React from 'react';
 import {Socket} from 'socket.io-client';
 
-import ConnectionStatusItem from './components/ConnectionStatusItem';
-import ConnectionStatus from './components/containers/ConnectionStatus';
+import Connection from './components/connection/Connection';
+import ConnectionStatus from './components/connection/ConnectionStatus';
 import Header from './components/containers/Header';
 import Filters from './components/filters/Filters';
 import IConnections from './interfaces/IConnections';
+import IFilter from './interfaces/IFilter';
 import EPlayerState from './shared/enum/EPlayerState';
+import IActiveFilter from './shared/interfaces/IActiveFilter';
 import IBranchToTrunkEvents from './shared/interfaces/IBranchToTrunkEvents';
 import IBufferInfo from './shared/interfaces/IBufferInfo';
-import IFilters from './shared/interfaces/IFilters';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
@@ -32,7 +33,7 @@ type IState = {
   httpRequest: IHttpRequest | null;
   httpResponse: IHttpResponse | null;
   connections: IConnections;
-  filters: IFilters;
+  filters: Array<IFilter>;
 };
 class App extends React.Component<IProps, IState> {
   private _ref: React.RefObject<Cone> = React.createRef<Cone>();
@@ -52,7 +53,7 @@ class App extends React.Component<IProps, IState> {
       httpRequest: null,
       httpResponse: null,
       connections: {},
-      filters: {}
+      filters: []
     };
 
     this._socket.on(
@@ -124,31 +125,79 @@ class App extends React.Component<IProps, IState> {
     });
   }
 
-  private onFiltersChange = (partialFilters: Partial<IFilters>): void => {
-    const filters: IFilters = deepmerge(this.state.filters, partialFilters);
+  private onFilterAdd = (filter: IFilter): void => {
+    this.setState({
+      filters: [...this.state.filters, filter]
+    });
+  };
+
+  private onFilterRemove = (index: number): void => {
+    const filters: Array<IFilter> = this.state.filters.filter(
+      (_filter: IFilter, i: number) => i !== index
+    );
     this.setState({filters});
-    this._socket.emit('filtersUpdate', filters);
+  };
+
+  private setActiveFilter = (
+    filter: IFilter,
+    currentTimeMs: number
+  ): IFilter => {
+    let isActive: boolean = false;
+    if (currentTimeMs !== 0) {
+      isActive = filter.fromMs <= currentTimeMs && currentTimeMs <= filter.toMs;
+    }
+
+    return {
+      ...filter,
+      isActive
+    };
+  };
+
+  private emitActiveFiltersUpdate = (): void => {
+    const activeFilters: Array<IActiveFilter> = [];
+    this.state.filters.forEach((filter: IFilter) => {
+      if (filter.isActive) {
+        const {fromMs, toMs, isActive, ...rest} = filter;
+
+        activeFilters.push({
+          ...rest
+        });
+      }
+    });
+    this._socket.emit('activeFiltersUpdate', activeFilters);
+  };
+
+  private onTimeUpdate = (currentTimeMs: number): void => {
+    this.setState(
+      {
+        filters: this.state.filters.map((filter: IFilter) =>
+          this.setActiveFilter(filter, currentTimeMs)
+        )
+      },
+      () => this.emitActiveFiltersUpdate()
+    );
   };
 
   render(): JSX.Element {
     return (
       <div className="branch">
         <Header>
-          <ConnectionStatus>
-            <ConnectionStatusItem
+          <Connection>
+            <ConnectionStatus
               label="Client"
               host={this.state.connections.client}
             />
-            <ConnectionStatusItem
+            <ConnectionStatus
               label="Trunk"
               host={this.state.connections.trunk}
             />
-          </ConnectionStatus>
+          </Connection>
           <h1>Branch</h1>
         </Header>
         <Filters
           filters={this.state.filters}
-          onFiltersChange={this.onFiltersChange}
+          onFilterAdd={this.onFilterAdd}
+          onFilterRemove={this.onFilterRemove}
         />
         <Cone
           ref={this._ref}
@@ -161,6 +210,7 @@ class App extends React.Component<IProps, IState> {
           usedJSHeapSize={this.state.usedJSHeapSize}
           httpRequest={this.state.httpRequest}
           httpResponse={this.state.httpResponse}
+          onTimeUpdate={this.onTimeUpdate}
         />
       </div>
     );

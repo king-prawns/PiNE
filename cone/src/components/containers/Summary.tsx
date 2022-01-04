@@ -33,6 +33,12 @@ class Summary extends React.Component<IProps, IState> {
 
   private setMinMaxCurrent(): void {
     if (this.props.data.length === 0) {
+      this.setState({
+        currentValue: 0,
+        maxValue: 0,
+        minValue: 0
+      });
+
       return;
     }
 

@@ -1,7 +1,6 @@
 .branch-filter-item {
-  box-sizing: border-box;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--cone-border-color-primary);
+  position: relative;
+  margin-bottom: 10px;
 }
 
 .branch-filter-item h4 {
@@ -15,7 +14,7 @@
 .branch-filter-item h4:after {
   content: '';
   flex: 1 1;
-  border-bottom: 1px solid var(--cone-border-color-primary);
+  border-bottom: 1px solid var(--branch-border-color);
   margin: auto;
 }
 
