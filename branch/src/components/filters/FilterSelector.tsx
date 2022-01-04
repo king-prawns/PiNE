@@ -6,8 +6,7 @@ import IDuration from '../../interfaces/IDuration';
 import IFilter from '../../interfaces/IFilter';
 import IStatus from '../../interfaces/IStatus';
 import EFilter from '../../shared/enum/EFilter';
-import IOffline from '../../shared/interfaces/IOffline';
-import IReject from '../../shared/interfaces/IReject';
+import IActiveFilter from '../../shared/interfaces/IActiveFilter';
 import mapEFilterToString from '../../utils/mapEFilterToString';
 import Filter from './Filter';
 
@@ -44,7 +43,7 @@ class FilterSelector extends React.Component<IProps, IState> {
   };
 
   private setCurrentFilter(filterType: EFilter): void {
-    let filter: Omit<IFilter, keyof IDuration | keyof IStatus> | null = null;
+    let filter: IActiveFilter | null = null;
     const duration: IDuration = {
       fromMs: 0,
       toMs: 5000
@@ -54,28 +53,30 @@ class FilterSelector extends React.Component<IProps, IState> {
       isActive: false
     };
 
-    switch (filterType) {
-      case EFilter.REJECT:
-        filter = {
-          type: EFilter.REJECT,
-          regex: '',
-          code: 404
-        } as IReject;
-        break;
-      case EFilter.OFFLINE:
-        filter = {
-          type: EFilter.OFFLINE
-        } as IOffline;
-        break;
-    }
+    filter = this.mapFilterTypeToActiveFilter(filterType);
 
     this.setState({
       currentFilter: {
         ...filter,
         ...duration,
         ...status
-      } as IFilter
+      }
     });
+  }
+
+  private mapFilterTypeToActiveFilter(filterType: EFilter): IActiveFilter {
+    switch (filterType) {
+      case EFilter.OFFLINE:
+        return {
+          type: EFilter.OFFLINE
+        };
+      case EFilter.REJECT:
+        return {
+          type: EFilter.REJECT,
+          regex: '',
+          code: 404
+        };
+    }
   }
 
   private onCurrentFilterChange(filter: IFilter): void {
