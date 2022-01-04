@@ -215,10 +215,10 @@ class Cone extends React.Component<IProps, IState> {
   };
 
   public reset(): void {
-    this.setState({...this._initialState});
     this._worker.postMessage({
       cmd: ECmdToWorker.RESET
     } as IMessageToWorker);
+    this.setState({...this._initialState});
   }
 
   render(): JSX.Element {

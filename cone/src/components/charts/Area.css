@@ -6,6 +6,7 @@
 
 .cone-area > svg {
   height: 100%;
+  width: 100%;
 }
 
 .cone-area > svg > line {
