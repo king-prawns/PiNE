@@ -15,8 +15,8 @@ import clientConnection from './socket/client/connection';
 const app: Express = express();
 app.use(cors());
 
-app.get('/manifest/:file', rejectFilter, offlineFilter, manifestRoute);
-app.get('/chunk/:file', rejectFilter, offlineFilter, chunkRoute);
+app.get('/manifest/:file', offlineFilter, rejectFilter, manifestRoute);
+app.get('/chunk/:file', offlineFilter, rejectFilter, chunkRoute);
 
 const server: HttpServer = http.createServer(app);
 const io: Server = new Server(server, {
