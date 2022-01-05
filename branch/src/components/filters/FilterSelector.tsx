@@ -64,17 +64,22 @@ class FilterSelector extends React.Component<IProps, IState> {
     });
   }
 
-  private mapFilterTypeToActiveFilter(filterType: EFilter): IActiveFilter {
-    switch (filterType) {
+  private mapFilterTypeToActiveFilter(type: EFilter): IActiveFilter {
+    switch (type) {
       case EFilter.OFFLINE:
         return {
-          type: EFilter.OFFLINE
+          type
         };
       case EFilter.REJECT:
         return {
-          type: EFilter.REJECT,
+          type,
           regex: '',
           code: 404
+        };
+      case EFilter.LATENCY:
+        return {
+          type,
+          delayMs: 100
         };
     }
   }

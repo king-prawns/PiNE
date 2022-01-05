@@ -9,7 +9,7 @@ type IProps = {
   regex: string;
   code: number;
   disabled: boolean;
-  onChange?: (rejectFilter: IReject) => void;
+  onChange?: (filter: IReject) => void;
 };
 type IState = Record<string, never>;
 class Reject extends React.Component<IProps, IState> {
@@ -27,11 +27,11 @@ class Reject extends React.Component<IProps, IState> {
   };
 
   private onCodeChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    const rejectCode: number = +e.target.value;
+    const code: number = +e.target.value;
     this.props.onChange?.({
       type: EFilter.REJECT,
       regex: this.props.regex,
-      code: rejectCode
+      code
     });
   };
 

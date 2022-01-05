@@ -5,7 +5,9 @@ const mapEFilterToString = (filterType: EFilter): string => {
     case EFilter.OFFLINE:
       return 'Offline';
     case EFilter.REJECT:
-      return 'Reject Request';
+      return 'Reject Requests';
+    case EFilter.LATENCY:
+      return 'Latency';
   }
 };
 

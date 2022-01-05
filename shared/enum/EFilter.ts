@@ -1,6 +1,7 @@
 enum EFilter {
+  OFFLINE = 'offline',
   REJECT = 'reject',
-  OFFLINE = 'offline'
+  LATENCY = 'latency'
 }
 
 export default EFilter;
