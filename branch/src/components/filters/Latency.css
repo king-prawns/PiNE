@@ -1,3 +1,8 @@
 .branch-latency > section > label {
   margin-right: 5px;
 }
+
+.branch-latency > section > input {
+  width: 70px;
+  margin-right: 5px;
+}

@@ -7,7 +7,6 @@ import IFilter from '../../interfaces/IFilter';
 import IStatus from '../../interfaces/IStatus';
 import EFilter from '../../shared/enum/EFilter';
 import IActiveFilter from '../../shared/interfaces/IActiveFilter';
-import mapEFilterToString from '../../utils/mapEFilterToString';
 import Filter from './Filter';
 
 type IProps = {
@@ -81,6 +80,12 @@ class FilterSelector extends React.Component<IProps, IState> {
           type,
           delayMs: 100
         };
+      case EFilter.THROTTLE: {
+        return {
+          type,
+          bandwidthKbps: 1024
+        };
+      }
     }
   }
 
@@ -107,10 +112,10 @@ class FilterSelector extends React.Component<IProps, IState> {
           value={this.state.currentFilter?.type ?? ''}
           onChange={this.onCurrentFilterTypeChange}
         >
-          <option value="">None</option>
+          <option value="">none</option>
           {Object.values(EFilter).map((filterType: EFilter, index: number) => (
             <option key={index} value={filterType}>
-              {mapEFilterToString(filterType)}
+              {filterType}
             </option>
           ))}
         </select>

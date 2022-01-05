@@ -8,6 +8,7 @@
   flex-direction: row;
   margin: 0;
   margin-bottom: 15px;
+  text-transform: capitalize;
 }
 
 .branch-filter-item h4:before,

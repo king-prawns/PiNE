@@ -6,6 +6,7 @@ import {Namespace, Server, Socket} from 'socket.io';
 import latencyFilter from './proxy/filters/latency';
 import offlineFilter from './proxy/filters/offline';
 import rejectFilter from './proxy/filters/reject';
+import throttleFilter from './proxy/filters/throttle';
 import chunkRoute from './proxy/routes/chunk';
 import manifestRoute from './proxy/routes/manifest';
 import ENamespace from './shared/enum/ENamespace';
@@ -21,9 +22,17 @@ app.get(
   offlineFilter,
   rejectFilter,
   latencyFilter,
+  throttleFilter,
   manifestRoute
 );
-app.get('/chunk/:file', offlineFilter, rejectFilter, latencyFilter, chunkRoute);
+app.get(
+  '/chunk/:file',
+  offlineFilter,
+  rejectFilter,
+  latencyFilter,
+  throttleFilter,
+  chunkRoute
+);
 
 const server: HttpServer = http.createServer(app);
 const io: Server = new Server(server, {
