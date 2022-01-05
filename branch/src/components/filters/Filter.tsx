@@ -6,6 +6,7 @@ import EFilter from '../../shared/enum/EFilter';
 import IActiveFilter from '../../shared/interfaces/IActiveFilter';
 import FilterDuration from './FilterDuration';
 import FilterStatus from './FilterStatus';
+import Latency from './Latency';
 import Offline from './Offline';
 import Reject from './Reject';
 
@@ -50,6 +51,14 @@ class Filter extends React.Component<IProps, IState> {
           <Reject
             regex={filter.regex}
             code={filter.code}
+            disabled={disabled}
+            onChange={this.onFilterChange}
+          />
+        );
+      case EFilter.LATENCY:
+        return (
+          <Latency
+            delayMs={filter.delayMs}
             disabled={disabled}
             onChange={this.onFilterChange}
           />

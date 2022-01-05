@@ -7,8 +7,8 @@ import Config from '../config';
 import logger from '../logger';
 
 const offline = (
-  req: express.Request,
-  res: express.Response,
+  _req: express.Request,
+  _res: express.Response,
   next: express.NextFunction
 ): void => {
   const offline: Array<IOffline> = Config.activeFilters.filter(
