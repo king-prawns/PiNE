@@ -35,7 +35,7 @@ class Latency extends React.Component<IProps, IState> {
             value={this.props.delayMs}
             onInput={this.onDelayMsChange}
             step={100}
-            min={0}
+            min={100}
             disabled={this.props.disabled}
             required
           />
