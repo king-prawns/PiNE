@@ -26,6 +26,7 @@
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.0.3",
     "@types/sinon": "10.0.6",
+    "@types/stream-throttle": "0.1.1",
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "@typescript-eslint/parser": "5.4.0",
     "bufferutil": "4.0.5",
@@ -49,6 +50,7 @@
     "cors": "2.8.5",
     "express": "4.17.1",
     "fast-xml-parser": "3.21.1",
-    "socket.io": "4.4.0"
+    "socket.io": "4.4.0",
+    "stream-throttle": "0.1.3"
   }
 }
