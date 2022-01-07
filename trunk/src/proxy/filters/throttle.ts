@@ -1,4 +1,5 @@
 import express from 'express';
+import {Throttle} from 'stream-throttle';
 
 import EFilter from '../../shared/enum/EFilter';
 import IActiveFilter from '../../shared/interfaces/IActiveFilter';
@@ -8,7 +9,7 @@ import logger from '../logger';
 
 const throttle = (
   _req: express.Request,
-  _res: express.Response,
+  res: express.Response,
   next: express.NextFunction
 ): void => {
   const throttle: Array<IThrottle> = Config.activeFilters.filter(
@@ -17,12 +18,15 @@ const throttle = (
   );
 
   if (throttle.length > 0) {
+    const data: any = res.locals.data;
+    // Kbps -> Bps
     const bandwidthKbps: number = throttle[0].bandwidthKbps;
+    const bandwidthBps: number = bandwidthKbps * 128;
+    const throtte: Throttle = new Throttle({rate: bandwidthBps});
     logger.log(
       `applying THROTTLE filter with bandwidth: ${bandwidthKbps}kbit/s`
     );
-    // TOOD: implement throttle
-    next();
+    data.pipe(throtte).pipe(res);
   } else {
     next();
   }

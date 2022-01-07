@@ -5,7 +5,8 @@ import logger from '../logger';
 
 const chunk = async (
   req: express.Request,
-  res: express.Response
+  res: express.Response,
+  next: express.NextFunction
 ): Promise<Response | void> => {
   const chunkUrl: string = req.query.url as string;
   try {
@@ -15,7 +16,8 @@ const chunk = async (
       responseType: 'stream'
     });
 
-    streamResponse.data.pipe(res);
+    res.locals.data = streamResponse.data;
+    next();
   } catch (e) {
     logger.error(`Failed to make request to ${chunkUrl}.  Errored with: ${e}`);
 

@@ -7,6 +7,7 @@ import latencyFilter from './proxy/filters/latency';
 import offlineFilter from './proxy/filters/offline';
 import rejectFilter from './proxy/filters/reject';
 import throttleFilter from './proxy/filters/throttle';
+import sendResponse from './proxy/middlewares/sendResponse';
 import chunkRoute from './proxy/routes/chunk';
 import manifestRoute from './proxy/routes/manifest';
 import ENamespace from './shared/enum/ENamespace';
@@ -22,16 +23,18 @@ app.get(
   offlineFilter,
   rejectFilter,
   latencyFilter,
+  manifestRoute,
   throttleFilter,
-  manifestRoute
+  sendResponse
 );
 app.get(
   '/chunk/:file',
   offlineFilter,
   rejectFilter,
   latencyFilter,
+  chunkRoute,
   throttleFilter,
-  chunkRoute
+  sendResponse
 );
 
 const server: HttpServer = http.createServer(app);
