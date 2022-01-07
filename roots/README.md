@@ -1,3 +1,3 @@
-# PiNE Roots
+# Roots
 
 pine-roots

@@ -1,3 +1,3 @@
-# PiNE Cone
+# Cone
 
 pine-cone

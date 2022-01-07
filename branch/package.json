@@ -1,7 +1,7 @@
 {
   "name": "@king-prawns/pine-branch",
   "version": "1.0.0",
-  "description": "PiNE branch",
+  "description": "PiNE Branch",
   "main": "dist/index.html",
   "repository": {
     "type": "git",
