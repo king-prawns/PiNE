@@ -12,7 +12,7 @@ class FilterItem extends React.Component<IProps, IState> {
   }
 
   public static defaultProps: Partial<IProps> = {
-    label: 'New filter'
+    label: 'New Filter'
   };
 
   render(): JSX.Element {

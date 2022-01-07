@@ -25,7 +25,7 @@
 - [x] (code) add UI to control filters
 - [x] (code) add offline filter
 - [x] (code) add latency filter
-- [ ] (code) add throttle filter
+- [x] (code) add throttle filter
 - [ ] (code) add packet loss filter
 - [ ] (code) add jitter filter
 - [ ] (code) new client integration

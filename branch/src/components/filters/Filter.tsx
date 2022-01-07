@@ -9,6 +9,7 @@ import FilterStatus from './FilterStatus';
 import Latency from './Latency';
 import Offline from './Offline';
 import Reject from './Reject';
+import Throttle from './Throttle';
 
 type IProps = {
   filter: IFilter;
@@ -59,6 +60,14 @@ class Filter extends React.Component<IProps, IState> {
         return (
           <Latency
             delayMs={filter.delayMs}
+            disabled={disabled}
+            onChange={this.onFilterChange}
+          />
+        );
+      case EFilter.THROTTLE:
+        return (
+          <Throttle
+            bandwidthKbps={filter.bandwidthKbps}
             disabled={disabled}
             onChange={this.onFilterChange}
           />

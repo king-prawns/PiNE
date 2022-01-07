@@ -1,12 +1,14 @@
 import axios, {AxiosResponse} from 'axios';
 import express from 'express';
+import {Readable} from 'stream';
 
 import changeManifestToUseProxy from '../changeManifestToUseProxy';
 import logger from '../logger';
 
 const manifest = async (
   req: express.Request,
-  res: express.Response
+  res: express.Response,
+  next: express.NextFunction
 ): Promise<Response | void> => {
   const manifestUrl: string = req.query.url as string;
   const proxyUrl: string = `${req.protocol}://${req.hostname}`;
@@ -30,7 +32,9 @@ const manifest = async (
     proxyUrl
   );
 
-  res.send(adjustedManifest);
+  const readable: Readable = Readable.from([adjustedManifest]);
+  res.locals.data = readable;
+  next();
 };
 
 export default manifest;

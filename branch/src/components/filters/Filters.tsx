@@ -3,7 +3,6 @@ import './Filters.css';
 import React from 'react';
 
 import IFilter from '../../interfaces/IFilter';
-import mapEFilterToString from '../../utils/mapEFilterToString';
 import Filter from './Filter';
 import FilterItem from './FilterItem';
 import FilterSelector from './FilterSelector';
@@ -38,7 +37,7 @@ class Filters extends React.Component<IProps, IState> {
         <section className="branch-filters-list">
           <h3>Filter List: {this.props.filters.length}</h3>
           {this.props.filters.map((filter: IFilter, index: number) => (
-            <FilterItem key={index} label={mapEFilterToString(filter.type)}>
+            <FilterItem key={index} label={filter.type}>
               <Filter filter={filter} disabled={true} />
               <button onClick={(): void => this.onFilterRemove(index)}>
                 Remove -

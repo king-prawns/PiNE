@@ -2,6 +2,10 @@
   margin-right: 5px;
 }
 
+.branch-filter-selector > select {
+  text-transform: capitalize;
+}
+
 .branch-filter-selector > form {
   margin-top: 20px;
 }

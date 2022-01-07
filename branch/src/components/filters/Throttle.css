@@ -1,0 +1,8 @@
+.branch-throttle > section > label {
+  margin-right: 5px;
+}
+
+.branch-throttle > section > input {
+  width: 70px;
+  margin-right: 5px;
+}
