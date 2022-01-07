@@ -3,6 +3,7 @@ import express, {Express} from 'express';
 import http, {Server as HttpServer} from 'http';
 import {Namespace, Server, Socket} from 'socket.io';
 
+import jitterFilter from './proxy/filters/jitter';
 import latencyFilter from './proxy/filters/latency';
 import offlineFilter from './proxy/filters/offline';
 import rejectFilter from './proxy/filters/reject';
@@ -23,6 +24,7 @@ app.get(
   offlineFilter,
   rejectFilter,
   latencyFilter,
+  jitterFilter,
   manifestRoute,
   throttleFilter,
   sendResponse
@@ -32,6 +34,7 @@ app.get(
   offlineFilter,
   rejectFilter,
   latencyFilter,
+  jitterFilter,
   chunkRoute,
   throttleFilter,
   sendResponse

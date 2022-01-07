@@ -11,13 +11,13 @@ const latency = (
   _res: express.Response,
   next: express.NextFunction
 ): void => {
-  const latency: Array<ILatency> = Config.activeFilters.filter(
+  const latencies: Array<ILatency> = Config.activeFilters.filter(
     (filter: IActiveFilter): filter is ILatency =>
       filter.type === EFilter.LATENCY
   );
 
-  if (latency.length > 0) {
-    const delayMs: number = latency[0].delayMs;
+  if (latencies.length > 0) {
+    const delayMs: number = latencies[0].delayMs;
     logger.log(`applying LATENCY filter with delay: ${delayMs}ms`);
     setTimeout(() => {
       next();
