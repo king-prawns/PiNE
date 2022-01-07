@@ -26,8 +26,8 @@
 - [x] (code) add offline filter
 - [x] (code) add latency filter
 - [x] (code) add throttle filter
+- [x] (code) add jitter filter
 - [ ] (code) add packet loss filter
-- [ ] (code) add jitter filter
 - [ ] (code) new client integration
 - [ ] (code) add simulation (schedule filter over time)
 - [ ] (code) manifest/chunk localhost
