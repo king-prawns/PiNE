@@ -19,9 +19,15 @@ const jitter = (
   if (jitters.length > 0) {
     const {delayMs, jitterMs} = jitters[0];
 
-    let delayMsMin: number = delayMs - jitterMs;
-    delayMsMin = delayMsMin < 0 ? 0 : delayMsMin;
-    const delayMsMax: number = delayMs + jitterMs;
+    const deltaJitterMs: number = Math.floor(jitterMs / 2);
+
+    let delayMsMin: number = delayMs - deltaJitterMs;
+    let delayMsMax: number = delayMs + deltaJitterMs;
+
+    if (delayMsMin < 0) {
+      delayMsMin = 0;
+      delayMsMax = deltaJitterMs;
+    }
 
     const delayMsRandom: number = randomIntFromInterval(delayMsMin, delayMsMax);
 
