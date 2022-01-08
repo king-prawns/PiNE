@@ -2,8 +2,8 @@ import './Reject.css';
 
 import React from 'react';
 
-import EFilter from '../../shared/enum/EFilter';
-import IReject from '../../shared/interfaces/IReject';
+import EFilter from '../../../shared/enum/EFilter';
+import IReject from '../../../shared/interfaces/IReject';
 
 type IProps = {
   regex: string;

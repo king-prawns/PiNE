@@ -80,6 +80,13 @@ class FilterSelector extends React.Component<IProps, IState> {
           type,
           delayMs: 100
         };
+      case EFilter.JITTER: {
+        return {
+          type,
+          delayMs: 200,
+          jitterMs: 100
+        };
+      }
       case EFilter.THROTTLE: {
         return {
           type,

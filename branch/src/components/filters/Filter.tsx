@@ -4,12 +4,13 @@ import IDuration from '../../interfaces/IDuration';
 import IFilter from '../../interfaces/IFilter';
 import EFilter from '../../shared/enum/EFilter';
 import IActiveFilter from '../../shared/interfaces/IActiveFilter';
+import Jitter from './Filter/Jitter';
+import Latency from './Filter/Latency';
+import Offline from './Filter/Offline';
+import Reject from './Filter/Reject';
+import Throttle from './Filter/Throttle';
 import FilterDuration from './FilterDuration';
 import FilterStatus from './FilterStatus';
-import Latency from './Latency';
-import Offline from './Offline';
-import Reject from './Reject';
-import Throttle from './Throttle';
 
 type IProps = {
   filter: IFilter;
@@ -60,6 +61,15 @@ class Filter extends React.Component<IProps, IState> {
         return (
           <Latency
             delayMs={filter.delayMs}
+            disabled={disabled}
+            onChange={this.onFilterChange}
+          />
+        );
+      case EFilter.JITTER:
+        return (
+          <Jitter
+            delayMs={filter.delayMs}
+            jitterMs={filter.jitterMs}
             disabled={disabled}
             onChange={this.onFilterChange}
           />
