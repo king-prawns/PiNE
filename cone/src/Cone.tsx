@@ -51,7 +51,6 @@ type IProps = {
   httpResponse: IHttpResponse | null;
   onTimeUpdate?: (timeMs: number) => void;
 };
-
 type IState = {
   playerMetadata: IStats<IPlayerMetadata>;
   playerState: IStats<EPlayerState>;
@@ -67,7 +66,6 @@ type IState = {
   zoom: number;
   isLocked: boolean;
 };
-
 type StatKeys = Pick<
   IState,
   | 'playerMetadata'

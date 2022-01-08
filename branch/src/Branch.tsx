@@ -35,23 +35,39 @@ type IState = {
   connections: IConnections;
   filters: Array<IFilter>;
 };
+type StatKeys = Pick<
+  IState,
+  | 'playerMetadata'
+  | 'playerState'
+  | 'variant'
+  | 'manifestUrl'
+  | 'estimatedBandwidth'
+  | 'bufferInfo'
+  | 'usedJSHeapSize'
+  | 'httpRequest'
+  | 'httpResponse'
+>;
+
 class App extends React.Component<IProps, IState> {
   private _ref: React.RefObject<Cone> = React.createRef<Cone>();
   private _socket: Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =
     getSocket();
+  private _initialStats: StatKeys = {
+    playerMetadata: null,
+    manifestUrl: null,
+    playerState: null,
+    variant: null,
+    estimatedBandwidth: null,
+    bufferInfo: null,
+    usedJSHeapSize: null,
+    httpRequest: null,
+    httpResponse: null
+  };
 
   constructor(props: IProps) {
     super(props);
     this.state = {
-      playerMetadata: null,
-      manifestUrl: null,
-      playerState: null,
-      variant: null,
-      estimatedBandwidth: null,
-      bufferInfo: null,
-      usedJSHeapSize: null,
-      httpRequest: null,
-      httpResponse: null,
+      ...this._initialStats,
       connections: {},
       filters: []
     };
@@ -106,7 +122,7 @@ class App extends React.Component<IProps, IState> {
       const connections: IConnections = deepmerge(this.state.connections, {
         client: undefined
       });
-      this.setState({connections});
+      this.setState({...this._initialStats, connections});
       this._ref.current?.reset();
     });
 
