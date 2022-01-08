@@ -11,12 +11,12 @@ const offline = (
   _res: express.Response,
   next: express.NextFunction
 ): void => {
-  const offline: Array<IOffline> = Config.activeFilters.filter(
+  const offlines: Array<IOffline> = Config.activeFilters.filter(
     (filter: IActiveFilter): filter is IOffline =>
       filter.type === EFilter.OFFLINE
   );
 
-  if (offline.length > 0) {
+  if (offlines.length > 0) {
     // do nothing, just hang
     logger.log(`applying OFFLINE filter`);
   } else {

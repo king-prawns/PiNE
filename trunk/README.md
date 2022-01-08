@@ -1,3 +1,3 @@
-# PiNE Trunk
+# Trunk
 
 pine-trunk

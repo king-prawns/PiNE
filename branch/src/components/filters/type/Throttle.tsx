@@ -2,8 +2,8 @@ import './Throttle.css';
 
 import React from 'react';
 
-import EFilter from '../../shared/enum/EFilter';
-import IThrottle from '../../shared/interfaces/IThrottle';
+import EFilter from '../../../shared/enum/EFilter';
+import IThrottle from '../../../shared/interfaces/IThrottle';
 
 type IProps = {
   bandwidthKbps: number;

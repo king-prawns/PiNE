@@ -1,0 +1,16 @@
+.branch-jitter {
+  display: flex;
+}
+
+.branch-jitter > section {
+  flex: 1;
+}
+
+.branch-jitter > section > label {
+  margin-right: 5px;
+}
+
+.branch-jitter > section > input {
+  width: 70px;
+  margin-right: 5px;
+}

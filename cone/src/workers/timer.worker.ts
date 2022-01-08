@@ -36,5 +36,5 @@ self.onmessage = (message: MessageEvent<IMessageToWorker>): void => {
   }
 };
 
-// ts complains about missing default export
+// TS complains about missing default export
 export default null as any;

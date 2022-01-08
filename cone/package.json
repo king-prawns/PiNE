@@ -1,7 +1,7 @@
 {
   "name": "@king-prawns/pine-cone",
-  "version": "1.1.8",
-  "description": "PiNE cone",
+  "version": "1.1.9",
+  "description": "PiNE Cone",
   "main": "dist/pine-cone.js",
   "types": "dist/index.d.ts",
   "repository": {

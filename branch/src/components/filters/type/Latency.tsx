@@ -2,8 +2,8 @@ import './Latency.css';
 
 import React from 'react';
 
-import EFilter from '../../shared/enum/EFilter';
-import ILatency from '../../shared/interfaces/ILatency';
+import EFilter from '../../../shared/enum/EFilter';
+import ILatency from '../../../shared/interfaces/ILatency';
 
 type IProps = {
   delayMs: number;
@@ -34,8 +34,8 @@ class Latency extends React.Component<IProps, IState> {
             type="number"
             value={this.props.delayMs}
             onInput={this.onDelayMsChange}
-            step={100}
-            min={100}
+            step={10}
+            min={10}
             disabled={this.props.disabled}
             required
           />
