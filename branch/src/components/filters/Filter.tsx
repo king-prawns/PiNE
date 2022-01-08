@@ -4,13 +4,13 @@ import IDuration from '../../interfaces/IDuration';
 import IFilter from '../../interfaces/IFilter';
 import EFilter from '../../shared/enum/EFilter';
 import IActiveFilter from '../../shared/interfaces/IActiveFilter';
-import Jitter from './Filter/Jitter';
-import Latency from './Filter/Latency';
-import Offline from './Filter/Offline';
-import Reject from './Filter/Reject';
-import Throttle from './Filter/Throttle';
 import FilterDuration from './FilterDuration';
 import FilterStatus from './FilterStatus';
+import Jitter from './type/Jitter';
+import Latency from './type/Latency';
+import Offline from './type/Offline';
+import Reject from './type/Reject';
+import Throttle from './type/Throttle';
 
 type IProps = {
   filter: IFilter;
