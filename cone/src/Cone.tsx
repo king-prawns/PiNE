@@ -149,24 +149,7 @@ class Cone extends React.Component<IProps, IState> {
         } as IMessageToWorker);
       }
 
-      if (
-        this.props.playerState === null ||
-        this.state.isEnded ||
-        (this.state.playerState.length === 0 &&
-          this.props.playerState !== EPlayerState.LOADING)
-      ) {
-        return;
-      }
-
-      this.setState({
-        playerState: [
-          ...this.state.playerState,
-          {
-            value: this.props.playerState,
-            timeMs: this.state.currentTimeMs
-          }
-        ]
-      });
+      this.addPropToState(prevProps, 'playerState');
     }
   }
 
@@ -174,11 +157,7 @@ class Cone extends React.Component<IProps, IState> {
     prevProps: Omit<IProps, 'onTimeUpdate'>,
     key: keyof Omit<IProps, 'onTimeUpdate'>
   ): void {
-    if (
-      this.props[key] === null ||
-      this.state.isEnded ||
-      this.state.playerState.length === 0
-    ) {
+    if (this.props[key] === null || this.state.isEnded) {
       return;
     }
 
