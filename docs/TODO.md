@@ -27,7 +27,7 @@
 - [x] (code) add latency filter
 - [x] (code) add throttle filter
 - [x] (code) add jitter filter
-- [ ] (code) new client integration
+- [x] (code) new client integration
 - [ ] (code) manifest/chunk localhost
 - [ ] (code) assertions
 - [ ] (code) `MSE/EME` poc
