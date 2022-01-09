@@ -26,7 +26,8 @@ const throttle = (
     logger.log(
       `applying THROTTLE filter with bandwidth: ${bandwidthKbps}kbit/s`
     );
-    data.pipe(throtte).pipe(res);
+    res.locals.data = data.pipe(throtte);
+    next();
   } else {
     next();
   }
