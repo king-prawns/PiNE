@@ -5,9 +5,9 @@ describe('getProxyUrl', () => {
     expect(getProxyUrl()).toBe('http://localhost');
   });
 
-  it('should return process.env.PROXY_URL when it is defined', () => {
-    process.env.PROXY_URL = 'http://myproxyip';
+  it('should return process.env.TRUNK_PROXY_URL when it is defined', () => {
+    process.env.TRUNK_PROXY_URL = 'http://myproxyip';
     expect(getProxyUrl()).toBe('http://myproxyip');
-    process.env.PROXY_URL = '';
+    process.env.TRUNK_PROXY_URL = '';
   });
 });
