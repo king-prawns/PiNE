@@ -28,6 +28,6 @@
 - [x] (code) add throttle filter
 - [x] (code) add jitter filter
 - [x] (code) new client integration
-- [ ] (code) manifest/chunk localhost
+- [x] (code) fetch manifest/chunk from custom url
 - [ ] (code) assertions
 - [ ] (code) `MSE/EME` poc
