@@ -19,7 +19,7 @@ const chunk = async (
     res.locals.data = streamResponse.data;
     next();
   } catch (e) {
-    logger.error(`Failed to make request to ${chunkUrl}.  Errored with: ${e}`);
+    logger.error(`Failed to make request to ${chunkUrl}. Errored with: ${e}`);
 
     return;
   }

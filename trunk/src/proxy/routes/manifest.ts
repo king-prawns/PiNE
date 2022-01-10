@@ -20,7 +20,7 @@ const manifest = async (
     response = await axios.get(manifestUrl);
   } catch (e) {
     logger.error(
-      `Failed to make request to ${manifestUrl}.  Errored with: ${e}`
+      `Failed to make request to ${manifestUrl}. Errored with: ${e}`
     );
 
     return;

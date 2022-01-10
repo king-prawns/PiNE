@@ -4,7 +4,7 @@ import IHttpRequest from './IHttpRequest';
 import IHttpResponse from './IHttpResponse';
 import IPlayerMetadata from './IPlayerMetadata';
 
-interface TrunkToBranchEvents {
+interface ITrunkToBranchEvents {
   httpRequest: (req: IHttpRequest) => void;
   httpResponse: (res: IHttpResponse) => void;
   playerStateUpdate: (playerState: EPlayerState) => void;
@@ -20,4 +20,4 @@ interface TrunkToBranchEvents {
   trunkDisconnected: () => void;
 }
 
-export default TrunkToBranchEvents;
+export default ITrunkToBranchEvents;
