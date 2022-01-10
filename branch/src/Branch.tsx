@@ -34,6 +34,7 @@ type IState = {
   httpResponse: IHttpResponse | null;
   connections: IConnections;
   filters: Array<IFilter>;
+  isProxyEnabled: boolean;
 };
 type StatKeys = Pick<
   IState,
@@ -69,7 +70,8 @@ class App extends React.Component<IProps, IState> {
     this.state = {
       ...this._initialStats,
       connections: {},
-      filters: []
+      filters: [],
+      isProxyEnabled: false
     };
 
     this._socket.on(
@@ -81,6 +83,8 @@ class App extends React.Component<IProps, IState> {
 
     this._socket.on('manifestUpdate', (manifestUrl: string) => {
       this.setState({manifestUrl});
+      const isProxyEnabled: boolean = this.isProxyEnabled(manifestUrl);
+      this.setState({isProxyEnabled});
     });
 
     this._socket.on('playerStateUpdate', (playerState: EPlayerState) => {
@@ -139,6 +143,10 @@ class App extends React.Component<IProps, IState> {
       });
       this.setState({connections});
     });
+  }
+
+  private isProxyEnabled(manifestUrl: string): boolean {
+    return manifestUrl.includes('/manifest/pine.mpd?url=');
   }
 
   private onFilterAdd = (filter: IFilter): void => {
@@ -210,11 +218,13 @@ class App extends React.Component<IProps, IState> {
           </Connection>
           <h1>Branch</h1>
         </Header>
-        <Filters
-          filters={this.state.filters}
-          onFilterAdd={this.onFilterAdd}
-          onFilterRemove={this.onFilterRemove}
-        />
+        {this.state.isProxyEnabled && (
+          <Filters
+            filters={this.state.filters}
+            onFilterAdd={this.onFilterAdd}
+            onFilterRemove={this.onFilterRemove}
+          />
+        )}
         <Cone
           ref={this._ref}
           playerMetadata={this.state.playerMetadata}
