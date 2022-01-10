@@ -29,5 +29,4 @@
 - [x] (code) add jitter filter
 - [x] (code) new client integration
 - [x] (code) fetch manifest/chunk from custom url
-- [ ] (code) assertions
-- [ ] (code) `MSE/EME` poc
+- [ ] (code) create test runner
