@@ -20,8 +20,7 @@ const pinefy = (options: IOptions): IProxy => {
 
   const proxyManifestUrl: string = getProxyManifestUrl(
     proxyUrl,
-    options.manifestUrl,
-    options.trunkLocalManifestUrl
+    options.manifestUrl
   );
 
   return {proxyManifestUrl, driver};
