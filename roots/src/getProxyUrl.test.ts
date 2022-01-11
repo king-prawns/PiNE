@@ -5,9 +5,8 @@ describe('getProxyUrl', () => {
     expect(getProxyUrl()).toBe('http://localhost');
   });
 
-  it('should return process.env.TRUNK_PROXY_URL when it is defined', () => {
-    process.env.TRUNK_PROXY_URL = 'http://myproxyip';
-    expect(getProxyUrl()).toBe('http://myproxyip');
-    process.env.TRUNK_PROXY_URL = '';
+  it('should return `trunkProxyUrl` when it is defined', () => {
+    const trunkProxyUrl: string = 'http://myproxyip';
+    expect(getProxyUrl(trunkProxyUrl)).toBe('http://myproxyip');
   });
 });

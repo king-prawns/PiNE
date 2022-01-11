@@ -1,4 +1,4 @@
-const getProxyOrigin = (): string =>
-  process.env?.TRUNK_PROXY_URL || 'http://localhost';
+const getProxyOrigin = (trunkProxyUrl?: string): string =>
+  trunkProxyUrl || 'http://localhost';
 
 export default getProxyOrigin;
