@@ -1,0 +1,36 @@
+name: Build and publish pine-runner
+
+on:
+  push:
+    branches: ['main']
+
+env:
+  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+jobs:
+  build-and-publish-pine-runner:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: runner
+
+    steps:
+      - name: ✅ Checkout
+        uses: actions/checkout@v2
+      - name: 🏠 Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: ⚙️ Install dependencies
+        run: npm ci
+      - name: 🔗 Copy shared folder
+        run: npm run cp:shared
+      - name: 👷🏽 Build package
+        run: npm run build
+      - name: 🚀 Publish to npm
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          registry: https://npm.pkg.github.com/
+          package: ./runner/package.json
