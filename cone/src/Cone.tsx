@@ -10,19 +10,20 @@ import Cell from './components/containers/Cell';
 import Chart from './components/containers/Chart';
 import Controls from './components/containers/Controls';
 import Header from './components/containers/Header';
-import Legend from './components/containers/Legend';
 import Row from './components/containers/Row';
-import Summary from './components/containers/Summary';
 import Table from './components/containers/Table';
 import TBody from './components/containers/TBody';
 import IsLocked from './components/controls/IsLocked';
 import ZoomLevel from './components/controls/ZoomLevel';
-import IStats from './interfaces/IStats';
+import Legend from './components/legend/Legend';
+import Summary from './components/legend/Summary';
 import EPlayerState from './shared/enum/EPlayerState';
 import IBufferInfo from './shared/interfaces/IBufferInfo';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
+import IPlayerStats from './shared/interfaces/IPlayerStats';
+import IStats from './shared/interfaces/IStats';
 import {mapAudioBufferInfo, mapVideoBufferInfo} from './stats/bufferInfo';
 import mapEstimatedBandwidth from './stats/estimatedBandwidth';
 import mapHttpMessages from './stats/httpMessages';
@@ -66,19 +67,6 @@ type IState = {
   zoom: number;
   isLocked: boolean;
 };
-type StatKeys = Pick<
-  IState,
-  | 'playerMetadata'
-  | 'playerState'
-  | 'variant'
-  | 'manifestUrl'
-  | 'estimatedBandwidth'
-  | 'bufferInfo'
-  | 'usedJSHeapSize'
-  | 'httpRequest'
-  | 'httpResponse'
->;
-
 class Cone extends React.Component<IProps, IState> {
   private _worker: Worker = new TimerWorker();
   private _initialState: IState = {
@@ -170,7 +158,7 @@ class Cone extends React.Component<IProps, IState> {
             timeMs: this.state.currentTimeMs
           }
         ]
-      } as StatKeys);
+      } as unknown as IPlayerStats);
     }
   }
 
@@ -196,6 +184,32 @@ class Cone extends React.Component<IProps, IState> {
       cmd: ECmdToWorker.RESET
     } as IMessageToWorker);
     this.setState({...this._initialState});
+  }
+
+  public getStats(): IPlayerStats {
+    const {
+      playerMetadata,
+      manifestUrl,
+      playerState,
+      variant,
+      estimatedBandwidth,
+      bufferInfo,
+      usedJSHeapSize,
+      httpRequest,
+      httpResponse
+    } = this.state;
+
+    return {
+      playerMetadata,
+      manifestUrl,
+      playerState,
+      variant,
+      estimatedBandwidth,
+      bufferInfo,
+      usedJSHeapSize,
+      httpRequest,
+      httpResponse
+    };
   }
 
   render(): JSX.Element {
