@@ -1,6 +1,6 @@
 import IStackedBar from '../interfaces/IStackedBar';
-import IStat from '../interfaces/IStat';
 import EPlayerState from '../shared/enum/EPlayerState';
+import IStat from '../shared/interfaces/IStat';
 
 const getPlayerStateColor = (playerState: EPlayerState): string => {
   switch (playerState) {
