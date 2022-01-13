@@ -2,11 +2,10 @@ import './FilterSelector.css';
 
 import React from 'react';
 
+import IFilter from '../../interfaces/IFilter';
 import EFilter from '../../shared/enum/EFilter';
 import IActiveFilter from '../../shared/interfaces/IActiveFilter';
 import IDuration from '../../shared/interfaces/IDuration';
-import IFilter from '../../shared/interfaces/IFilter';
-import IStatus from '../../shared/interfaces/IStatus';
 import Filter from './Filter';
 
 type IProps = {
@@ -48,17 +47,12 @@ class FilterSelector extends React.Component<IProps, IState> {
       toMs: 5000
     };
 
-    const status: IStatus = {
-      isActive: false
-    };
-
     filter = this.mapFilterTypeToActiveFilter(filterType);
 
     this.setState({
       currentFilter: {
         ...filter,
-        ...duration,
-        ...status
+        ...duration
       }
     });
   }

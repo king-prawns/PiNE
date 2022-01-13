@@ -1,9 +1,9 @@
 import React from 'react';
 
+import IFilter from '../../interfaces/IFilter';
 import EFilter from '../../shared/enum/EFilter';
 import IActiveFilter from '../../shared/interfaces/IActiveFilter';
 import IDuration from '../../shared/interfaces/IDuration';
-import IFilter from '../../shared/interfaces/IFilter';
 import FilterDuration from './FilterDuration';
 import FilterStatus from './FilterStatus';
 import Jitter from './type/Jitter';
@@ -96,7 +96,7 @@ class Filter extends React.Component<IProps, IState> {
         />
         {this.drawFilter(this.props.filter, this.props.disabled)}
         {this.props.disabled && (
-          <FilterStatus isActive={this.props.filter.isActive} />
+          <FilterStatus isActive={Boolean(this.props.filter.isActive)} />
         )}
       </>
     );
