@@ -1,6 +1,6 @@
 import {Namespace, Socket} from 'socket.io';
 
-import ENamespace from '../shared/enum/ENamespace';
+import ENamespace from '../../shared/enum/ENamespace';
 
 const getSocketFromNamespace = (
   socketNs: Namespace,

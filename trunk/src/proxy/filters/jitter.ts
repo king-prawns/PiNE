@@ -3,9 +3,9 @@ import express from 'express';
 import EFilter from '../../shared/enum/EFilter';
 import IActiveFilter from '../../shared/interfaces/IActiveFilter';
 import IJitter from '../../shared/interfaces/IJitter';
-import randomIntFromInterval from '../../utils/randomIntFromInterval';
 import Config from '../config';
 import logger from '../logger';
+import randomIntFromInterval from '../utils/randomIntFromInterval';
 
 const jitter = (
   _req: express.Request,

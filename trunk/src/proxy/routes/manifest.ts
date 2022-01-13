@@ -2,8 +2,8 @@ import axios, {AxiosResponse} from 'axios';
 import express from 'express';
 import {Readable} from 'stream';
 
-import changeManifestToUseProxy from '../changeManifestToUseProxy';
 import logger from '../logger';
+import changeManifestToUseProxy from '../utils/changeManifestToUseProxy';
 
 const manifest = async (
   req: express.Request,

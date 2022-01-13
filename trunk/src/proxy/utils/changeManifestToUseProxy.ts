@@ -1,7 +1,7 @@
 import parser, {j2xParser as J2XParser} from 'fast-xml-parser';
 
-import EPort from '../shared/enum/EPort';
-import IXmlRepresentation from './interfaces/IXmlRepresentation';
+import EPort from '../../shared/enum/EPort';
+import IXmlRepresentation from '../interfaces/IXmlRepresentation';
 
 const toJsonOptions: Partial<parser.X2jOptions> = {
   attributeNamePrefix: '@_',
