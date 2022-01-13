@@ -1,5 +1,5 @@
 import IArea from '../interfaces/IArea';
-import IStat from '../interfaces/IStat';
+import IStat from '../shared/interfaces/IStat';
 
 const mapUsedJSHeapSize = (usedJSHeapSizeMb: IStat<number>): IArea => {
   return {

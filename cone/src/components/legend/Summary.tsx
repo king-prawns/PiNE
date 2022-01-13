@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IStats from '../../interfaces/IStats';
+import IStats from '../../shared/interfaces/IStats';
 import round from '../../utils/round';
 import Legend from './Legend';
 import LegendItem from './LegendItem';

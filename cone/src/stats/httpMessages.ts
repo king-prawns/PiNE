@@ -1,8 +1,8 @@
 import IColumn from '../interfaces/IColumn';
-import IStat from '../interfaces/IStat';
-import IStats from '../interfaces/IStats';
 import IHttpRequest from '../shared/interfaces/IHttpRequest';
 import IHttpResponse from '../shared/interfaces/IHttpResponse';
+import IStat from '../shared/interfaces/IStat';
+import IStats from '../shared/interfaces/IStats';
 
 const mapHttpMessages = (
   httpRequests: IStats<IHttpRequest>,
