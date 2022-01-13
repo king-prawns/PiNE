@@ -2,11 +2,11 @@ import './FilterSelector.css';
 
 import React from 'react';
 
-import IDuration from '../../interfaces/IDuration';
-import IFilter from '../../interfaces/IFilter';
-import IStatus from '../../interfaces/IStatus';
 import EFilter from '../../shared/enum/EFilter';
 import IActiveFilter from '../../shared/interfaces/IActiveFilter';
+import IDuration from '../../shared/interfaces/IDuration';
+import IFilter from '../../shared/interfaces/IFilter';
+import IStatus from '../../shared/interfaces/IStatus';
 import Filter from './Filter';
 
 type IProps = {
