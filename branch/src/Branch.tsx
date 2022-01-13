@@ -10,14 +10,15 @@ import ConnectionStatus from './components/connection/ConnectionStatus';
 import Header from './components/containers/Header';
 import Filters from './components/filters/Filters';
 import IConnections from './interfaces/IConnections';
-import IFilter from './interfaces/IFilter';
 import EPlayerState from './shared/enum/EPlayerState';
 import IActiveFilter from './shared/interfaces/IActiveFilter';
 import IBranchToTrunkEvents from './shared/interfaces/IBranchToTrunkEvents';
 import IBufferInfo from './shared/interfaces/IBufferInfo';
+import IFilter from './shared/interfaces/IFilter';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
+import IPlayerStats from './shared/interfaces/IPlayerStats';
 import ITrunkToBranchEvents from './shared/interfaces/ITrunkToBranchEvents';
 import getSocket from './socket/getSocket';
 
@@ -36,24 +37,12 @@ type IState = {
   filters: Array<IFilter>;
   isProxyEnabled: boolean;
 };
-type StatKeys = Pick<
-  IState,
-  | 'playerMetadata'
-  | 'playerState'
-  | 'variant'
-  | 'manifestUrl'
-  | 'estimatedBandwidth'
-  | 'bufferInfo'
-  | 'usedJSHeapSize'
-  | 'httpRequest'
-  | 'httpResponse'
->;
 
 class App extends React.Component<IProps, IState> {
   private _ref: React.RefObject<Cone> = React.createRef<Cone>();
   private _socket: Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =
     getSocket();
-  private _initialStats: StatKeys = {
+  private _initialStats = {
     playerMetadata: null,
     manifestUrl: null,
     playerState: null,
@@ -143,6 +132,22 @@ class App extends React.Component<IProps, IState> {
       });
       this.setState({connections});
     });
+  }
+
+  componentDidMount(): void {
+    window.addFilters = this.addFilters.bind(this);
+    window.getStats = this.getStats.bind(this);
+  }
+
+  private addFilters(filters: Array<IFilter>): void {
+    filters.forEach((filter: IFilter) => {
+      this.onFilterAdd(filter);
+    });
+  }
+
+  private getStats(): IPlayerStats {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return this._ref.current!.getStats();
   }
 
   private isProxyEnabled(manifestUrl: string): boolean {
