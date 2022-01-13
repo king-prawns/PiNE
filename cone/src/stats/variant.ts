@@ -1,5 +1,5 @@
 import IArea from '../interfaces/IArea';
-import IStat from '../shared/interfaces/IStat';
+import IStat from '../interfaces/IStat';
 
 const mapVariant = (variant: IStat<number>): IArea => {
   return {

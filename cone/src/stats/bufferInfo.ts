@@ -1,6 +1,6 @@
 import IArea from '../interfaces/IArea';
+import IStat from '../interfaces/IStat';
 import IBufferInfo from '../shared/interfaces/IBufferInfo';
-import IStat from '../shared/interfaces/IStat';
 
 export const mapVideoBufferInfo = (bufferInfo: IStat<IBufferInfo>): IArea => {
   return {

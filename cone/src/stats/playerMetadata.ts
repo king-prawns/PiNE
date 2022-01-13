@@ -1,7 +1,7 @@
 import IBlock from '../interfaces/IBlock';
+import IStat from '../interfaces/IStat';
+import IStats from '../interfaces/IStats';
 import IPlayerMetadata from '../shared/interfaces/IPlayerMetadata';
-import IStat from '../shared/interfaces/IStat';
-import IStats from '../shared/interfaces/IStats';
 
 const mapPlayerMetadata = (playerMetadata: IStats<IPlayerMetadata>): IBlock => {
   const lastPlayerMetadata: IStat<IPlayerMetadata> =
