@@ -1,9 +1,9 @@
 import {Browser, Page} from 'puppeteer';
 
+import evaluateTestCases from '../assertions/evaluateTestCases';
 import ITestScenario from '../interfaces/ITestScenario';
 import logger from '../logger';
 import IPlayerStats from '../shared/interfaces/IPlayerStats';
-import evaluateTestCases from './evaluateTestCases';
 
 const startTest = (
   page: Page,
