@@ -35,7 +35,6 @@ type IState = {
   httpResponse: IHttpResponse | null;
   connections: IConnections;
   filters: Array<IFilter>;
-  isProxyEnabled: boolean;
 };
 
 class App extends React.Component<IProps, IState> {
@@ -59,8 +58,7 @@ class App extends React.Component<IProps, IState> {
     this.state = {
       ...this._initialStats,
       connections: {},
-      filters: [],
-      isProxyEnabled: false
+      filters: []
     };
 
     this._socket.on(
@@ -72,8 +70,6 @@ class App extends React.Component<IProps, IState> {
 
     this._socket.on('manifestUpdate', (manifestUrl: string) => {
       this.setState({manifestUrl});
-      const isProxyEnabled: boolean = this.isProxyEnabled(manifestUrl);
-      this.setState({isProxyEnabled});
     });
 
     this._socket.on('playerStateUpdate', (playerState: EPlayerState) => {
@@ -135,8 +131,8 @@ class App extends React.Component<IProps, IState> {
   }
 
   componentDidMount(): void {
-    window.addFilters = this.addFilters.bind(this);
-    window.getStats = this.getStats.bind(this);
+    (window as any).addFilters = this.addFilters.bind(this);
+    (window as any).getStats = this.getStats.bind(this);
   }
 
   private addFilters(filters: Array<IFilter>): void {
@@ -148,10 +144,6 @@ class App extends React.Component<IProps, IState> {
   private getStats(): IPlayerStats {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return this._ref.current!.getStats();
-  }
-
-  private isProxyEnabled(manifestUrl: string): boolean {
-    return manifestUrl.includes('/manifest/pine.mpd?url=');
   }
 
   private onFilterAdd = (filter: IFilter): void => {
@@ -223,13 +215,11 @@ class App extends React.Component<IProps, IState> {
           </Connection>
           <h1>Branch</h1>
         </Header>
-        {this.state.isProxyEnabled && (
-          <Filters
-            filters={this.state.filters}
-            onFilterAdd={this.onFilterAdd}
-            onFilterRemove={this.onFilterRemove}
-          />
-        )}
+        <Filters
+          filters={this.state.filters}
+          onFilterAdd={this.onFilterAdd}
+          onFilterRemove={this.onFilterRemove}
+        />
         <Cone
           ref={this._ref}
           playerMetadata={this.state.playerMetadata}
