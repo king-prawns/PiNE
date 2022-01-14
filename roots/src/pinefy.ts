@@ -6,7 +6,6 @@ import IClientToTrunkEvents from './shared/interfaces/IClientToTrunkEvents';
 import ITrunkToClientEvents from './shared/interfaces/ITrunkToClientEvents';
 import getDriver from './utils/getDriver';
 import getProxyManifestUrl from './utils/getProxyManifestUrl';
-import getProxyUrl from './utils/getProxyUrl';
 import getSocket from './utils/getSocket';
 
 const pinefy = (
@@ -15,7 +14,7 @@ const pinefy = (
   proxyManifestUrl: string;
   driver: IDriver;
 } => {
-  const proxyUrl: string = getProxyUrl(options.trunkProxyUrl);
+  const proxyUrl: string = options.trunkProxyUrl || 'http://localhost';
 
   const socket: Socket<ITrunkToClientEvents, IClientToTrunkEvents> =
     getSocket(proxyUrl);
