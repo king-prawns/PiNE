@@ -132,7 +132,7 @@ class App extends React.Component<IProps, IState> {
 
   componentDidMount(): void {
     (window as any).addFilters = this.addFilters.bind(this);
-    (window as any).getStats = this.getStats.bind(this);
+    (window as any).getPlayerStats = this.getPlayerStats.bind(this);
   }
 
   private addFilters(filters: Array<IFilter>): void {
@@ -141,9 +141,9 @@ class App extends React.Component<IProps, IState> {
     });
   }
 
-  private getStats(): IPlayerStats {
+  private getPlayerStats(): IPlayerStats {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this._ref.current!.getStats();
+    return this._ref.current!.getPlayerStats();
   }
 
   private onFilterAdd = (filter: IFilter): void => {

@@ -186,7 +186,7 @@ class Cone extends React.Component<IProps, IState> {
     this.setState({...this._initialState});
   }
 
-  public getStats(): IPlayerStats {
+  public getPlayerStats(): IPlayerStats {
     const {
       playerMetadata,
       manifestUrl,
