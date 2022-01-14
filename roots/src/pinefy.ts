@@ -1,12 +1,12 @@
 import {Socket} from 'socket.io-client';
 
+import getDriver from './driver/getDriver';
 import IDriver from './interfaces/IDriver';
 import IOptions from './interfaces/IOptions';
 import IClientToTrunkEvents from './shared/interfaces/IClientToTrunkEvents';
 import ITrunkToClientEvents from './shared/interfaces/ITrunkToClientEvents';
-import getDriver from './utils/getDriver';
+import getSocket from './socket/getSocket';
 import getProxyManifestUrl from './utils/getProxyManifestUrl';
-import getSocket from './utils/getSocket';
 
 const pinefy = (
   options: IOptions
