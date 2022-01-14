@@ -1,6 +1,6 @@
 import {Browser, Page} from 'puppeteer';
 
-import evaluateTestCases from '../assertions/evaluateTestCases';
+import generateTestResult from '../assertions/generateTestResult';
 import ITestScenario from '../interfaces/ITestScenario';
 import logger from '../logger';
 import IPlayerStats from '../shared/interfaces/IPlayerStats';
@@ -19,7 +19,7 @@ const startTest = (
     const playerStats: IPlayerStats = await page.evaluate(() =>
       (window as any).getPlayerStats()
     );
-    evaluateTestCases(playerStats, testCases);
+    generateTestResult(playerStats, testCases);
     await browser.close();
     logger.log('---- Test ended ----');
   }, durationMs);

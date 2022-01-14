@@ -13,7 +13,7 @@ interface IPlayerStateAssertion {
     | EMatcher.NOT_STARTS_WITH
     | EMatcher.ENDS_WITH
     | EMatcher.NOT_ENDS_WITH;
-  expect: EPlayerState | Array<EPlayerState>;
+  expected: EPlayerState | Array<EPlayerState>;
 }
 
 export default IPlayerStateAssertion;

@@ -8,7 +8,7 @@ interface IEstimatedBandwidthAssertion {
     | EMatcher.GREATER_THAN_OR_EQUAL
     | EMatcher.LESS_THAN
     | EMatcher.LESS_THAN_OR_EQUAL;
-  expect: number;
+  expected: number;
 }
 
 export default IEstimatedBandwidthAssertion;

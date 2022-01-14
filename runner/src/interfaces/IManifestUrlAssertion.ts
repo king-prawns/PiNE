@@ -12,7 +12,7 @@ interface IManifestUrlAssertion {
     | EMatcher.NOT_STARTS_WITH
     | EMatcher.ENDS_WITH
     | EMatcher.NOT_ENDS_WITH;
-  expect: string | Array<string>;
+  expected: string | Array<string>;
 }
 
 export default IManifestUrlAssertion;
