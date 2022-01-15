@@ -52,6 +52,12 @@ class Logger {
     }
   }
 
+  public success(...messages: Array<any>): void {
+    if (this._debug) {
+      console.log(...this.createMessage(messages, EColor.FgGreen));
+    }
+  }
+
   public trace(): void {
     if (this._debug) {
       console.trace();
