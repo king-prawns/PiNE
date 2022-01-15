@@ -5,7 +5,7 @@ import IPlayerStateAssertion from './IPlayerStateAssertion';
 import IVariantAssertion from './IVariantAssertion';
 import IVideoBufferInfoAssertion from './IVideoBufferInfoAssertion';
 
-type IAssert = (
+type IAssertion = (
   | IPlayerStateAssertion
   | IManifestUrlAssertion
   | IVariantAssertion
@@ -14,4 +14,4 @@ type IAssert = (
 ) &
   IDuration;
 
-export default IAssert;
+export default IAssertion;

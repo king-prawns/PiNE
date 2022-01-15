@@ -1,8 +1,8 @@
-import IAssert from './IAssert';
+import IAssertion from './IAssertion';
 
 interface ITestCase {
   it: string;
-  asserts: Array<IAssert>;
+  assertions: Array<IAssertion>;
 }
 
 export default ITestCase;
