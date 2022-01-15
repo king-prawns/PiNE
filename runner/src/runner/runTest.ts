@@ -5,7 +5,7 @@ import ITestScenario from '../interfaces/ITestScenario';
 import logger from '../logger';
 import IPlayerStats from '../shared/interfaces/IPlayerStats';
 
-const startTest = (
+const runTest = (
   page: Page,
   browser: Browser,
   testScenario: ITestScenario
@@ -32,4 +32,4 @@ const startTest = (
   }, durationMs);
 };
 
-export default startTest;
+export default runTest;
