@@ -6,7 +6,7 @@ import logger from '../logger';
 import IBufferInfo from '../shared/interfaces/IBufferInfo';
 import IPlayerStats from '../shared/interfaces/IPlayerStats';
 import IStats from '../shared/interfaces/IStats';
-import evaluatePlayerStateAssertion from './evaluatePlayerStateAssertion';
+import evaluateAssertion from './evaluateAssertion';
 
 const generateTestResult = (
   playerStats: IPlayerStats,
@@ -17,19 +17,16 @@ const generateTestResult = (
     testCase.assertions.forEach((assertion: IAssertion) => {
       switch (assertion.type) {
         case EAssertionType.PLAYER_STATE:
-          evaluatePlayerStateAssertion(playerStats.playerState, assertion);
+          evaluateAssertion(playerStats.playerState, assertion);
           break;
         case EAssertionType.MANIFEST_URL:
-          evaluatePlayerStateAssertion(playerStats.manifestUrl, assertion);
+          evaluateAssertion(playerStats.manifestUrl, assertion);
           break;
         case EAssertionType.VARIANT:
-          evaluatePlayerStateAssertion(playerStats.variant, assertion);
+          evaluateAssertion(playerStats.variant, assertion);
           break;
         case EAssertionType.ESTIMATED_BANDWIDTH:
-          evaluatePlayerStateAssertion(
-            playerStats.estimatedBandwidth,
-            assertion
-          );
+          evaluateAssertion(playerStats.estimatedBandwidth, assertion);
           break;
         case EAssertionType.VIDEO_BUFFER_INFO: {
           const videoBufferInfo: IStats<number> = playerStats.bufferInfo.map(
@@ -38,7 +35,7 @@ const generateTestResult = (
               timeMs: bufferInfo.timeMs
             })
           );
-          evaluatePlayerStateAssertion(videoBufferInfo, assertion);
+          evaluateAssertion(videoBufferInfo, assertion);
           break;
         }
       }
