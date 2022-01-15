@@ -1,27 +1,17 @@
 import IAssertion from '../interfaces/IAssertion';
-import logger from '../logger';
+import IAssertionResult from '../interfaces/IAssertionResult';
 import IStats from '../shared/interfaces/IStats';
 import getValuesInRange from '../utils/getValuesInRange';
 import getResult from './getResult';
 
 const evaluateAssertion = <T>(
-  playerStates: IStats<T>,
+  stats: IStats<T>,
   assertion: IAssertion
-): boolean => {
+): IAssertionResult => {
   const {fromMs, toMs, matcher, expected} = assertion;
-  const received: Array<T> = getValuesInRange(playerStates, fromMs, toMs);
-  const {isPassed, errorMessage} = getResult(
-    received,
-    expected as any,
-    matcher
-  );
+  const received: Array<T> = getValuesInRange(stats, fromMs, toMs);
 
-  if (!isPassed) {
-    logger.error(`Assertion type: ${assertion.type}`);
-    logger.error(errorMessage);
-  }
-
-  return isPassed;
+  return getResult(received, expected as any, matcher);
 };
 
 export default evaluateAssertion;

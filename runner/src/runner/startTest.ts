@@ -19,9 +19,16 @@ const startTest = (
     const playerStats: IPlayerStats = await page.evaluate(() =>
       (window as any).getPlayerStats()
     );
-    generateTestResult(playerStats, testCases);
+    const {total, passed} = generateTestResult(playerStats, testCases);
     await browser.close();
+
     logger.log('---- Test ended ----');
+    if (total === passed) {
+      logger.success('All tests passed ✅');
+    } else {
+      logger.error('Some tests failed ❌');
+      process.exit(1);
+    }
   }, durationMs);
 };
 
