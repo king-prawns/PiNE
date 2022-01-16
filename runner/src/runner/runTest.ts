@@ -24,9 +24,9 @@ const runTest = (
 
     logger.log('---- Test ended ----');
     if (total === passed) {
-      logger.success('All tests passed ✅');
+      logger.success(`${passed} passed, ${total} total`);
     } else {
-      logger.error('Some tests failed ❌');
+      logger.error(`${total - passed} failed, ${total} total`);
       process.exit(1);
     }
   }, durationMs);
