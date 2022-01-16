@@ -1,4 +1,3 @@
-import IStat from '../../../shared/interfaces/IStat';
 import EAssertionType from '../enum/EAssertionType';
 import IAssertion from '../interfaces/IAssertion';
 import ITestCase from '../interfaces/ITestCase';
@@ -7,6 +6,7 @@ import logger from '../logger';
 import EPlayerState from '../shared/enum/EPlayerState';
 import IBufferInfo from '../shared/interfaces/IBufferInfo';
 import IPlayerStats from '../shared/interfaces/IPlayerStats';
+import IStat from '../shared/interfaces/IStat';
 import IStats from '../shared/interfaces/IStats';
 import evaluateAssertion from './evaluateAssertion';
 

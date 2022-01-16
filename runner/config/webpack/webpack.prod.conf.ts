@@ -1,5 +1,5 @@
 import path from 'path';
-import {Configuration} from 'webpack';
+import {Configuration, IgnorePlugin} from 'webpack';
 
 (process as any).noDeprecation = true;
 
@@ -7,8 +7,9 @@ const prodConfig: Configuration = {
   entry: './src/index.ts',
   mode: 'production',
   devtool: 'source-map',
+  target: 'node',
   resolve: {
-    extensions: ['.ts']
+    extensions: ['.ts', '.js']
   },
   output: {
     clean: true,
@@ -28,7 +29,15 @@ const prodConfig: Configuration = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new IgnorePlugin({
+      resourceRegExp: /bufferutil/
+    }),
+    new IgnorePlugin({
+      resourceRegExp: /utf-8-validate/
+    })
+  ]
 };
 
 export default prodConfig;
