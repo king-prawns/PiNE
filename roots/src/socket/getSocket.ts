@@ -6,8 +6,8 @@ import IClientToTrunkEvents from '../shared/interfaces/IClientToTrunkEvents';
 import ITrunkToClientEvents from '../shared/interfaces/ITrunkToClientEvents';
 
 const getSocket = (
-  proxyUrl: string
+  host: string
 ): Socket<ITrunkToClientEvents, IClientToTrunkEvents> =>
-  io(`${proxyUrl}:${EPort.TRUNK}/${ENamespace.CLIENT}`);
+  io(`${host}:${EPort.TRUNK}/${ENamespace.CLIENT}`);
 
 export default getSocket;
