@@ -7,7 +7,7 @@ import {merge} from 'webpack-merge';
 import base from './webpack.base.conf';
 
 const prodConfig: Configuration = merge(base, {
-  entry: './src/index.ts',
+  entry: path.resolve(__dirname, '../../src/index.ts'),
   mode: 'production',
   devtool: 'source-map',
   output: {
