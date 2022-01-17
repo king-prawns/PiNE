@@ -2,7 +2,7 @@ import puppeteer, {
   Browser,
   BrowserLaunchArgumentOptions,
   Page
-} from 'puppeteer';
+} from 'puppeteer-core';
 
 import IRunner from '../interfaces/IRunner';
 import ITestScenario from '../interfaces/ITestScenario';

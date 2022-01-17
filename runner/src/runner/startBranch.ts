@@ -1,4 +1,4 @@
-import {Page} from 'puppeteer';
+import {Page} from 'puppeteer-core';
 
 import IActiveFilter from '../shared/interfaces/IActiveFilter';
 import IDuration from '../shared/interfaces/IDuration';

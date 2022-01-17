@@ -1,18 +1,17 @@
-import puppeteer, {BrowserLaunchArgumentOptions} from 'puppeteer';
-
+import IConfig from './interfaces/IConfig';
 import IRunner from './interfaces/IRunner';
 import getRunner from './runner/getRunner';
 import getBranchUrl from './utils/getBranchUrl';
 
-const createPineRunner = (
-  puppet: typeof puppeteer,
-  puppetOptions: BrowserLaunchArgumentOptions = {},
-  branchProxyUrl?: string
-): IRunner => {
-  const proxyUrl: string = branchProxyUrl || 'http://localhost';
-  const branchUrl: string = getBranchUrl(proxyUrl);
+const createPineRunner = (config: IConfig): IRunner => {
+  const host: string = config.branchHost || 'http://localhost';
+  const branchUrl: string = getBranchUrl(host);
 
-  const runner: IRunner = getRunner(puppet, puppetOptions, branchUrl);
+  const runner: IRunner = getRunner(
+    config.puppet,
+    (config.puppetOptions = {}),
+    branchUrl
+  );
 
   return runner;
 };

@@ -1,4 +1,4 @@
-import {Browser, Page} from 'puppeteer';
+import {Browser, Page} from 'puppeteer-core';
 
 import generateTestResult from '../assertions/generateTestResult';
 import ITestScenario from '../interfaces/ITestScenario';

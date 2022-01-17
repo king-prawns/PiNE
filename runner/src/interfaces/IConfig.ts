@@ -1,4 +1,4 @@
-import puppeteer, {BrowserLaunchArgumentOptions} from 'puppeteer';
+import puppeteer, {BrowserLaunchArgumentOptions} from 'puppeteer-core';
 
 interface IConfig {
   puppet: typeof puppeteer;
