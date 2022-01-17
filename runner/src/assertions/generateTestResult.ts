@@ -49,8 +49,9 @@ const generateTestResult = (
 
       if (isPassed) {
         passed++;
+        logger.success(`Assertion passed: ${assertion.type}`);
       } else {
-        logger.error(`Assertion type: ${assertion.type}`);
+        logger.error(`Assertion failed: ${assertion.type}`);
         logger.error(errorMessage);
       }
     });
