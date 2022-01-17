@@ -1,8 +1,4 @@
-import puppeteer, {
-  Browser,
-  BrowserLaunchArgumentOptions,
-  Page
-} from 'puppeteer-core';
+import puppeteer, {Browser, Page} from 'puppeteer-core';
 
 import IRunner from '../interfaces/IRunner';
 import ITestScenario from '../interfaces/ITestScenario';
@@ -11,7 +7,8 @@ import startBranch from './startBranch';
 
 const getRunner = (
   puppet: typeof puppeteer,
-  puppetOptions: BrowserLaunchArgumentOptions,
+  executablePath: string,
+  headless: boolean,
   branchUrl: string
 ): IRunner => {
   return {
@@ -19,7 +16,10 @@ const getRunner = (
       testScenario: ITestScenario,
       startClient: () => Promise<void>
     ): Promise<void> => {
-      const browser: Browser = await puppet.launch({...puppetOptions});
+      const browser: Browser = await puppet.launch({
+        headless,
+        executablePath
+      });
       const page: Page = await browser.newPage();
       await startBranch(page, branchUrl, testScenario.filters);
       await startClient();

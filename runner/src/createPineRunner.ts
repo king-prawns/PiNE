@@ -4,12 +4,15 @@ import getRunner from './runner/getRunner';
 import getBranchUrl from './utils/getBranchUrl';
 
 const createPineRunner = (config: IConfig): IRunner => {
-  const host: string = config.branchHost || 'http://localhost';
+  const {puppet, executablePath, headless, branchHost} = config;
+
+  const host: string = branchHost || 'http://localhost';
   const branchUrl: string = getBranchUrl(host);
 
   const runner: IRunner = getRunner(
-    config.puppet,
-    (config.puppetOptions = {}),
+    puppet,
+    executablePath,
+    headless || false,
     branchUrl
   );
 

@@ -1,8 +1,9 @@
-import puppeteer, {BrowserLaunchArgumentOptions} from 'puppeteer-core';
+import puppeteer from 'puppeteer-core';
 
 interface IConfig {
   puppet: typeof puppeteer;
-  puppetOptions?: BrowserLaunchArgumentOptions;
+  executablePath: string;
+  headless?: boolean;
   branchHost?: string;
 }
 
