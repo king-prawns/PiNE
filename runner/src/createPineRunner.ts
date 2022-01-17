@@ -1,23 +1,20 @@
-import puppeteer from 'puppeteer';
+import puppeteer, {BrowserLaunchArgumentOptions} from 'puppeteer';
 
-import IPuppet from './interfaces/IPuppet';
 import IRunner from './interfaces/IRunner';
 import getRunner from './runner/getRunner';
 import getBranchUrl from './utils/getBranchUrl';
 
 const createPineRunner = (
+  puppet: typeof puppeteer,
+  puppetOptions: BrowserLaunchArgumentOptions = {},
   branchProxyUrl?: string
-): {
-  runner: IRunner;
-  puppet: IPuppet;
-} => {
+): IRunner => {
   const proxyUrl: string = branchProxyUrl || 'http://localhost';
   const branchUrl: string = getBranchUrl(proxyUrl);
 
-  const puppet: IPuppet = puppeteer;
-  const runner: IRunner = getRunner(puppet, branchUrl);
+  const runner: IRunner = getRunner(puppet, puppetOptions, branchUrl);
 
-  return {runner, puppet};
+  return runner;
 };
 
 export default createPineRunner;
