@@ -3,7 +3,7 @@ import {Page} from 'puppeteer-core';
 import IActiveFilter from '../shared/interfaces/IActiveFilter';
 import IDuration from '../shared/interfaces/IDuration';
 
-const startBranch = async (
+const openBranch = async (
   page: Page,
   branchUrl: string,
   filters: Array<IActiveFilter & IDuration>
@@ -14,4 +14,4 @@ const startBranch = async (
   }, filters as any);
 };
 
-export default startBranch;
+export default openBranch;

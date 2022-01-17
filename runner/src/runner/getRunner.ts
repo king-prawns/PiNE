@@ -2,8 +2,8 @@ import puppeteer, {Browser, Page} from 'puppeteer-core';
 
 import IRunner from '../interfaces/IRunner';
 import ITestScenario from '../interfaces/ITestScenario';
+import openBranch from './openBranch';
 import runTest from './runTest';
-import startBranch from './startBranch';
 
 const getRunner = (
   puppet: typeof puppeteer,
@@ -14,15 +14,15 @@ const getRunner = (
   return {
     run: async (
       testScenario: ITestScenario,
-      startClient: () => Promise<void>
+      openClient: () => Promise<void>
     ): Promise<void> => {
       const browser: Browser = await puppet.launch({
         headless,
         executablePath
       });
       const page: Page = await browser.newPage();
-      await startBranch(page, branchUrl, testScenario.filters);
-      await startClient();
+      await openBranch(page, branchUrl, testScenario.filters);
+      await openClient();
       runTest(page, browser, testScenario);
     }
   };

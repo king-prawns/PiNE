@@ -1,6 +1,6 @@
 {
   "name": "@king-prawns/pine-runner",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "PiNE Runner",
   "main": "dist/pine-runner.js",
   "types": "dist/index.d.ts",
