@@ -1,9 +1,10 @@
+import IClient from './IClient';
 import ITestScenario from './ITestScenario';
 
 interface IRunner {
   run: (
     testScenario: ITestScenario,
-    startClient: () => Promise<void>
+    clientCallback: () => Promise<IClient>
   ) => Promise<void>;
 }
 

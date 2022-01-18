@@ -1,9 +1,11 @@
 import puppeteer, {Browser, Page} from 'puppeteer-core';
 
+import IClient from '../interfaces/IClient';
 import IRunner from '../interfaces/IRunner';
 import ITestScenario from '../interfaces/ITestScenario';
+import logger from '../logger';
 import openBranch from './openBranch';
-import runTest from './runTest';
+import runTestScenario from './runTestScenario';
 
 const getRunner = (
   puppet: typeof puppeteer,
@@ -14,7 +16,7 @@ const getRunner = (
   return {
     run: async (
       testScenario: ITestScenario,
-      openClient: () => Promise<void>
+      clientCallback: () => Promise<IClient>
     ): Promise<void> => {
       const browser: Browser = await puppet.launch({
         headless,
@@ -22,8 +24,23 @@ const getRunner = (
       });
       const page: Page = await browser.newPage();
       await openBranch(page, branchUrl, testScenario.filters);
-      await openClient();
-      runTest(page, browser, testScenario);
+
+      const client: IClient = await clientCallback();
+      await client.open();
+
+      logger.log('---- Test started ----');
+      logger.log(`Describe: ${testScenario.describe}`);
+      const {total, passed} = await runTestScenario(page, testScenario);
+      logger.log('---- Test ended ----');
+
+      if (total === passed) {
+        logger.success(`${passed} passed, ${total} total`);
+      } else {
+        logger.error(`${total - passed} failed, ${total} total`);
+      }
+
+      await browser.close();
+      await client.close();
     }
   };
 };
