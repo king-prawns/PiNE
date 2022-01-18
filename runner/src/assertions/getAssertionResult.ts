@@ -1,7 +1,7 @@
 import EMatcher from '../enum/EMatcher';
 import IAssertionResult from '../interfaces/IAssertionResult';
 
-const getResult = <T>(
+const getAssertionResult = <T>(
   received: Array<T>,
   expected: T | Array<T>,
   matcher: EMatcher
@@ -46,16 +46,21 @@ const getResult = <T>(
         break;
     }
   } else if (typeof expected === 'number') {
-    let min: number = Infinity;
-    let max: number = 0;
-    for (let i: number = 0; i < received.length; i++) {
-      const n: number = received[i] as unknown as number;
-      if (n < min) {
-        min = n;
-      } else if (n > max) {
-        max = n;
+    const firstNumber: number = received[0] as unknown as number;
+    let min: number = firstNumber;
+    let max: number = firstNumber;
+
+    if (received.length > 1) {
+      for (let i: number = 0; i < received.length; i++) {
+        const n: number = received[i] as unknown as number;
+        if (n < min) {
+          min = n;
+        } else if (n > max) {
+          max = n;
+        }
       }
     }
+
     switch (matcher) {
       case EMatcher.GREATER_THAN:
         if (max <= expected) {
@@ -139,4 +144,4 @@ const getResult = <T>(
   };
 };
 
-export default getResult;
+export default getAssertionResult;

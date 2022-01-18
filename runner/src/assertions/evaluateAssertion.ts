@@ -2,7 +2,7 @@ import IAssertion from '../interfaces/IAssertion';
 import IAssertionResult from '../interfaces/IAssertionResult';
 import IStats from '../shared/interfaces/IStats';
 import getValuesInRange from '../utils/getValuesInRange';
-import getResult from './getResult';
+import getAssertionResult from './getAssertionResult';
 
 const evaluateAssertion = <T>(
   stats: IStats<T>,
@@ -11,7 +11,7 @@ const evaluateAssertion = <T>(
   const {fromMs, toMs, matcher, expected} = assertion;
   const received: Array<T> = getValuesInRange(stats, fromMs, toMs);
 
-  return getResult(received, expected as any, matcher);
+  return getAssertionResult(received, expected as any, matcher);
 };
 
 export default evaluateAssertion;
