@@ -11,6 +11,7 @@ type IProps = {
   maxYAxisValue: number;
   measurementUnit: string;
   fillColor?: string;
+  isStepped?: boolean;
 };
 type IState = Record<string, never>;
 class Area extends React.Component<IProps, IState> {
@@ -42,22 +43,32 @@ class Area extends React.Component<IProps, IState> {
     const [width, height] = this.getDimensions();
     const zoom: number = +getCSSVar('--cone-zoom');
 
+    const points: Array<string> = [];
     const firstPoint: string = `0,${height}`;
+    points.push(firstPoint);
 
     let lastY: number = height;
-    const points: string = this.props.data
-      .map((data: IArea) => {
-        const x: number = timeMsToPixel(data.timeMs * zoom);
-        const y: number =
-          height - (data.value * height) / this.props.maxYAxisValue;
-        lastY = y;
+    for (let i: number = 0; i < this.props.data.length; i++) {
+      const data: IArea = this.props.data[i];
+      const x: number = timeMsToPixel(data.timeMs * zoom);
+      const y: number =
+        height - (data.value * height) / this.props.maxYAxisValue;
 
-        return `${x},${y}`;
-      })
-      .join(' ');
+      lastY = y;
+
+      if (this.props.isStepped) {
+        const previousPoint: string = points[points.length - 1];
+        const previousY: string = previousPoint.split(',')[1];
+        points.push(`${x},${previousY}`);
+      }
+
+      points.push(`${x},${y}`);
+    }
+
     const lastPoint: string = `${width},${lastY} ${width},${height}`;
+    points.push(lastPoint);
 
-    return `${firstPoint} ${points} ${lastPoint}`;
+    return `${points.join(' ')}`;
   }
 
   private setFillColor(): string {
