@@ -1,6 +1,6 @@
 interface IAssertionResult {
   isPassed: boolean;
-  errorMessage?: string;
+  message: string;
 }
 
 export default IAssertionResult;

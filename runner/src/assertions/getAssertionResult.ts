@@ -8,12 +8,12 @@ const getAssertionResult = <T>(
 ): IAssertionResult => {
   let isPassed: boolean = true;
   let isEvaluable: boolean = true;
-  let errorMessage: string | undefined;
+  let message: string = '';
 
   if (Array.isArray(expected)) {
-    errorMessage = `expect(${JSON.stringify(
-      received
-    )}).${matcher}(${JSON.stringify(expected)})`;
+    message = `expect(${JSON.stringify(received)}).${matcher}(${JSON.stringify(
+      expected
+    )})`;
     switch (matcher) {
       case EMatcher.EQUAL:
         if (received.length !== expected.length) {
@@ -63,27 +63,27 @@ const getAssertionResult = <T>(
 
     switch (matcher) {
       case EMatcher.GREATER_THAN:
+        message = `expect(${max}).${matcher}(${expected})`;
         if (max <= expected) {
           isPassed = false;
-          errorMessage = `expect(${max}).${matcher}(${expected})`;
         }
         break;
       case EMatcher.GREATER_THAN_OR_EQUAL:
+        message = `expect(${max}).${matcher}(${expected})`;
         if (max < expected) {
           isPassed = false;
-          errorMessage = `expect(${max}).${matcher}(${expected})`;
         }
         break;
       case EMatcher.LESS_THAN:
+        message = `expect(${min}).${matcher}(${expected})`;
         if (min >= expected) {
           isPassed = false;
-          errorMessage = `expect(${min}).${matcher}(${expected})`;
         }
         break;
       case EMatcher.LESS_THAN_OR_EQUAL:
+        message = `expect(${min}).${matcher}(${expected})`;
         if (min > expected) {
           isPassed = false;
-          errorMessage = `expect(${min}).${matcher}(${expected})`;
         }
         break;
       default:
@@ -91,9 +91,7 @@ const getAssertionResult = <T>(
         break;
     }
   } else {
-    errorMessage = `expect(${JSON.stringify(
-      received
-    )}).${matcher}(${expected})`;
+    message = `expect(${JSON.stringify(received)}).${matcher}(${expected})`;
     switch (matcher) {
       case EMatcher.CONTAINS:
         if (!received.includes(expected)) {
@@ -133,14 +131,14 @@ const getAssertionResult = <T>(
 
   if (!isEvaluable) {
     isPassed = false;
-    errorMessage = `${JSON.stringify(expected)} and ${JSON.stringify(
+    message = `${JSON.stringify(expected)} and ${JSON.stringify(
       received
     )} are not comparable using the matcher "${matcher}"`;
   }
 
   return {
     isPassed,
-    errorMessage: isPassed ? undefined : errorMessage
+    message
   };
 };
 

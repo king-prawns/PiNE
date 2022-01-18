@@ -45,14 +45,15 @@ const generateTestResult = (
           break;
         }
       }
-      const {isPassed, errorMessage} = evaluateAssertion(stats, assertion);
+      const {isPassed, message} = evaluateAssertion(stats, assertion);
 
       if (isPassed) {
         passed++;
         logger.success(`Assertion passed: ${assertion.type}`);
+        logger.success(message);
       } else {
         logger.error(`Assertion failed: ${assertion.type}`);
-        logger.error(errorMessage);
+        logger.error(message);
       }
     });
   });
