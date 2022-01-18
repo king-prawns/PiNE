@@ -1,7 +1,7 @@
 import {Page} from 'puppeteer-core';
 
-import ITestResult from '../../dist/interfaces/ITestResult';
 import generateTestResult from '../assertions/generateTestResult';
+import ITestResult from '../interfaces/ITestResult';
 import ITestScenario from '../interfaces/ITestScenario';
 import IPlayerStats from '../shared/interfaces/IPlayerStats';
 
