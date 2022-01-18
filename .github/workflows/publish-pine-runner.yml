@@ -1,9 +1,8 @@
 name: Build and publish pine-runner
 
-# on:
-#   push:
-#     branches: ['main']
-on: push
+on:
+  push:
+    branches: ['main']
 
 env:
   NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
