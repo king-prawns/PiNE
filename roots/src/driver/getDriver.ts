@@ -1,13 +1,13 @@
 import {Socket} from 'socket.io-client';
 
-import IDriver from './interfaces/IDriver';
-import EPlayerState from './shared/enum/EPlayerState';
-import IBufferInfo from './shared/interfaces/IBufferInfo';
-import IClientToTrunkEvents from './shared/interfaces/IClientToTrunkEvents';
-import IHttpRequest from './shared/interfaces/IHttpRequest';
-import IHttpResponse from './shared/interfaces/IHttpResponse';
-import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
-import ITrunkToClientEvents from './shared/interfaces/ITrunkToClientEvents';
+import IDriver from '../interfaces/IDriver';
+import EPlayerState from '../shared/enum/EPlayerState';
+import IBufferInfo from '../shared/interfaces/IBufferInfo';
+import IClientToTrunkEvents from '../shared/interfaces/IClientToTrunkEvents';
+import IHttpRequest from '../shared/interfaces/IHttpRequest';
+import IHttpResponse from '../shared/interfaces/IHttpResponse';
+import IPlayerMetadata from '../shared/interfaces/IPlayerMetadata';
+import ITrunkToClientEvents from '../shared/interfaces/ITrunkToClientEvents';
 
 const getDriver = (
   socket: Socket<ITrunkToClientEvents, IClientToTrunkEvents>

@@ -1,5 +1,5 @@
 import IStackedBar from '../interfaces/IStackedBar';
-import IStat from '../interfaces/IStat';
+import IStat from '../shared/interfaces/IStat';
 
 const mapManifestUrl = (manifestUrl: IStat<string>): IStackedBar => {
   return {

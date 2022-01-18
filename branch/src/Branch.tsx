@@ -18,6 +18,7 @@ import IBufferInfo from './shared/interfaces/IBufferInfo';
 import IHttpRequest from './shared/interfaces/IHttpRequest';
 import IHttpResponse from './shared/interfaces/IHttpResponse';
 import IPlayerMetadata from './shared/interfaces/IPlayerMetadata';
+import IPlayerStats from './shared/interfaces/IPlayerStats';
 import ITrunkToBranchEvents from './shared/interfaces/ITrunkToBranchEvents';
 import getSocket from './socket/getSocket';
 
@@ -34,26 +35,13 @@ type IState = {
   httpResponse: IHttpResponse | null;
   connections: IConnections;
   filters: Array<IFilter>;
-  isProxyEnabled: boolean;
 };
-type StatKeys = Pick<
-  IState,
-  | 'playerMetadata'
-  | 'playerState'
-  | 'variant'
-  | 'manifestUrl'
-  | 'estimatedBandwidth'
-  | 'bufferInfo'
-  | 'usedJSHeapSize'
-  | 'httpRequest'
-  | 'httpResponse'
->;
 
 class App extends React.Component<IProps, IState> {
   private _ref: React.RefObject<Cone> = React.createRef<Cone>();
   private _socket: Socket<ITrunkToBranchEvents, IBranchToTrunkEvents> =
     getSocket();
-  private _initialStats: StatKeys = {
+  private _initialStats = {
     playerMetadata: null,
     manifestUrl: null,
     playerState: null,
@@ -70,8 +58,7 @@ class App extends React.Component<IProps, IState> {
     this.state = {
       ...this._initialStats,
       connections: {},
-      filters: [],
-      isProxyEnabled: false
+      filters: []
     };
 
     this._socket.on(
@@ -83,8 +70,6 @@ class App extends React.Component<IProps, IState> {
 
     this._socket.on('manifestUpdate', (manifestUrl: string) => {
       this.setState({manifestUrl});
-      const isProxyEnabled: boolean = this.isProxyEnabled(manifestUrl);
-      this.setState({isProxyEnabled});
     });
 
     this._socket.on('playerStateUpdate', (playerState: EPlayerState) => {
@@ -145,8 +130,20 @@ class App extends React.Component<IProps, IState> {
     });
   }
 
-  private isProxyEnabled(manifestUrl: string): boolean {
-    return manifestUrl.includes('/manifest/pine.mpd?url=');
+  componentDidMount(): void {
+    (window as any).addFilters = this.addFilters.bind(this);
+    (window as any).getPlayerStats = this.getPlayerStats.bind(this);
+  }
+
+  private addFilters(filters: Array<IFilter>): void {
+    filters.forEach((filter: IFilter) => {
+      this.onFilterAdd(filter);
+    });
+  }
+
+  private getPlayerStats(): IPlayerStats {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return this._ref.current!.getPlayerStats();
   }
 
   private onFilterAdd = (filter: IFilter): void => {
@@ -218,13 +215,11 @@ class App extends React.Component<IProps, IState> {
           </Connection>
           <h1>Branch</h1>
         </Header>
-        {this.state.isProxyEnabled && (
-          <Filters
-            filters={this.state.filters}
-            onFilterAdd={this.onFilterAdd}
-            onFilterRemove={this.onFilterRemove}
-          />
-        )}
+        <Filters
+          filters={this.state.filters}
+          onFilterAdd={this.onFilterAdd}
+          onFilterRemove={this.onFilterRemove}
+        />
         <Cone
           ref={this._ref}
           playerMetadata={this.state.playerMetadata}

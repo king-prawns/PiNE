@@ -1,5 +1,5 @@
 interface IStatus {
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 export default IStatus;

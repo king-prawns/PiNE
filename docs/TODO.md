@@ -29,4 +29,4 @@
 - [x] (code) add jitter filter
 - [x] (code) new client integration
 - [x] (code) fetch manifest/chunk from custom url
-- [ ] (code) create test runner
+- [x] (code) create test runner

@@ -10,7 +10,7 @@
 - Micro SD + reader
 - (optional) Case + mouse + keyboard
 
-## Notes
+## Setup
 
 - [Setting up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/0) your Raspberry Pi
 - [Generate and Add](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) new SSH key

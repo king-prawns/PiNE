@@ -19,7 +19,7 @@
     "prettier": "lerna run --parallel prettier",
     "typecheck": "lerna run --parallel typecheck",
     "test": "lerna run --parallel test",
-    "build": "lerna run --parallel build"
+    "build": "lerna run build"
   },
   "husky": {
     "hooks": {

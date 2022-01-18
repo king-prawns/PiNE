@@ -1,26 +1,29 @@
 import {Socket} from 'socket.io-client';
 
-import getDriver from './getDriver';
-import getProxyManifestUrl from './getProxyManifestUrl';
-import getProxyUrl from './getProxyUrl';
-import getSocket from './getSocket';
+import getDriver from './driver/getDriver';
+import IConfig from './interfaces/IConfig';
 import IDriver from './interfaces/IDriver';
-import IOptions from './interfaces/IOptions';
-import IProxy from './interfaces/IProxy';
 import IClientToTrunkEvents from './shared/interfaces/IClientToTrunkEvents';
 import ITrunkToClientEvents from './shared/interfaces/ITrunkToClientEvents';
+import getSocket from './socket/getSocket';
+import getProxyManifestUrl from './utils/getProxyManifestUrl';
 
-const pinefy = (options: IOptions): IProxy => {
-  const proxyUrl: string = getProxyUrl(options.trunkProxyUrl);
+const pinefy = (
+  config: IConfig
+): {
+  proxyManifestUrl: string;
+  driver: IDriver;
+} => {
+  const host: string = config.trunkHost || 'http://localhost';
 
   const socket: Socket<ITrunkToClientEvents, IClientToTrunkEvents> =
-    getSocket(proxyUrl);
+    getSocket(host);
 
   const driver: IDriver = getDriver(socket);
 
   const proxyManifestUrl: string = getProxyManifestUrl(
-    proxyUrl,
-    options.manifestUrl
+    host,
+    config.manifestUrl
   );
 
   return {proxyManifestUrl, driver};

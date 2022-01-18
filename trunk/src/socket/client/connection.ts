@@ -12,7 +12,7 @@ import IPlayerMetadata from '../../shared/interfaces/IPlayerMetadata';
 import ISocketData from '../../shared/interfaces/ISocketData';
 import ITrunkToBranchEvents from '../../shared/interfaces/ITrunkToBranchEvents';
 import ITrunkToClientEvents from '../../shared/interfaces/ITrunkToClientEvents';
-import removeProtocol from '../../utils/removeProtocol';
+import removeProtocol from '../utils/removeProtocol';
 import logger from './logger';
 
 const connection = (

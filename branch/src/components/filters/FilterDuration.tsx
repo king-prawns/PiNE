@@ -2,7 +2,7 @@ import './FilterDuration.css';
 
 import React from 'react';
 
-import IDuration from '../../interfaces/IDuration';
+import IDuration from '../../shared/interfaces/IDuration';
 
 type IProps = {
   fromMs: number;
