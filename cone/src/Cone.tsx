@@ -259,6 +259,7 @@ class Cone extends React.Component<IProps, IState> {
                     maxYAxisValue={10}
                     measurementUnit="Mbps"
                     fillColor={getCSSVar('--cone-chart-color-secondary')}
+                    isStepped={true}
                   />
                 </Cell>
               </Row>
