@@ -24,8 +24,6 @@ class FilterSelector extends React.Component<IProps, IState> {
     this.state = {
       currentFilter: null
     };
-
-    this.onCurrentFilterChange = this.onCurrentFilterChange.bind(this);
   }
 
   private onCurrentFilterTypeChange = (
@@ -90,9 +88,9 @@ class FilterSelector extends React.Component<IProps, IState> {
     }
   }
 
-  private onCurrentFilterChange(filter: IFilter): void {
+  private onCurrentFilterChange = (filter: IFilter): void => {
     this.setState({currentFilter: filter});
-  }
+  };
 
   private onFilterAdd = (): void => {
     if (!this._ref.current?.checkValidity()) {
