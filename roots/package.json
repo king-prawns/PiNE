@@ -11,7 +11,7 @@
   "author": "king-prawns",
   "license": "MIT",
   "scripts": {
-    "cp:shared": "ts-node-dev ./config/webpack/copy.ts",
+    "cp:shared": "ts-node-dev ./config/script/copy.ts",
     "build": "ts-node-dev -P ./config/typescript/tsconfig.json ./config/webpack/prod.ts",
     "lint": "eslint --config ../config/eslint/.eslintrc ./src/**/*.ts",
     "prettier": "prettier --config ../config/prettier/.prettierrc --list-different src/**/*.ts --ignore-path ../config/prettier/.prettierignore",
