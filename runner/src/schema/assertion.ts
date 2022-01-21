@@ -28,23 +28,6 @@ const assertion: JSONSchemaType<IAssertion> = {
             {
               type: 'array',
               items: {
-                type: 'array',
-                items: {
-                  type: {
-                    enum: [
-                      'LOADING',
-                      'BUFFERING',
-                      'PLAYING',
-                      'PAUSED',
-                      'ENDED',
-                      'ERRORED'
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              type: {
                 enum: [
                   'LOADING',
                   'BUFFERING',
@@ -54,6 +37,16 @@ const assertion: JSONSchemaType<IAssertion> = {
                   'ERRORED'
                 ]
               }
+            },
+            {
+              enum: [
+                'LOADING',
+                'BUFFERING',
+                'PLAYING',
+                'PAUSED',
+                'ENDED',
+                'ERRORED'
+              ]
             }
           ]
         }
