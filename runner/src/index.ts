@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
+import Ajv, {ValidateFunction} from 'ajv';
 import fg from 'fast-glob';
 import fs from 'fs';
 
 import logger from './logger';
+import testScenarioSchema from './schema/testScenario';
 
 (async (): Promise<void> => {
   const entries: Array<string> = await fg(['**/*.pine.json']);
@@ -24,15 +26,14 @@ import logger from './logger';
       logger.error(`${e}`);
       process.exit(1);
     }
-    // eslint-disable-next-line no-console
-    console.log(parsedData);
-    // check json schema
-    /*
-    {
-      test: 'abc',
-      test2: false,
-      test3: 44.4,
+    const ajv: Ajv = new Ajv();
+    const validate: ValidateFunction = ajv.compile(testScenarioSchema);
+    const isValid: boolean = validate(parsedData);
+
+    if (!isValid) {
+      logger.error(`"${entry}" doens't match the schema`);
+      logger.error(`${validate.errors}`);
+      process.exit(1);
     }
-    */
   });
 })();
