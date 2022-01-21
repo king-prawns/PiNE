@@ -9,14 +9,14 @@ const filter: JSONSchemaType<IActiveFilter & IDuration> = {
   oneOf: [
     {
       properties: {
-        type: {enum: ['offline']},
+        type: {const: ['offline']},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'}
       }
     },
     {
       properties: {
-        type: {enum: ['reject']},
+        type: {const: ['reject']},
         regex: {type: 'string'},
         code: {type: 'integer'},
         fromMs: {type: 'integer'},
@@ -26,7 +26,7 @@ const filter: JSONSchemaType<IActiveFilter & IDuration> = {
     },
     {
       properties: {
-        type: {enum: ['latency']},
+        type: {const: ['latency']},
         delayMs: {type: 'integer'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'}
@@ -35,7 +35,7 @@ const filter: JSONSchemaType<IActiveFilter & IDuration> = {
     },
     {
       properties: {
-        type: {enum: ['jitter']},
+        type: {const: ['jitter']},
         delayMs: {type: 'integer'},
         jitterMs: {type: 'integer'},
         fromMs: {type: 'integer'},
@@ -45,7 +45,7 @@ const filter: JSONSchemaType<IActiveFilter & IDuration> = {
     },
     {
       properties: {
-        type: {enum: ['throttle']},
+        type: {const: ['throttle']},
         bandwidthKbps: {type: 'integer'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'}
