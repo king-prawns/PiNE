@@ -13,13 +13,14 @@ import openBranch from './openBranch';
 import runTestScenario from './runTestScenario';
 
 const getRunner = (
-  puppet: typeof puppeteer,
   executablePath: string,
   headless: boolean,
   branchUrl: string
 ): IRunner => {
   return {
     run: async (clientCallback: IClientCallback): Promise<void> => {
+      let isSuccess: boolean = true;
+
       const testFiles: Array<string> = await fg(['**/*.pine.json']);
       if (testFiles.length === 0) {
         logger.error(
@@ -48,7 +49,8 @@ const getRunner = (
           process.exit(1);
         }
 
-        const browser: Browser = await puppet.launch({
+        logger.log('---- Test started ----');
+        const browser: Browser = await puppeteer.launch({
           headless,
           executablePath
         });
@@ -58,19 +60,26 @@ const getRunner = (
         const client: IClient = await clientCallback();
         await client.open();
 
-        logger.log('---- Test started ----');
         logger.log(`Describe: ${testScenario.describe}`);
         const {total, passed} = await runTestScenario(page, testScenario);
-        logger.log('---- Test ended ----');
 
         if (total === passed) {
           logger.success(`${passed} passed, ${total} total`);
         } else {
+          isSuccess = false;
           logger.error(`${total - passed} failed, ${total} total`);
         }
 
         await browser.close();
         await client.close();
+        logger.log('---- Test ended ----');
+      }
+
+      if (isSuccess) {
+        logger.success('Feature test completed successfully!');
+      } else {
+        logger.error('Feature test completed with errors');
+        process.exit(1);
       }
     }
   };

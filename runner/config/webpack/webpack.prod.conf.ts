@@ -1,5 +1,5 @@
 import path from 'path';
-import {Configuration} from 'webpack';
+import webpack, {Configuration} from 'webpack';
 
 (process as any).noDeprecation = true;
 
@@ -29,7 +29,15 @@ const prodConfig: Configuration = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /bufferutil/
+    }),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /utf-8-validate/
+    })
+  ]
 };
 
 export default prodConfig;
