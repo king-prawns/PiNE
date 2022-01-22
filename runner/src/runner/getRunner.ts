@@ -4,7 +4,6 @@ import fs from 'fs';
 import puppeteer, {Browser, Page} from 'puppeteer-core';
 
 import IClient from '../interfaces/IClient';
-import IClientCallback from '../interfaces/IClientCallback';
 import IRunner from '../interfaces/IRunner';
 import ITestScenario from '../interfaces/ITestScenario';
 import logger from '../logger';
@@ -18,7 +17,7 @@ const getRunner = (
   branchUrl: string
 ): IRunner => {
   return {
-    run: async (clientCallback: IClientCallback): Promise<void> => {
+    run: async (clientCallback: () => IClient): Promise<void> => {
       let isSuccess: boolean = true;
 
       const testFiles: Array<string> = await fg(['**/*.pine.json']);
@@ -50,15 +49,19 @@ const getRunner = (
         }
 
         logger.log('---- Test started ----');
-        const browser: Browser = await puppeteer.launch({
+        const branchBrowser: Browser = await puppeteer.launch({
           headless,
           executablePath
         });
-        const page: Page = await browser.newPage();
+        const clientBrowser: Browser = await puppeteer.launch({
+          headless,
+          executablePath
+        });
+        const page: Page = await branchBrowser.newPage();
         await openBranch(page, branchUrl, testScenario.filters);
 
-        const client: IClient = await clientCallback();
-        await client.open();
+        const client: IClient = clientCallback();
+        await client.open(clientBrowser);
 
         logger.log(`Describe: ${testScenario.describe}`);
         const {total, passed} = await runTestScenario(page, testScenario);
@@ -70,8 +73,8 @@ const getRunner = (
           logger.error(`${total - passed} failed, ${total} total`);
         }
 
-        await browser.close();
-        await client.close();
+        await branchBrowser.close();
+        await client.close(clientBrowser);
         logger.log('---- Test ended ----');
       }
 
