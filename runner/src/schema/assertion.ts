@@ -8,7 +8,7 @@ const assertion: JSONSchemaType<IAssertion> = {
   oneOf: [
     {
       properties: {
-        type: {const: ['playerState']},
+        type: {const: 'playerState'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'},
         matcher: {
@@ -54,7 +54,7 @@ const assertion: JSONSchemaType<IAssertion> = {
     },
     {
       properties: {
-        type: {const: ['manifestUrl']},
+        type: {const: 'manifestUrl'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'},
         matcher: {
@@ -82,7 +82,7 @@ const assertion: JSONSchemaType<IAssertion> = {
     },
     {
       properties: {
-        type: {const: ['variant']},
+        type: {const: 'variant'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'},
         matcher: {
@@ -98,7 +98,7 @@ const assertion: JSONSchemaType<IAssertion> = {
     },
     {
       properties: {
-        type: {const: ['estimatedBandwidth']},
+        type: {const: 'estimatedBandwidth'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'},
         matcher: {
@@ -114,7 +114,7 @@ const assertion: JSONSchemaType<IAssertion> = {
     },
     {
       properties: {
-        type: {const: ['videoBufferInfo']},
+        type: {const: 'videoBufferInfo'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'},
         matcher: {

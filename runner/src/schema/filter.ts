@@ -9,48 +9,53 @@ const filter: JSONSchemaType<IActiveFilter & IDuration> = {
   oneOf: [
     {
       properties: {
-        type: {const: ['offline']},
+        type: {const: 'offline'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'}
-      }
+      },
+      additionalProperties: false
     },
     {
       properties: {
-        type: {const: ['reject']},
+        type: {const: 'reject'},
         regex: {type: 'string'},
         code: {type: 'integer'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'}
       },
-      required: ['regex', 'code']
+      required: ['regex', 'code'],
+      additionalProperties: false
     },
     {
       properties: {
-        type: {const: ['latency']},
+        type: {const: 'latency'},
         delayMs: {type: 'integer'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'}
       },
-      required: ['delayMs']
+      required: ['delayMs'],
+      additionalProperties: false
     },
     {
       properties: {
-        type: {const: ['jitter']},
+        type: {const: 'jitter'},
         delayMs: {type: 'integer'},
         jitterMs: {type: 'integer'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'}
       },
-      required: ['delayMs', 'jitterMs']
+      required: ['delayMs', 'jitterMs'],
+      additionalProperties: false
     },
     {
       properties: {
-        type: {const: ['throttle']},
+        type: {const: 'throttle'},
         bandwidthKbps: {type: 'integer'},
         fromMs: {type: 'integer'},
         toMs: {type: 'integer'}
       },
-      required: ['bandwidthKbps']
+      required: ['bandwidthKbps'],
+      additionalProperties: false
     }
   ]
 };
