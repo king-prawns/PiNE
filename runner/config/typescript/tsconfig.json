@@ -4,7 +4,8 @@
     "declaration": false,
     "outDir": "../../dist",
     "target": "es2020",
-    "sourceMap": false
+    "sourceMap": false,
+    "resolveJsonModule": true
   },
   "include": ["../../src/**/*"],
   "exclude": ["../../src/**/*.test.ts"]

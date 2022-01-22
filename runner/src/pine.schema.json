@@ -1,0 +1,209 @@
+{
+  "type": "object",
+  "properties": {
+    "describe": {"type": "string"},
+    "durationMs": {"type": "integer"},
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "fromMs", "toMs"],
+        "oneOf": [
+          {
+            "properties": {
+              "type": {"const": "offline"},
+              "fromMs": {"type": "integer"},
+              "toMs": {"type": "integer"}
+            },
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {"const": "reject"},
+              "regex": {"type": "string"},
+              "code": {"type": "integer"},
+              "fromMs": {"type": "integer"},
+              "toMs": {"type": "integer"}
+            },
+            "required": ["regex", "code"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {"const": "latency"},
+              "delayMs": {"type": "integer"},
+              "fromMs": {"type": "integer"},
+              "toMs": {"type": "integer"}
+            },
+            "required": ["delayMs"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {"const": "jitter"},
+              "delayMs": {"type": "integer"},
+              "jitterMs": {"type": "integer"},
+              "fromMs": {"type": "integer"},
+              "toMs": {"type": "integer"}
+            },
+            "required": ["delayMs", "jitterMs"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {"const": "throttle"},
+              "bandwidthKbps": {"type": "integer"},
+              "fromMs": {"type": "integer"},
+              "toMs": {"type": "integer"}
+            },
+            "required": ["bandwidthKbps"],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "testCases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "it": {"type": "string"},
+          "assertions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["type", "matcher", "expected", "fromMs", "toMs"],
+              "oneOf": [
+                {
+                  "properties": {
+                    "type": {"const": "playerState"},
+                    "fromMs": {"type": "integer"},
+                    "toMs": {"type": "integer"},
+                    "matcher": {
+                      "enum": [
+                        "equal",
+                        "notEqual",
+                        "contains",
+                        "notContains",
+                        "startsWith",
+                        "notStartsWith",
+                        "endsWith",
+                        "notEndsWith"
+                      ]
+                    },
+                    "expected": {
+                      "anyOf": [
+                        {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "LOADING",
+                              "BUFFERING",
+                              "PLAYING",
+                              "PAUSED",
+                              "ENDED",
+                              "ERRORED"
+                            ]
+                          }
+                        },
+                        {
+                          "enum": [
+                            "LOADING",
+                            "BUFFERING",
+                            "PLAYING",
+                            "PAUSED",
+                            "ENDED",
+                            "ERRORED"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "type": {"const": "manifestUrl"},
+                    "fromMs": {"type": "integer"},
+                    "toMs": {"type": "integer"},
+                    "matcher": {
+                      "enum": [
+                        "equal",
+                        "notEqual",
+                        "contains",
+                        "notContains",
+                        "startsWith",
+                        "notStartsWith",
+                        "endsWith",
+                        "notEndsWith"
+                      ]
+                    },
+                    "expected": {
+                      "anyOf": [
+                        {
+                          "type": "array",
+                          "items": {"type": "string"}
+                        },
+                        {"type": "string"}
+                      ]
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "type": {"const": "variant"},
+                    "fromMs": {"type": "integer"},
+                    "toMs": {"type": "integer"},
+                    "matcher": {
+                      "enum": [
+                        "greaterThan",
+                        "greaterThanOrEqual",
+                        "lessThan",
+                        "lessThanOrEqual"
+                      ]
+                    },
+                    "expected": {"type": "integer"}
+                  }
+                },
+                {
+                  "properties": {
+                    "type": {"const": "estimatedBandwidth"},
+                    "fromMs": {"type": "integer"},
+                    "toMs": {"type": "integer"},
+                    "matcher": {
+                      "enum": [
+                        "greaterThan",
+                        "greaterThanOrEqual",
+                        "lessThan",
+                        "lessThanOrEqual"
+                      ]
+                    },
+                    "expected": {"type": "integer"}
+                  }
+                },
+                {
+                  "properties": {
+                    "type": {"const": "videoBufferInfo"},
+                    "fromMs": {"type": "integer"},
+                    "toMs": {"type": "integer"},
+                    "matcher": {
+                      "enum": [
+                        "greaterThan",
+                        "greaterThanOrEqual",
+                        "lessThan",
+                        "lessThanOrEqual"
+                      ]
+                    },
+                    "expected": {"type": "integer"}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "required": ["it", "assertions"]
+      }
+    }
+  },
+  "required": ["describe", "durationMs", "filters", "testCases"],
+  "additionalProperties": false
+}
