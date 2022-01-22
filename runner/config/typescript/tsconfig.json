@@ -1,11 +1,8 @@
 {
   "extends": "../../../config/typescript/tsconfig.base.json",
   "compilerOptions": {
-    "declaration": false,
-    "outDir": "../../dist",
-    "target": "es2020",
-    "sourceMap": false,
-    "resolveJsonModule": true
+    "declaration": true,
+    "outDir": "../../dist"
   },
   "include": ["../../src/**/*"],
   "exclude": ["../../src/**/*.test.ts"]
