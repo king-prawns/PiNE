@@ -1,4 +1,4 @@
-declare module '*pine.schema.json' {
+declare module '*pine.json' {
   const value: any;
   export default value;
 }
