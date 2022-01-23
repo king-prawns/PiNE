@@ -49,19 +49,15 @@ const getRunner = (
         }
 
         logger.log('---- Test started ----');
-        const branchBrowser: Browser = await puppeteer.launch({
+        const browser: Browser = await puppeteer.launch({
           headless,
           executablePath
         });
-        const clientBrowser: Browser = await puppeteer.launch({
-          headless,
-          executablePath
-        });
-        const page: Page = await branchBrowser.newPage();
+        const page: Page = await browser.newPage();
         await openBranch(page, branchUrl, testScenario.filters);
 
         const client: IClient = clientCallback();
-        await client.open(clientBrowser);
+        await client.open(browser);
 
         logger.log(`Describe: ${testScenario.describe}`);
         const {total, passed} = await runTestScenario(page, testScenario);
@@ -73,8 +69,7 @@ const getRunner = (
           logger.error(`${total - passed} failed, ${total} total`);
         }
 
-        await branchBrowser.close();
-        await client.close(clientBrowser);
+        await browser.close();
         logger.log('---- Test ended ----');
       }
 
