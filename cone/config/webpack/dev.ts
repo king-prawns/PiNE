@@ -1,5 +1,4 @@
 import chalk from 'chalk';
-import path from 'path';
 import webpack, {Compiler} from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 
@@ -12,10 +11,7 @@ const DEFAULT_PORT: number = 9000;
 const options: WebpackDevServer.Configuration = {
   host: DEFAULT_HOST,
   port: DEFAULT_PORT,
-  compress: true,
-  static: {
-    directory: path.resolve(__dirname, '../src')
-  }
+  compress: true
 };
 
 const compiler: Compiler = webpack(devConfig);
