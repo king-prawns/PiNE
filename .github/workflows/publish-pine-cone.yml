@@ -31,3 +31,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           package: ./cone/package.json
+          check-version: false
