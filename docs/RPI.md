@@ -17,6 +17,9 @@
 - [Install Docker](https://dev.to/elalemanyo/how-to-install-docker-and-docker-compose-on-raspberry-pi-1mo)
 - Enable SSH: `RPi Configuration > Interfaces > SSH Enabled`
 - Copy docker-compose.yml from the repo to RPi: `scp docker-compose.yml pi@IP_ADDRESS:`
+- Login:
+  - `export DOCKER_PWD=GITHUB_PERSONAL_ACCESS_TOKEN`
+  - `echo $DOCKER_PWD | docker login ghcr.io -u GITHUB_USERNAME --password-stdin`
 - Run `docker-compose pull`
 - Run `docker-compose up -d`
 
