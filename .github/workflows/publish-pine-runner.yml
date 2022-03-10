@@ -28,5 +28,6 @@ jobs:
       - name: 🚀 Publish to npm
         uses: JS-DevTools/npm-publish@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
           package: ./runner/package.json
+          access: "public"
