@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-          registry-url: 'https://registry.npmjs.org'
       - name: ⚙️ Install dependencies
         run: npm ci
       - name: 🔗 Copy shared folder
@@ -28,4 +27,8 @@ jobs:
       - name: 👷🏽 Build package
         run: npm run build
       - name: 🚀 Publish to npm
-        run: npm publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
+          package: ./cone/package.json
+          access: "public"
